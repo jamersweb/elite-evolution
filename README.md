@@ -1,64 +1,122 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Elite Evolution Real Estate — Luxury Property & Investment Portal
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A high-performance luxury real estate portal engineered for the Dubai prime property market, compliant with **Dubai Land Department (DLD)** and **Real Estate Regulatory Agency (RERA)** regulatory frameworks.
 
-## About Laravel
+[![Laravel](https://img.shields.io/badge/Laravel-8.x-red.svg)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.x-blue.svg)](https://php.net)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-17%20Passed-brightgreen.svg)]()
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🌟 Key Highlights & Capabilities
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1. DLD & RERA Regulatory Compliance
+- **Trakheesi Advertising Permit Numbers:** Mandatory permit tracking and display across search cards, listings, and detail pages.
+- **Madmoun QR Code Verification:** One-click modal verification for buyers and investors to validate property advertising permits directly with the Dubai Land Department.
+- **Unique Property Reference Numbers:** Audit-ready cataloging (`EERE-V-101`, etc.) ensuring zero compliance risk (protecting against AED 50,000 regulatory penalties).
 
-## Learning Laravel
+### 2. Licensed Broker & Agent Management
+- **Administrative CRUD:** Full broker registry with RERA Broker Registration Number (BRN), agent photography, contact information, and multilingual profiles (English, Arabic, French, Russian, etc.).
+- **Public Agent Profiles (`/agents/{slug}`):** Dedicated public broker portfolio pages showcasing active listings, transaction history, and direct WhatsApp / phone inquiry links.
+- **Automatic Lead Routing:** Viewing and brochure requests automatically route to the assigned broker.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 3. Property Finder-Grade Search & Discovery
+- **Segmented Purpose-Aware Navigation:**
+  - **Ready Properties (`/listing/ready`):** Move-in ready luxury villas, penthouses, and apartments.
+  - **Off-Plan Investments (`/listing/off-plan`):** High-ROI off-plan launches with handover dates and developer links.
+  - **Luxury Rentals (`/luxury-rentals`):** High-end leases with rental frequencies, cheque terms, and security deposit disclosures.
+- **Location Hierarchy:** Multi-tier filtering across Communities, Sub-communities, and Towers.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 4. Interactive Map Search (`/map-view`)
+- **Split-Screen UX:** Side-by-side interactive map and property card view.
+- **Custom Price Pins:** Clustered Leaflet.js pins displaying formatted property prices with zero external API key or billing dependency.
+- **Interactive Previews:** Clicking pins reveals thumbnail cards with specs and direct detail links.
 
-## Laravel Sponsors
+### 5. High-Touch Investor Features
+- **UAE Mortgage & Payment Calculator:** Client-side financial estimator calculating monthly amortization based on purchase price, down payment, interest rate, and loan tenure.
+- **Smart Similar Properties Engine:** Dynamically queries comparable listings within the same community and price bracket.
+- **AI Concierge Assistant (`/api/concierge/chat`):** Natural language property search assistant capable of inventory lookups, answering client queries, and handing off warm leads directly to brokers via WhatsApp.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 6. Executive Real Estate Dashboard
+- **Admin CRM Overview (`/admin/dashboard`):** Real estate KPIs replacing legacy e-commerce widgets:
+  - Active Properties Count
+  - Licensed Brokers Count
+  - Viewing Requests & Lead Inquiries
+  - Recent Leads CRM Feed
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## 🚀 Getting Started
 
-## Contributing
+### Prerequisites
+- PHP >= 8.0
+- Composer
+- Node.js & NPM
+- SQLite (or MySQL)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Installation
 
-## Code of Conduct
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/jamersweb/elite-evolution.git
+   cd elite-evolution
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. **Install PHP dependencies:**
+   ```bash
+   composer install
+   ```
 
-## Security Vulnerabilities
+3. **Environment Setup:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. **Database Migration & Seed:**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate --seed
+   ```
 
-## License
+5. **Compile Frontend Assets:**
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. **Start the Development Server:**
+   ```bash
+   php artisan serve
+   ```
+   Open `http://127.0.0.1:8000` in your browser.
+
+---
+
+## 🧪 Automated Test Suite
+
+Run the full automated test suite covering compliance, broker management, search routing, APIs, and lead capture:
+
+```bash
+php artisan test
+```
+
+All 17 tests verify:
+- Homepage, listing, rental, map search, and policy pages
+- DLD compliance fields (Trakheesi permit, Madmoun QR, Reference IDs)
+- AI Concierge natural language responses
+- Anti-spam brochure and viewing lead capture
+- Admin broker CRUD and real estate executive KPI dashboard
+
+---
+
+## 🔒 Security & Privacy
+- Honeypot anti-spam verification on all inquiry and viewing forms
+- Spatie Role-Based Access Control (`admin`, `agent`, `user`)
+- UAE PDPL & GDPR-compliant Cookies and Privacy Policy pages
+
+---
+
+## 📄 License
+This project is proprietary software for **Elite Evolution Real Estate**.
