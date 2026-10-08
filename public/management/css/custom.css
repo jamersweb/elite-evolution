@@ -1,0 +1,300 @@
+
+.heading_font{
+    font-family: 'Konkhmer Sleokchher', cursive;
+}
+a.btn.bg-black {
+    line-height: 28px !important;
+}
+.input-field {
+    border: 1px solid #BC9C5B !important;
+    border-radius: 13px !important;
+}
+input:focus {
+    -webkit-box-shadow:unset !important;
+    box-shadow: unset !important;
+}
+.text-color {
+    color: #858383;
+}
+::placeholder {
+    color:  #858383 !important;
+}
+.text-color{
+    color: #BC9C5B !important;
+}
+.bg-login{
+    background-color: #161616;
+}
+.fs27{
+  font-size: 27px;
+}
+.font-weight{
+    font-weight: 600;
+}
+.inp-field {
+    width: 100%;
+    padding: 15px 11px;
+    border-radius: 10px;
+    background:rgba(47, 47, 47, 1) !important;
+    border: none;
+    color: white;
+}
+:focus-visible{
+    outline: -webkit-focus-ring-color auto 0px;
+}
+.bg-signature {
+    width: 100%;
+    padding: 14px 0px !important;
+    border-radius: 10px !important;
+    background: #bb9e5b !important;
+}
+.bg-signature:hover {
+    width: 100%;
+    padding: 14px 0px !important;
+    border-radius: 10px !important;
+    background: #bb9e5b !important;
+}
+.btn-check:focus+.btn, .btn:focus {
+    outline: 0px !important;
+    box-shadow:none !important;
+}
+.sp-color{
+    color: #858383 !important;
+    text-decoration: none;
+}
+.form-check .form-check-input {
+    border-radius: 23px !important;
+}
+.btn-icon {
+    background: #bb9e5b !important;
+    color: #000 !important;
+    font-size: 51px  !important;
+    border-radius: 53px !important;
+    padding: 0px 24px !important;
+}
+
+.btn-icon:hover {
+    color: #000 !important;
+}
+.field-text {
+    border: 1px solid #baa05b !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+    height: 52px !important;
+    background: transparent;
+    color: gray;
+}
+table.dataTable thead .sorting {
+    background-image: unset;
+}
+table.dataTable thead .sorting_desc {
+    background-image:unset !important;
+}
+table.dataTable thead .sorting_asc {
+     background-image:unset !important;
+ }
+ th{
+    padding: 0px 0px !important;
+     border: none !important;
+}
+thead th {
+     padding: 5px 10px !important;
+ }
+select.select-op {
+    width: 100%;
+    height: 28px;
+    font-size: 14px;
+    cursor: pointer;
+    color: gray;
+    border: none;
+    background: transparent;
+}
+.img{
+    width: 100%;
+    height: 100vh;
+}
+.elite-logo {
+    position: absolute;
+    top: 35px;
+}
+.set {
+    padding: 2px 12px;
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+.inp-text {
+    border-bottom: 1px solid #BC9C5B !important;
+    border: none;
+    font-size: 13px !important;
+}
+.bg-button {
+    background: #eaeaea;
+    padding: 10px 10px;
+}
+.button {
+     color: gray;
+     font-size: 12px;
+     font-weight: 600;
+ }
+.button:hover{
+    color:gray;
+}
+.dropdown-menu {
+    position: absolute !important;
+    will-change: transform !important;
+    width: 300px !important;
+    margin: 10px 0px !important;
+}
+.dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 10px 10px;
+    background: transparent;
+    border-bottom: 1px solid #b08f47;
+    color: gray;
+}
+.dropdown-menu>li>a:hover {
+    background-color: rgb(187 158 91);
+    color: white;
+}
+.icon{
+    color: gray;
+    cursor: pointer;
+}
+i:focus {
+
+    color:pink;
+}
+button:focus{
+    background: transparent !important;
+}
+.btn-back {
+    background: #BC9C5B;
+    padding: 10px 30px;
+    font-size: 15px;
+    border-radius: 5px;
+    font-weight: 500;
+    color: #fff;
+}
+.btn-back:hover{
+    color: #fff;
+}
+/**
+ * @license
+ * Copyright 2019 Google LLC. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/*
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map.
+ */
+#map {
+    height:400px;
+}
+
+/*
+ * Optional: Makes the sample page fill the window.
+ */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+
+.pac-card {
+    background-color: #fff;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    padding: 0 0.5em;
+    font: 400 18px Roboto, Arial, sans-serif;
+    overflow: hidden;
+    font-family: Roboto;
+    padding: 0;
+}
+
+#pac-container {
+    padding-bottom: 12px;
+    margin-right: 12px;
+}
+
+.pac-controls {
+    display: inline-block;
+    padding: 5px 11px;
+}
+
+.pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    /*padding: 0 11px 0 13px;*/
+    text-overflow: ellipsis;
+    width: 400px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+#title {
+    color: #fff;
+    background-color: #4d90fe;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 6px 12px;
+}
+
+#target {
+    width: 345px;
+}
+@media only screen and (max-width: 922px){
+    .set {
+        position: relative;
+        width: 100%;
+        top: 10px;
+    }
+    .elite-logo {
+        position: relative;
+        top: 20px;
+        width: 120px !important;
+    }
+    .img {
+         height: 50vh;
+     }
+
+}
+
+
+
+

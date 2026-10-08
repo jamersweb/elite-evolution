@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /login
+Disallow: /password/reset
+Disallow: /listing/all?verified=true
+Disallow: /listing/all?agent=xavier-tait
+Disallow: /listing/all?agent=acusync-technologies
+
+Sitemap: https://eliteevolutionrealestate.ae/sitemap.xml
