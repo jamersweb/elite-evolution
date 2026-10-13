@@ -65,7 +65,9 @@ class RealEstatePortalTest extends TestCase
         $response = $this->get('/agents');
         $response->assertStatus(200);
         $response->assertSee('Alexander Wright');
-        $response->assertSee('52410'); // BRN
+        $response->assertSee('Graeme Highlands');
+        $response->assertSee('78334'); // Graeme BRN
+        $response->assertSee('52410'); // Alexander BRN
     }
 
     public function test_agent_detail_page_loads()
@@ -73,6 +75,49 @@ class RealEstatePortalTest extends TestCase
         $response = $this->get('/agents/alexander-wright');
         $response->assertStatus(200);
         $response->assertSee('Alexander Wright');
+    }
+
+    public function test_graeme_direct_page_loads_with_full_profile_and_listings()
+    {
+        $response = $this->get('/graeme');
+        $response->assertStatus(200);
+        $response->assertSee('Graeme Highlands');
+        $response->assertSee('78334');
+        $response->assertSee('Senior Luxury Property Advisor');
+        $response->assertSee('WhatsApp Advisor');
+        $response->assertSee('Active Property Portfolio');
+    }
+
+    public function test_graeme_vcard_download_returns_vcf()
+    {
+        $response = $this->get('/graeme/vcard');
+        $response->assertStatus(200);
+        $this->assertStringContainsString('text/vcard', $response->headers->get('Content-Type'));
+        $response->assertSee('Graeme Highlands');
+        $response->assertSee('78334');
+    }
+
+    public function test_graeme_inquiry_records_crm_lead()
+    {
+        $response = $this->post('/graeme/inquire', [
+            'name' => 'Sheikh Al-Maktoum Office',
+            'email' => 'advisory@investor.ae',
+            'phone' => '+971508889999',
+            'message' => 'Interested in Palm Jumeirah beachfront acquisitions',
+        ]);
+
+        $response->assertStatus(302);
+        $this->assertDatabaseHas('leads', [
+            'email' => 'advisory@investor.ae',
+            'source' => 'Direct Agent Advisory: Graeme Highlands',
+        ]);
+    }
+
+    public function test_non_existent_page_returns_404_cleanly_without_server_error()
+    {
+        $response = $this->get('/non-existent-page-testing-404');
+        $response->assertStatus(404);
+        $response->assertSee('Page Not Found');
     }
 
     public function test_property_detail_page_displays_compliance_fields()
@@ -138,34 +183,94 @@ class RealEstatePortalTest extends TestCase
         $response->assertSee('Licensed Brokers');
     }
 
-    public function test_admin_can_manage_licensed_agents()
+    public function test_admin_can_manage_licensed_agents_and_automatically_reflect_on_frontend()
     {
         $admin = User::where('email', 'admin@eliteevolutionrealestate.ae')->first();
 
-        // 1. Directory loads
+        // 1. Directory loads in backend
         $response = $this->actingAs($admin)->get('/admin/agents');
         $response->assertStatus(200);
         $response->assertSee('Alexander Wright');
+        $response->assertSee('Graeme Highlands');
 
-        // 2. Create new licensed broker
+        // 2. Create new licensed broker with custom slug 'fatima'
         $postRes = $this->actingAs($admin)->post('/admin/agents', [
             'name' => 'Fatima Al-Zahra',
+            'slug' => 'fatima',
             'email' => 'fatima@eliteevolutionrealestate.ae',
             'password' => 'secret123',
             'phone' => '+971509876543',
             'whatsapp_no' => '971509876543',
             'brn' => '77890',
             'occupation' => 'Luxury Villa Specialist',
-            'experience' => '7 Years',
+            'experience' => '7 Years in Dubai',
+            'nationality' => 'Emirati',
+            'area_tags' => 'Palm Jumeirah, Emirates Hills',
+            'language_multi_select' => ['Arabic', 'English'],
+            'about' => 'Specializing in beachfront estates and private luxury listings.',
             'status' => 'active',
         ]);
 
         $postRes->assertRedirect(route('agents.index'));
         $this->assertDatabaseHas('users', [
             'email' => 'fatima@eliteevolutionrealestate.ae',
+            'slug' => 'fatima',
             'brn' => '77890',
             'is_agent' => 1,
         ]);
+
+        // 3. Verify it is AUTOMATICALLY showed on the public frontend directory (/agents)
+        $frontAgentsRes = $this->get('/agents');
+        $frontAgentsRes->assertStatus(200);
+        $frontAgentsRes->assertSee('Fatima Al-Zahra');
+        $frontAgentsRes->assertSee('77890');
+        $frontAgentsRes->assertSee('Luxury Villa Specialist');
+
+        // 4. Verify dedicated vanity page loads automatically on frontend (/fatima)
+        $frontDetailRes = $this->get('/fatima');
+        $frontDetailRes->assertStatus(200);
+        $frontDetailRes->assertSee('Fatima Al-Zahra');
+        $frontDetailRes->assertSee('77890');
+        $frontDetailRes->assertSee('Specializing in beachfront estates');
+
+        // 5. Edit agent details in backend
+        $agent = User::where('email', 'fatima@eliteevolutionrealestate.ae')->first();
+        $editPageRes = $this->actingAs($admin)->get("/admin/agents/{$agent->id}/edit");
+        $editPageRes->assertStatus(200);
+        $editPageRes->assertSee('Fatima Al-Zahra');
+
+        $updateRes = $this->actingAs($admin)->put("/admin/agents/{$agent->id}", [
+            'name' => 'Fatima Al-Zahra',
+            'slug' => 'fatima-prime',
+            'email' => 'fatima@eliteevolutionrealestate.ae',
+            'phone' => '+971501112222',
+            'whatsapp_no' => '971501112222',
+            'brn' => '77890',
+            'occupation' => 'Senior Vice President - Prime Waterfront',
+            'experience' => '10 Years in Dubai Luxury',
+            'nationality' => 'Emirati',
+            'area_tags' => 'Palm Jumeirah, Bulgari Residences',
+            'about' => 'Updated senior bio with focus on Bulgari Residences.',
+            'status' => 'active',
+        ]);
+
+        $updateRes->assertRedirect(route('agents.index'));
+
+        // 6. Verify edited details AUTOMATICALLY show on frontend (/fatima-prime)
+        $updatedFrontRes = $this->get('/fatima-prime');
+        $updatedFrontRes->assertStatus(200);
+        $updatedFrontRes->assertSee('Senior Vice President - Prime Waterfront');
+        $updatedFrontRes->assertSee('+971501112222');
+        $updatedFrontRes->assertSee('Updated senior bio with focus on Bulgari Residences');
+
+        // 7. Verify inactive agent is automatically hidden from frontend directory
+        $this->actingAs($admin)->put("/admin/agents/{$agent->id}", [
+            'name' => 'Fatima Al-Zahra',
+            'email' => 'fatima@eliteevolutionrealestate.ae',
+            'status' => 'inactive',
+        ]);
+        $hiddenRes = $this->get('/agents');
+        $hiddenRes->assertDontSee('Senior Vice President - Prime Waterfront');
     }
 
     public function test_admin_can_create_property_with_dld_compliance_and_agent_assignment()

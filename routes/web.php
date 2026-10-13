@@ -59,9 +59,16 @@ Route::get('/listing/{slug}', [App\Http\Controllers\frontend\FrontHomeController
 Route::get('/detail/{slug}', [App\Http\Controllers\frontend\FrontHomeController::class, 'PropertyDetail'])->name('property.detail');
 Route::post('newsletter', [App\Http\Controllers\frontend\FrontHomeController::class, 'Newsletter']);
 
-// Licensed Agents Directory
+// Licensed Agents Directory & Profiles
 Route::get('/agents', [App\Http\Controllers\frontend\FrontHomeController::class, 'AllAgents'])->name('front.agents');
 Route::get('/agents/{slug}', [App\Http\Controllers\frontend\FrontHomeController::class, 'AgentsDetail'])->name('front.agent.detail');
+Route::get('/agents/{slug}/vcard', [App\Http\Controllers\frontend\FrontHomeController::class, 'AgentVCard'])->name('front.agent.vcard');
+Route::post('/agents/{slug}/inquire', [App\Http\Controllers\frontend\FrontHomeController::class, 'AgentInquire'])->name('front.agent.inquire');
+
+// Dedicated Graeme Landing Page (matching https://eliteevolutionrealestate.ae/graeme)
+Route::get('/graeme', [App\Http\Controllers\frontend\FrontHomeController::class, 'GraemeLanding'])->name('front.agent.graeme');
+Route::get('/graeme/vcard', [App\Http\Controllers\frontend\FrontHomeController::class, 'AgentVCard'])->defaults('slug', 'graeme')->name('front.agent.graeme.vcard');
+Route::post('/graeme/inquire', [App\Http\Controllers\frontend\FrontHomeController::class, 'AgentInquire'])->defaults('slug', 'graeme')->name('front.agent.graeme.inquire');
 
 // Search & Inquiries
 Route::get('location-search', [App\Http\Controllers\Management\PropertyController::class, 'locationSearch']);
@@ -110,7 +117,12 @@ Route::middleware(['auth'])->group(function () {
 // Authentication Routes
 Auth::routes();
 
+// Direct Agent Vanity Routes (e.g. /{slug})
+Route::get('/{slug}', [App\Http\Controllers\frontend\FrontHomeController::class, 'DirectAgentProfile'])
+    ->where('slug', '[a-zA-Z0-9\-_]+')
+    ->name('front.agent.direct');
+
 // Fallback Route
 Route::fallback(function () {
-    return view("404");
+    return response()->view("404", [], 404);
 });

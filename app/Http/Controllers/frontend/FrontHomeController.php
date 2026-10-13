@@ -311,13 +311,33 @@ class FrontHomeController extends Controller
         ]);
     }
 
-    public function AllAgents()
+    public function AllAgents(Request $request)
     {
-        $agents = User::agents()
-            ->where('status', 'active')
-            ->withCount(['properties as active_listings_count' => function ($q) {
+        $query = User::agents()->where('status', 'active');
+
+        if ($request->filled('search')) {
+            $s = $request->search;
+            $query->where(function ($q) use ($s) {
+                $q->where('name', 'LIKE', "%{$s}%")
+                  ->orWhere('occupation', 'LIKE', "%{$s}%")
+                  ->orWhere('about', 'LIKE', "%{$s}%")
+                  ->orWhere('area_tags', 'LIKE', "%{$s}%");
+            });
+        }
+
+        if ($request->filled('area')) {
+            $query->where('area_tags', 'LIKE', "%" . $request->area . "%");
+        }
+
+        if ($request->filled('language')) {
+            $query->where('language_multi_select', 'LIKE', "%" . $request->language . "%");
+        }
+
+        $agents = $query->withCount(['properties as active_listings_count' => function ($q) {
                 $q->where('status', 1);
             }])
+            ->orderByRaw("CASE WHEN slug = 'graeme' OR name LIKE '%Graeme%' THEN 0 ELSE 1 END")
+            ->latest('id')
             ->get();
 
         return view('frontend.agents.agents', [
@@ -329,16 +349,218 @@ class FrontHomeController extends Controller
     public function AgentsDetail($slug)
     {
         $agent = User::agents()
-            ->where('slug', $slug)
-            ->firstOrFail();
+            ->where(function ($q) use ($slug) {
+                $q->where('slug', $slug)
+                  ->orWhere('slug', Str::slug($slug));
+                if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
+                    $q->orWhere('slug', 'graeme')
+                      ->orWhere('slug', 'graeme-highlands')
+                      ->orWhere('name', 'LIKE', '%Graeme%');
+                }
+            })
+            ->first();
 
-        $properties = Property::with(['developer', 'featuredImage'])
+        if (!$agent) {
+            if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
+                $agent = $this->getOrCreateGraeme();
+            } else {
+                abort(404);
+            }
+        }
+
+        $properties = Property::with(['developer', 'featuredImage', 'media'])
             ->where('user_id', $agent->id)
             ->where('status', 1)
             ->latest()
             ->paginate(6);
 
         return view('frontend.agents.detail', compact('agent', 'properties'));
+    }
+
+    public function GraemeLanding(Request $request)
+    {
+        return $this->AgentsDetail('graeme');
+    }
+
+    public function DirectAgentProfile($slug)
+    {
+        $reserved = [
+            'admin', 'adminpanel', 'login', 'register', 'password', 'logout', 'home',
+            'terms-and-conditions', 'privacy-policy', 'cookies-policy', 'thank-you',
+            'about-us', 'luxury-rentals', 'map-view', 'view', 'developer', 'blog',
+            'appraise-your-property', 'sell-your-property', 'career', 'contact-us',
+            'career-submit', 'listing', 'detail', 'agents', 'location-search', 'country',
+            'api', 'my-account', 'wishlist', 'saved-search', 'newsletter', 'book-viewing',
+            'inquire-brochure', 'post-like', 'post-dislike', 'update-password'
+        ];
+
+        if (in_array(strtolower($slug), $reserved)) {
+            return response()->view('404', [], 404);
+        }
+
+        $agent = User::agents()
+            ->where(function ($q) use ($slug) {
+                $q->where('slug', $slug)
+                  ->orWhere('slug', Str::slug($slug));
+                if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
+                    $q->orWhere('slug', 'graeme')
+                      ->orWhere('slug', 'graeme-highlands')
+                      ->orWhere('name', 'LIKE', '%Graeme%');
+                }
+            })
+            ->first();
+
+        if ($agent) {
+            return $this->AgentsDetail($agent->slug);
+        }
+
+        return response()->view('404', [], 404);
+    }
+
+    public function AgentVCard($slug)
+    {
+        $agent = User::agents()
+            ->where(function ($q) use ($slug) {
+                $q->where('slug', $slug)
+                  ->orWhere('slug', Str::slug($slug));
+                if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
+                    $q->orWhere('slug', 'graeme')
+                      ->orWhere('slug', 'graeme-highlands')
+                      ->orWhere('name', 'LIKE', '%Graeme%');
+                }
+            })
+            ->first();
+
+        if (!$agent) {
+            if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
+                $agent = $this->getOrCreateGraeme();
+            } else {
+                abort(404);
+            }
+        }
+
+        $vcard = "BEGIN:VCARD\r\n";
+        $vcard .= "VERSION:3.0\r\n";
+        $vcard .= "FN:" . $agent->name . "\r\n";
+        $vcard .= "N:" . $agent->name . ";;;;\r\n";
+        $vcard .= "ORG:Elite Evolution Real Estate\r\n";
+        if ($agent->occupation) {
+            $vcard .= "TITLE:" . $agent->occupation . "\r\n";
+        }
+        if ($agent->phone) {
+            $vcard .= "TEL;TYPE=WORK,VOICE:" . $agent->phone . "\r\n";
+        }
+        if ($agent->whatsapp_no) {
+            $vcard .= "TEL;TYPE=CELL,VOICE:+" . preg_replace('/[^0-9]/', '', $agent->whatsapp_no) . "\r\n";
+        }
+        if ($agent->email) {
+            $vcard .= "EMAIL;TYPE=WORK:" . $agent->email . "\r\n";
+        }
+        $vcard .= "URL:" . url('/' . $agent->slug) . "\r\n";
+        $vcard .= "ADR;TYPE=WORK:;;Saeed Haseeb Building, Port Saeed, Deira;Dubai;;;United Arab Emirates\r\n";
+        if ($agent->brn) {
+            $vcard .= "NOTE:DLD Broker Registration (BRN) #" . $agent->brn . "\r\n";
+        }
+        $vcard .= "END:VCARD\r\n";
+
+        $filename = Str::slug($agent->name) . '.vcf';
+
+        return response($vcard, 200, [
+            'Content-Type' => 'text/vcard; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
+    }
+
+    public function AgentInquire(Request $request, $slug)
+    {
+        // Anti-spam honeypot
+        if ($request->filled('hp_contact_check')) {
+            return redirect()->back();
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'message' => 'nullable|string',
+            'property_id' => 'nullable|integer',
+        ]);
+
+        $agent = User::agents()
+            ->where(function ($q) use ($slug) {
+                $q->where('slug', $slug)
+                  ->orWhere('slug', Str::slug($slug));
+                if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
+                    $q->orWhere('slug', 'graeme')
+                      ->orWhere('slug', 'graeme-highlands')
+                      ->orWhere('name', 'LIKE', '%Graeme%');
+                }
+            })
+            ->first();
+
+        if (!$agent) {
+            if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
+                $agent = $this->getOrCreateGraeme();
+            } else {
+                abort(404);
+            }
+        }
+
+        Leads::create([
+            'firstname' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'source' => 'Direct Agent Advisory: ' . $agent->name,
+            'assigned_agent_id' => $agent->id,
+            'property_id' => $request->property_id,
+            'status' => 'new',
+        ]);
+
+        PropertyInquiry::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'message' => $request->message ?? ('Advisory request with ' . $agent->name),
+            'type' => 'agent_consultation',
+            'assigned_agent_id' => $agent->id,
+            'property_id' => $request->property_id,
+            'status' => 'new',
+        ]);
+
+        return redirect()->back()->with('success', 'Your inquiry has been sent directly to ' . $agent->name . '. You will receive a response shortly.');
+    }
+
+    private function getOrCreateGraeme()
+    {
+        $graeme = User::where('email', 'graeme@eliteevolutionrealestate.ae')
+            ->orWhere('slug', 'graeme')
+            ->orWhere('name', 'LIKE', '%Graeme%')
+            ->first();
+
+        if (!$graeme) {
+            $graeme = User::create([
+                'name' => 'Graeme Highlands',
+                'slug' => 'graeme',
+                'email' => 'graeme@eliteevolutionrealestate.ae',
+                'password' => bcrypt('password123'),
+                'phone' => '+971 56 970 0771',
+                'whatsapp_no' => '971569700771',
+                'brn' => '78334',
+                'experience' => '8+ Years in Prime Dubai Real Estate',
+                'occupation' => 'Senior Luxury Property Advisor',
+                'about' => 'Specializing in ultra-prime residential assets, waterfront villas in Palm Jumeirah, and bespoke off-plan investments across Dubai\'s most coveted communities including DAMAC Lagoons and Emirates Hills. Graeme delivers discreet, institutional-grade advisory for private clients and international family offices.',
+                'language_multi_select' => json_encode(['English', 'French']),
+                'area_tags' => json_encode(['Palm Jumeirah', 'DAMAC Lagoons', 'Dubai Marina', 'Emirates Hills']),
+                'nationality' => 'British',
+                'image' => 'graeme.jpg',
+                'status' => 'active',
+                'is_agent' => true,
+            ]);
+            $role = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'agent', 'guard_name' => 'web']);
+            $graeme->assignRole($role);
+        }
+
+        return $graeme;
     }
 
     public function Newsletter(Request $request)

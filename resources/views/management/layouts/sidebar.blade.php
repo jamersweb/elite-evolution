@@ -119,20 +119,32 @@
                         </ul>
                     </li>
                 @endcan
-                @can('user-sidebar')
+                @if(auth()->user()->hasRole('Admin') || auth()->user()->can('user-sidebar'))
+                    <li>
+                        <a onClick="return false;" class="menu-toggle" href="">
+                            <i class="fas fa-id-badge"></i>
+                            <span>Licensed Agents</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="{{ url('admin/agents') }}">
+                                    <span>All Agents</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('admin/agents/create') }}">
+                                    <span>Add New Agent</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="{{url('admin/users')}}" >
                             <i class="fas fa-user"></i>
                             <span>Users</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="{{url('admin/agents')}}" >
-                            <i class="fas fa-id-badge"></i>
-                            <span>Licensed Agents</span>
-                        </a>
-                    </li>
-                @endcan
+                @endif
                 @can('roles-and-permission-sidebar')
                     <li>
                         <a  onClick="return false;" class="menu-toggle" href="" >

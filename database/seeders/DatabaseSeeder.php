@@ -106,7 +106,23 @@ class DatabaseSeeder extends Seeder
         // 3. Licensed Agents (Compliance & Public Directory)
         $agentsData = [
             [
+                'name' => 'Graeme Highlands',
+                'slug' => 'graeme',
+                'email' => 'graeme@eliteevolutionrealestate.ae',
+                'phone' => '+971 56 970 0771',
+                'whatsapp_no' => '971569700771',
+                'brn' => '78334',
+                'experience' => '8+ Years in Prime Dubai Real Estate',
+                'occupation' => 'Senior Luxury Property Advisor',
+                'about' => 'Specializing in ultra-prime residential assets, waterfront villas in Palm Jumeirah, and bespoke off-plan investments across Dubai\'s most coveted communities including DAMAC Lagoons and Emirates Hills. Graeme delivers discreet, institutional-grade advisory for private clients and international family offices.',
+                'languages' => ['English', 'French'],
+                'areas' => ['Palm Jumeirah', 'DAMAC Lagoons', 'Dubai Marina', 'Emirates Hills'],
+                'nationality' => 'British',
+                'image' => 'graeme.jpg',
+            ],
+            [
                 'name' => 'Alexander Wright',
+                'slug' => 'alexander-wright',
                 'email' => 'alexander@eliteevolutionrealestate.ae',
                 'phone' => '+971 50 123 4567',
                 'whatsapp_no' => '971501234567',
@@ -120,6 +136,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Layla Al-Mansoor',
+                'slug' => 'layla-al-mansoor',
                 'email' => 'layla@eliteevolutionrealestate.ae',
                 'phone' => '+971 52 987 6543',
                 'whatsapp_no' => '971529876543',
@@ -133,6 +150,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'name' => 'Marcus Sterling',
+                'slug' => 'marcus-sterling',
                 'email' => 'marcus@eliteevolutionrealestate.ae',
                 'phone' => '+971 54 555 7890',
                 'whatsapp_no' => '971545557890',
@@ -152,7 +170,7 @@ class DatabaseSeeder extends Seeder
                 ['email' => $aData['email']],
                 [
                     'name' => $aData['name'],
-                    'slug' => Str::slug($aData['name']),
+                    'slug' => $aData['slug'] ?? Str::slug($aData['name']),
                     'password' => Hash::make('password123'),
                     'phone' => $aData['phone'],
                     'whatsapp_no' => $aData['whatsapp_no'],
@@ -163,6 +181,7 @@ class DatabaseSeeder extends Seeder
                     'language_multi_select' => json_encode($aData['languages']),
                     'area_tags' => json_encode($aData['areas']),
                     'nationality' => $aData['nationality'],
+                    'image' => $aData['image'] ?? null,
                     'status' => 'active',
                     'is_agent' => true,
                 ]
@@ -361,6 +380,37 @@ class DatabaseSeeder extends Seeder
                 'lng' => '54.9850',
                 'completesearch' => 'Palm Jebel Ali, Beach Collection, Dubai',
                 'description' => 'The next era of luxury Dubai real estate. Groundbreaking architectural design on the brand new Palm Jebel Ali archipelago, offering generous plot sizes and world-class waterfront living.',
+                'user_id' => $createdAgents[1]->id,
+                'developer_id' => $createdDevs[0]->id,
+                'is_new_project' => 1,
+                'status' => 1,
+            ],
+            [
+                'title' => 'Venice Luxury Waterfront Villa, DAMAC Lagoons',
+                'slug' => 'venice-luxury-waterfront-villa-damac-lagoons',
+                'reference_no' => 'EERE-V-104',
+                'trakheesi_permit_no' => '7198302144',
+                'permit_qr_image' => 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fdubailand.gov.ae%2Fpermit%2F7198302144',
+                'type' => 'sale',
+                'land_type' => 'residential',
+                'property_type' => 'Villa',
+                'completion_status' => 'Off-plan',
+                'handover_date' => 'Q4 2026',
+                'price' => 14500000,
+                'bedrooms' => 5,
+                'bathrooms' => 6,
+                'parkings' => 3,
+                'size' => '7,200 sq.ft',
+                'build_up_area' => '6,800 sq.ft',
+                'furnishing_type' => 'Unfurnished',
+                'community' => 'DAMAC Lagoons',
+                'sub_community' => 'Venice Cluster',
+                'state' => 'Dubai',
+                'country' => 'United Arab Emirates',
+                'lat' => '25.0195',
+                'lng' => '55.2341',
+                'completesearch' => 'DAMAC Lagoons, Venice Cluster, Dubai',
+                'description' => 'A masterwork of Italian-inspired waterfront architecture situated in the prestigious Venice cluster at DAMAC Lagoons. Expansive entertaining terraces, floor-to-ceiling glass, private infinity pool, and crystal lagoon views.',
                 'user_id' => $createdAgents[0]->id,
                 'developer_id' => $createdDevs[0]->id,
                 'is_new_project' => 1,
@@ -370,24 +420,30 @@ class DatabaseSeeder extends Seeder
 
         foreach ($properties as $propData) {
             $propData['amenities'] = json_encode(array_slice($amenityIds, 0, 8));
-            $created = Property::create($propData);
+            $created = Property::firstOrCreate(
+                ['reference_no' => $propData['reference_no']],
+                $propData
+            );
 
             // Add placeholder media images
-            media::create([
+            media::firstOrCreate([
                 'reference_id' => $created->id,
                 'reference_type' => 'property',
+            ], [
                 'image' => 'gallery.png',
             ]);
         }
 
         // 7. Seed Sample Articles
-        blog::create([
-            'user_id' => $admin->id,
-            'title' => 'Dubai Real Estate Market 2026: The Surge of Ultra-Luxury Waterfront Assets',
-            'slug' => 'dubai-real-estate-market-2026-luxury-waterfront',
-            'short_description' => 'Analysis of sustained high-net-worth migration, record capital appreciation on Palm Jumeirah, and the introduction of Palm Jebel Ali.',
-            'long_description' => '<p>Dubai continues to demonstrate unparalleled resilience and momentum in the global luxury property landscape. With international wealth inflows and strategic regulatory initiatives including the UAE Golden Visa, the demand for verified prime residential inventory remains at an all-time high.</p>',
-            'status' => 1,
-        ]);
+        blog::firstOrCreate(
+            ['slug' => 'dubai-real-estate-market-2026-luxury-waterfront'],
+            [
+                'user_id' => $admin->id,
+                'title' => 'Dubai Real Estate Market 2026: The Surge of Ultra-Luxury Waterfront Assets',
+                'short_description' => 'Analysis of sustained high-net-worth migration, record capital appreciation on Palm Jumeirah, and the introduction of Palm Jebel Ali.',
+                'long_description' => '<p>Dubai continues to demonstrate unparalleled resilience and momentum in the global luxury property landscape. With international wealth inflows and strategic regulatory initiatives including the UAE Golden Visa, the demand for verified prime residential inventory remains at an all-time high.</p>',
+                'status' => 1,
+            ]
+        );
     }
 }
