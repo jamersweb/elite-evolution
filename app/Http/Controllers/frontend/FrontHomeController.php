@@ -61,21 +61,24 @@ class FrontHomeController extends Controller
             ->take(6)
             ->get();
 
-        $data['ready_properties'] = Property::with(['developer', 'user', 'featuredImage'])
-            ->where('status', 1)
-            ->where('completion_status', 'Ready')
-            ->latest()
-            ->take(4)
-            ->get();
+        $readyQuery = Property::with(['developer', 'user', 'featuredImage'])->where('status', 1);
+        if (\Illuminate\Support\Facades\Schema::hasColumn('properties', 'completion_status')) {
+            $readyQuery->where('completion_status', 'Ready');
+        }
+        $data['ready_properties'] = $readyQuery->latest()->take(4)->get();
 
-        $data['offplan_projects'] = Property::with(['developer', 'user', 'featuredImage'])
-            ->where('status', 1)
-            ->where(function($q) {
-                $q->where('completion_status', 'Off-plan')->orWhere('is_new_project', 1);
-            })
-            ->latest()
-            ->take(4)
-            ->get();
+        $offplanQuery = Property::with(['developer', 'user', 'featuredImage'])->where('status', 1);
+        if (\Illuminate\Support\Facades\Schema::hasColumn('properties', 'completion_status')) {
+            $offplanQuery->where(function($q) {
+                $q->where('completion_status', 'Off-plan');
+                if (\Illuminate\Support\Facades\Schema::hasColumn('properties', 'is_new_project')) {
+                    $q->orWhere('is_new_project', 1);
+                }
+            });
+        } elseif (\Illuminate\Support\Facades\Schema::hasColumn('properties', 'is_new_project')) {
+            $offplanQuery->where('is_new_project', 1);
+        }
+        $data['offplan_projects'] = $offplanQuery->latest()->take(4)->get();
 
         $data['luxury_rentals'] = Property::with(['developer', 'user', 'featuredImage'])
             ->where('status', 1)
@@ -348,14 +351,20 @@ class FrontHomeController extends Controller
 
     public function AgentsDetail($slug)
     {
+        $hasSlug = \Illuminate\Support\Facades\Schema::hasColumn('users', 'slug');
+
         $agent = User::agents()
-            ->where(function ($q) use ($slug) {
-                $q->where('slug', $slug)
-                  ->orWhere('slug', Str::slug($slug));
+            ->where(function ($q) use ($slug, $hasSlug) {
+                if ($hasSlug) {
+                    $q->where('slug', $slug)
+                      ->orWhere('slug', Str::slug($slug));
+                }
                 if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
-                    $q->orWhere('slug', 'graeme')
-                      ->orWhere('slug', 'graeme-highlands')
-                      ->orWhere('name', 'LIKE', '%Graeme%');
+                    if ($hasSlug) {
+                        $q->orWhere('slug', 'graeme')
+                          ->orWhere('slug', 'graeme-highlands');
+                    }
+                    $q->orWhere('name', 'LIKE', '%Graeme%');
                 }
             })
             ->first();
@@ -398,20 +407,26 @@ class FrontHomeController extends Controller
             return response()->view('404', [], 404);
         }
 
+        $hasSlug = \Illuminate\Support\Facades\Schema::hasColumn('users', 'slug');
+
         $agent = User::agents()
-            ->where(function ($q) use ($slug) {
-                $q->where('slug', $slug)
-                  ->orWhere('slug', Str::slug($slug));
+            ->where(function ($q) use ($slug, $hasSlug) {
+                if ($hasSlug) {
+                    $q->where('slug', $slug)
+                      ->orWhere('slug', Str::slug($slug));
+                }
                 if (in_array(strtolower($slug), ['graeme', 'graeme-highlands'])) {
-                    $q->orWhere('slug', 'graeme')
-                      ->orWhere('slug', 'graeme-highlands')
-                      ->orWhere('name', 'LIKE', '%Graeme%');
+                    if ($hasSlug) {
+                        $q->orWhere('slug', 'graeme')
+                          ->orWhere('slug', 'graeme-highlands');
+                    }
+                    $q->orWhere('name', 'LIKE', '%Graeme%');
                 }
             })
             ->first();
 
         if ($agent) {
-            return $this->AgentsDetail($agent->slug);
+            return $this->AgentsDetail($agent->slug ?? $slug);
         }
 
         return response()->view('404', [], 404);
@@ -532,32 +547,42 @@ class FrontHomeController extends Controller
 
     private function getOrCreateGraeme()
     {
-        $graeme = User::where('email', 'graeme@eliteevolutionrealestate.ae')
-            ->orWhere('slug', 'graeme')
-            ->orWhere('name', 'LIKE', '%Graeme%')
-            ->first();
+        $graeme = User::where('email', 'graeme@eliteevolutionrealestate.ae');
+        if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'slug')) {
+            $graeme->orWhere('slug', 'graeme');
+        }
+        $graeme = $graeme->orWhere('name', 'LIKE', '%Graeme%')->first();
 
         if (!$graeme) {
-            $graeme = User::create([
+            $createData = [
                 'name' => 'Graeme Highlands',
-                'slug' => 'graeme',
                 'email' => 'graeme@eliteevolutionrealestate.ae',
                 'password' => bcrypt('password123'),
                 'phone' => '+971 56 970 0771',
-                'whatsapp_no' => '971569700771',
-                'brn' => '78334',
-                'experience' => '8+ Years in Prime Dubai Real Estate',
-                'occupation' => 'Senior Luxury Property Advisor',
-                'about' => 'Specializing in ultra-prime residential assets, waterfront villas in Palm Jumeirah, and bespoke off-plan investments across Dubai\'s most coveted communities including DAMAC Lagoons and Emirates Hills. Graeme delivers discreet, institutional-grade advisory for private clients and international family offices.',
-                'language_multi_select' => json_encode(['English', 'French']),
-                'area_tags' => json_encode(['Palm Jumeirah', 'DAMAC Lagoons', 'Dubai Marina', 'Emirates Hills']),
-                'nationality' => 'British',
-                'image' => 'graeme.jpg',
-                'status' => 'active',
-                'is_agent' => true,
-            ]);
-            $role = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'agent', 'guard_name' => 'web']);
-            $graeme->assignRole($role);
+            ];
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'slug')) $createData['slug'] = 'graeme';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'whatsapp_no')) $createData['whatsapp_no'] = '971569700771';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'brn')) $createData['brn'] = '78334';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'experience')) $createData['experience'] = '8+ Years in Prime Dubai Real Estate';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'occupation')) $createData['occupation'] = 'Senior Luxury Property Advisor';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'about')) $createData['about'] = 'Specializing in ultra-prime residential assets, waterfront villas in Palm Jumeirah, and bespoke off-plan investments across Dubai\'s most coveted communities including DAMAC Lagoons and Emirates Hills. Graeme delivers discreet, institutional-grade advisory for private clients and international family offices.';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'language_multi_select')) $createData['language_multi_select'] = json_encode(['English', 'French']);
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'area_tags')) $createData['area_tags'] = json_encode(['Palm Jumeirah', 'DAMAC Lagoons', 'Dubai Marina', 'Emirates Hills']);
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'nationality')) $createData['nationality'] = 'British';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'image')) $createData['image'] = 'graeme.jpg';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'status')) $createData['status'] = 'active';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('users', 'is_agent')) $createData['is_agent'] = true;
+
+            $graeme = User::create($createData);
+
+            if (\Illuminate\Support\Facades\Schema::hasTable('roles')) {
+                try {
+                    $role = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'agent', 'guard_name' => 'web']);
+                    $graeme->assignRole($role);
+                } catch (\Throwable $e) {
+                    // Role table not populated, safely proceed
+                }
+            }
         }
 
         return $graeme;

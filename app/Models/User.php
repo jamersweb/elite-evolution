@@ -90,10 +90,28 @@ class User extends Authenticatable
     public function scopeAgents($query)
     {
         return $query->where(function ($q) {
-            $q->where('is_agent', true)
-              ->orWhereHas('roles', function ($r) {
-                  $r->whereIn('name', ['agent', 'Agent', 'eliteagent']);
-              });
+            $hasAgentCol = \Illuminate\Support\Facades\Schema::hasColumn('users', 'is_agent');
+            $hasRolesTable = \Illuminate\Support\Facades\Schema::hasTable('roles');
+
+            if ($hasAgentCol) {
+                $q->where('is_agent', true);
+            }
+
+            if ($hasRolesTable) {
+                if ($hasAgentCol) {
+                    $q->orWhereHas('roles', function ($r) {
+                        $r->whereIn('name', ['agent', 'Agent', 'eliteagent']);
+                    });
+                } else {
+                    $q->whereHas('roles', function ($r) {
+                        $r->whereIn('name', ['agent', 'Agent', 'eliteagent']);
+                    });
+                }
+            }
+
+            if (!$hasAgentCol && !$hasRolesTable) {
+                $q->where('id', '>', 0);
+            }
         });
     }
 
