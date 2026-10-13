@@ -59,7 +59,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-md-5 nav-banner">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="{{url('/')}}">
-            <img class="elit-img" src="{{asset('management/images/elite-evolution-real-estate-in-black.png')}}" alt="Elite Evolution Real Estate">
+            <img class="elit-img" src="{{asset('management/images/elite-evolution-real-estate-in-black.png')}}" onerror="this.onerror=null;this.src='{{asset('management/images/logo.png')}}';" alt="Elite Evolution Real Estate">
             <span class="visually-hidden">Elite Evolution Real Estate</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

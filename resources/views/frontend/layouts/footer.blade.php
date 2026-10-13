@@ -48,7 +48,7 @@
     <div class="container py-4 px-md-5">
         <div class="row m-0 align-items-top">
             <div class="col-lg-3 col-md-3 col-sm-12 py-3">
-                <img class="elit-img" src="{{asset('management/images/elite-evolution-real-estate-in-white.png')}}" alt="Elite Evolution Real Estate">
+                <img class="elit-img" src="{{asset('management/images/elite-evolution-real-estate-in-white.png')}}" onerror="this.onerror=null;this.src='{{asset('management/images/logo.png')}}';" alt="Elite Evolution Real Estate">
                 <div class="social-icons">
                     <a href="https://www.facebook.com/EliteEvolutionRealEstate" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
                     <a href="https://www.instagram.com/eliteevolutionrealestate/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>

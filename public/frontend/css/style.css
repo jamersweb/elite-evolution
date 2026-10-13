@@ -10,8 +10,10 @@
 }
 
 img.elit-img {
-    width: 200px;
-    object-fit: cover;
+    width: auto;
+    max-width: 220px;
+    height: 48px;
+    object-fit: contain;
 }
 
 .build-img {
@@ -792,8 +794,10 @@ img.slider-img {
 @media only screen and (max-width: 600px) {
 
     img.elit-img {
-        width: 130px;
-        object-fit: cover;
+        width: auto;
+        max-width: 150px;
+        height: 38px;
+        object-fit: contain;
     }
     .btn.button1 {
         font-size: 14px !IMPORTANT;
