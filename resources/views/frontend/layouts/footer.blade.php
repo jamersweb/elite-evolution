@@ -24,13 +24,36 @@
     .social-icons a:hover {
         color: #fff; /* Change to the color you prefer on hover */
     }
+
+    .ee-enquiry { background: #fbf9f4; padding: 80px 0; }
+    .ee-enquiry-card {
+        background: #fff;
+        border: 1px solid #ebe5d8;
+        border-radius: 14px;
+        padding: 48px;
+        max-width: 960px;
+        margin: 0 auto;
+        box-shadow: 0 20px 50px rgba(0,0,0,.05);
+    }
+    .ee-enquiry-intro { text-align: center; margin-bottom: 28px; }
+    .ee-enquiry-intro span { color: #bb9e5b; font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+    .ee-enquiry-intro h2 { font-size: clamp(24px, 3vw, 34px); text-transform: uppercase; margin: 10px 0 12px; color: #111; }
+    .ee-enquiry-intro p { color: #6f6f6f; max-width: 560px; margin: 0 auto; }
+    @media (max-width: 575px) { .ee-enquiry-card { padding: 28px 18px; } }
 </style>
 @php
     $developers = \App\Models\Developer::whereStatus(1)->get();
 @endphp
 
 
-<div class="container p-lg-3">
+<section class="ee-enquiry">
+<div class="container">
+<div class="ee-enquiry-card">
+<div class="ee-enquiry-intro">
+    <span>Private Client Desk</span>
+    <h2>Speak With a Licensed Advisor</h2>
+    <p>Tell us what you are looking for and a RERA-registered broker will be in touch shortly.</p>
+</div>
 <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
 <script>
   hbspt.forms.create({
@@ -44,6 +67,8 @@
   });
 </script>
 </div>
+</div>
+</section>
 <footer class="banner-footer">
     <div class="container py-4 px-md-5">
         <div class="row m-0 align-items-top">

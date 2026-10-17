@@ -88,6 +88,8 @@ class DatabaseSeeder extends Seeder
             'post-sidebar',
         ]);
 
+        Role::firstOrCreate(['name' => 'User', 'guard_name' => 'web']);
+
         // 2. Admin User
         $admin = User::firstOrCreate(
             ['email' => 'admin@eliteevolutionrealestate.ae'],
@@ -196,6 +198,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Emaar Properties', 'slug' => 'emaar', 'description' => 'Global developer of Burj Khalifa, Downtown Dubai, and master-planned luxury golf communities.'],
             ['name' => 'Meraas', 'slug' => 'meraas', 'description' => 'Creator of urban lifestyle destinations including Bluewaters Island, Bulgari Residences, and City Walk.'],
             ['name' => 'Sobha Realty', 'slug' => 'sobha', 'description' => 'Renowned for in-house craft and architectural mastery in Sobha Hartland and luxury canal-side towers.'],
+            ['name' => 'New Evolution Property Development', 'slug' => 'new-evolution-property-development', 'description' => 'Bespoke residential design studio known for fully renovated luxury villas across Jumeirah Islands and prime Dubai communities.'],
         ];
 
         $createdDevs = [];
@@ -225,6 +228,8 @@ class DatabaseSeeder extends Seeder
             '24/7 Security & Concierge',
             'Landscaped Zen Garden',
             'Private Cinema Room',
+            'Outdoor BBQ & Pergola',
+            'Glass Pavilion Dining',
         ];
 
         $amenityIds = [];
@@ -425,7 +430,6 @@ class DatabaseSeeder extends Seeder
                 $propData
             );
 
-            // Add placeholder media images
             media::firstOrCreate([
                 'reference_id' => $created->id,
                 'reference_type' => 'property',
@@ -433,6 +437,8 @@ class DatabaseSeeder extends Seeder
                 'image' => 'gallery.png',
             ]);
         }
+
+        $this->call(ListingSeeder::class);
 
         // 7. Seed Sample Articles
         blog::firstOrCreate(

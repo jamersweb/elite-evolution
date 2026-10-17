@@ -128,6 +128,66 @@ class RealEstatePortalTest extends TestCase
         $response->assertSee('7123984501'); // Trakheesi Permit
     }
 
+    public function test_new_evolution_jumeirah_islands_listing_is_published()
+    {
+        $response = $this->get('/detail/new-evolution-villa-jumeirah-islands');
+        $response->assertStatus(200);
+        $response->assertSee('EERE-V-105');
+        $response->assertSee('New Evolution Signature Villa');
+        $response->assertSee('Price Upon Request');
+        $response->assertSee('https://tour.panoee.net/66f78eacae7bdf6eef86e227/66f79307ae7bdf283c86e326', false);
+        $response->assertSee('https://www.instagram.com/reel/DcoGldUtvhn/', false);
+        $response->assertSee('Jumeirah Islands');
+        $this->assertTrue(
+            Developer::whereIn('slug', ['new-evolution-property-development', 'new-evolution'])->exists()
+        );
+        $this->assertDatabaseHas('properties', [
+            'reference_no' => 'EERE-V-105',
+            'community' => 'Jumeirah Islands',
+            'bedrooms' => 5,
+            'status' => 1,
+        ]);
+
+        $developer = Developer::whereIn('slug', ['new-evolution-property-development', 'new-evolution'])->first();
+        $this->get('/developer/' . $developer->slug)
+            ->assertOk()
+            ->assertSee('New Evolution Signature Villa');
+    }
+
+    public function test_property_description_renders_formatting_without_unsafe_markup()
+    {
+        $property = Property::where('reference_no', 'EERE-V-101')->first();
+        $property->update([
+            'description' => '<p><span style="font-weight: 400;">Underground wine cellar</span></p>'
+                . '<p onclick="alert(1)">Private pool</p><script>alert(2)</script><img src=x onerror=alert(3)>',
+        ]);
+
+        $response = $this->get('/detail/' . $property->slug);
+
+        $response->assertStatus(200);
+        $response->assertSee('<p>Underground wine cellar</p>', false);
+        $response->assertSee('<p>Private pool</p>', false);
+        $response->assertDontSee('&lt;span', false);
+
+        $html = $property->fresh()->description_html;
+        $this->assertStringNotContainsString('onclick', $html);
+        $this->assertStringNotContainsString('<img', $html);
+        $this->assertStringNotContainsString('<script', $html);
+    }
+
+    public function test_home_page_shows_listings_developers_and_blog()
+    {
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
+        $response->assertSee('Featured Properties');
+        $response->assertSee('Signature Beachfront Villa, Palm Jumeirah');
+        $response->assertSee('Off-Plan Investments');
+        $response->assertSee('Leading Developers');
+        $response->assertSee('Nakheel');
+        $response->assertSee('Dubai Real Estate Market 2026');
+    }
+
     public function test_ai_concierge_chat_api_responds_with_inventory()
     {
         $response = $this->postJson('/api/concierge/chat', [

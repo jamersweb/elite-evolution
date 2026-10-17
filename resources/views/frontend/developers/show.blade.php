@@ -131,7 +131,7 @@
                     <div class="col-md-3 states my-2">
                         <div class="position-relative">
                             <a class="text-dark text-decoration-none" href="{{url('/developer',$developer->slug).'/'.$property->slug}}">
-                                <img class="w-100" src="{{asset('images/media/').'/'.$property->featuredImage()->image}}" alt="">
+                                <img class="w-100" src="{{ optional($property->featuredImage)->image ? asset('images/media/' . $property->featuredImage->image) : asset('frontend/img/banner_update.jpg') }}" alt="{{ $property->title }}">
                                 <div class="">
                                      <div class="property-text">
                                      <h5 class="m-0">Dubai</h5>

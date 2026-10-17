@@ -39,6 +39,14 @@ class blog extends Model
         return $slug;
     }
 
+    public function featuredImage()
+    {
+        return $this->hasOne(media::class, 'reference_id')->where('reference_type', 'blog');
+    }
 
+    public function getCoverImageAttribute()
+    {
+        return $this->image ?: optional($this->featuredImage)->image;
+    }
 }
 

@@ -19,42 +19,6 @@ class FrontHomeController extends Controller
 {
     public function index(Request $request)
     {
-        $country = session('country', 'United Arab Emirates');
-        if ($country == 'uae') {
-            $country = 'United Arab Emirates';
-        } elseif ($country == 'uk') {
-            $country = 'United Kingdom';
-        }
-
-        $properties = Property::where('status', 1)
-            ->where('country', $country)
-            ->where('type', 'sale')
-            ->whereNotNull('state')
-            ->groupBy('state')
-            ->pluck('state');
-
-        $data['state'] = [];
-        foreach ($properties as $prop) {
-            $count = Property::where('status', 1)
-                ->where('country', $country)
-                ->where('state', $prop)
-                ->count();
-
-            if ($count > 0) {
-                $imageProp = Property::where('status', 1)
-                    ->where('state', $prop)
-                    ->where('country', $country)
-                    ->first();
-
-                $featuredImg = $imageProp && $imageProp->featuredImage ? $imageProp->featuredImage->image : null;
-                $data['state'][] = [
-                    'count' => $count,
-                    'image' => $featuredImg,
-                    'name' => $prop,
-                ];
-            }
-        }
-
         $data['featured_properties'] = Property::with(['developer', 'user', 'featuredImage', 'media'])
             ->where('status', 1)
             ->latest()
@@ -90,7 +54,7 @@ class FrontHomeController extends Controller
         $data['developers'] = Developer::where('status', 1)->take(8)->get();
         $data['agent'] = User::agents()->where('status', 'active')->take(6)->get();
 
-        $data['blogs'] = blog::where('status', 1)->latest()->take(3)->get();
+        $data['blogs'] = blog::with('featuredImage')->where('status', 1)->latest()->take(3)->get();
 
         return view('frontend.home.index', $data);
     }

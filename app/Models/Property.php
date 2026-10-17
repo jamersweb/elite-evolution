@@ -119,6 +119,16 @@ class Property extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function getDescriptionHtmlAttribute()
+    {
+        $allowed = '<p><br><strong><b><em><i><u><ul><ol><li><h2><h3><h4><h5><blockquote>';
+        $html = strip_tags((string) $this->description, $allowed);
+        // Drop every attribute (style, on*, href…) from the whitelisted tags
+        $html = preg_replace('/<(\/?)([a-z0-9]+)\b[^>]*>/i', '<$1$2>', $html);
+
+        return Str::contains($html, '<') ? $html : nl2br($html);
+    }
+
     public function getAmenitiesAttribute()
     {
         if (!empty($this->attributes['amenities']) && $this->attributes['amenities'] != 'null') {

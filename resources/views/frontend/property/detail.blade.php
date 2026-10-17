@@ -36,6 +36,27 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         padding: 25px;
     }
+    .ee-fact {
+        height: 100%;
+        padding: 18px 12px;
+        background: #fbf9f4;
+        border: 1px solid #ebe5d8;
+        border-radius: 10px;
+    }
+    .ee-fact i {
+        display: block;
+        color: #BC9C5B;
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+    .ee-description {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #555;
+    }
+    .ee-description p { margin-bottom: 1rem; }
+    .ee-description ul { padding-left: 1.2rem; }
+    .ee-description li { list-style: disc; }
     .calc-box {
         background: #f9f9f9;
         border-radius: 8px;
@@ -117,6 +138,17 @@
                             <img src="{{asset('/images/media/' . $imgItem->image)}}" class="img-fluid w-100 rounded-3" style="height: 255px; object-fit: cover;" alt="{{$property->title}}">
                         @endforeach
                     </div>
+                    @if($mediaList->count() > 3)
+                        <div class="col-12">
+                            <div class="d-flex flex-wrap gap-2 mt-1">
+                                @foreach($mediaList->skip(3) as $imgItem)
+                                    <a href="{{asset('/images/media/' . $imgItem->image)}}" target="_blank" class="d-block">
+                                        <img src="{{asset('/images/media/' . $imgItem->image)}}" alt="{{$property->title}}" style="width: 92px; height: 72px; object-fit: cover; border-radius: 6px;">
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 @else
                     <div class="col-12">
                         <img src="{{asset('gallery.png')}}" class="img-fluid w-100 rounded-3" style="max-height: 480px; object-fit: cover;" alt="{{$property->title}}">
@@ -156,57 +188,57 @@
                     <h5 class="fw-bold text-uppercase border-bottom pb-3 mb-4">Key Property Facts</h5>
                     <div class="row g-3 text-center">
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-bed text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-bed"></i>
                                 <div class="fs-12 text-muted">Bedrooms</div>
                                 <div class="fw-bold fs-16">{{$property->bedrooms ?? 'Studio'}}</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-bath text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-bath"></i>
                                 <div class="fs-12 text-muted">Bathrooms</div>
                                 <div class="fw-bold fs-16">{{$property->bathrooms ?? 1}}</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-ruler-combined text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-ruler-combined"></i>
                                 <div class="fs-12 text-muted">Built-Up Area</div>
                                 <div class="fw-bold fs-16">{{$property->build_up_area ?? $property->size ?? 'N/A'}}</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-car text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-car"></i>
                                 <div class="fs-12 text-muted">Parking</div>
                                 <div class="fw-bold fs-16">{{$property->parkings ?? '2 Spaces'}}</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-couch text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-couch"></i>
                                 <div class="fs-12 text-muted">Furnishing</div>
                                 <div class="fw-bold fs-16">{{$property->furnishing_type ?? 'Unfurnished'}}</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-building text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-building"></i>
                                 <div class="fs-12 text-muted">Type</div>
                                 <div class="fw-bold fs-16">{{$property->property_type ?? 'Villa'}}</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-calendar-check text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-calendar-check"></i>
                                 <div class="fs-12 text-muted">Status</div>
                                 <div class="fw-bold fs-16">{{$property->completion_status ?? 'Ready'}}</div>
                             </div>
                         </div>
                         <div class="col-6 col-md-3">
-                            <div class="p-3 bg-light rounded">
-                                <i class="fas fa-clock text-color fs-4 mb-2"></i>
+                            <div class="ee-fact">
+                                <i class="fas fa-clock"></i>
                                 <div class="fs-12 text-muted">Handover</div>
                                 <div class="fw-bold fs-16">{{$property->handover_date ?? 'Immediate'}}</div>
                             </div>
@@ -217,10 +249,28 @@
                 <!-- Description -->
                 <div class="bg-white p-4 rounded-3 border mb-4">
                     <h5 class="fw-bold text-uppercase border-bottom pb-3 mb-3">Property Overview</h5>
-                    <div class="fs-15 lh-lg text-secondary">
-                        {!! nl2br(e($property->description)) !!}
+                    <div class="ee-description">
+                        {!! $property->description_html !!}
                     </div>
                 </div>
+
+                @if($property->view36 || $property->video)
+                <div class="bg-white p-4 rounded-3 border mb-4">
+                    <h5 class="fw-bold text-uppercase border-bottom pb-3 mb-3"><i class="fas fa-vr-cardboard text-color me-2"></i>Tour the Villa</h5>
+                    @if($property->view36)
+                        <div class="ratio ratio-16x9 rounded overflow-hidden mb-3">
+                            <iframe src="{{ $property->view36 }}" allowfullscreen loading="lazy" title="3D virtual tour of {{ $property->title }}"></iframe>
+                        </div>
+                    @endif
+                    @if($property->video)
+                        <p class="mb-2 fs-14">
+                            <a href="{{ $property->video }}" target="_blank" rel="noopener" class="text-color fw-semibold">
+                                <i class="fab fa-instagram me-1"></i>Watch the Instagram house tour
+                            </a>
+                        </p>
+                    @endif
+                </div>
+                @endif
 
                 <!-- Amenities -->
                 <div class="bg-white p-4 rounded-3 border mb-4">
