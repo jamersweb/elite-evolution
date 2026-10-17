@@ -62,6 +62,95 @@
         border-radius: 8px;
         padding: 20px;
     }
+    .ee-gallery-hit {
+        display: block;
+        cursor: zoom-in;
+        position: relative;
+    }
+    .ee-gallery-hit img { width: 100%; }
+    .ee-gallery-thumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 4px;
+    }
+    .ee-gallery-thumbs .ee-gallery-hit {
+        width: 92px;
+        height: 72px;
+        flex: 0 0 92px;
+    }
+    .ee-gallery-thumbs img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+    .ee-gallery-modal .modal-dialog { max-width: min(1100px, 96vw); }
+    .ee-gallery-modal .modal-content {
+        background: #111;
+        border: 0;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .ee-gallery-modal .btn-close { filter: invert(1); opacity: .8; }
+    .ee-gallery-stage {
+        position: relative;
+        min-height: 52vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0b0b0b;
+    }
+    .ee-gallery-stage img {
+        max-height: 72vh;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    .ee-gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        border: 0;
+        border-radius: 50%;
+        background: rgba(188, 156, 91, .92);
+        color: #111;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .ee-gallery-nav.prev { left: 16px; }
+    .ee-gallery-nav.next { right: 16px; }
+    .ee-gallery-count {
+        color: #bc9c5b;
+        font-size: 13px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    .ee-gallery-modal-thumbs {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 12px 16px 16px;
+        background: #161616;
+    }
+    .ee-gallery-modal-thumbs button {
+        border: 2px solid transparent;
+        padding: 0;
+        background: none;
+        border-radius: 6px;
+        flex: 0 0 72px;
+        height: 56px;
+        overflow: hidden;
+    }
+    .ee-gallery-modal-thumbs button.is-active { border-color: #bc9c5b; }
+    .ee-gallery-modal-thumbs img {
+        width: 72px;
+        height: 56px;
+        object-fit: cover;
+        display: block;
+    }
 </style>
 
 <section class="py-4 bg-light">
@@ -131,20 +220,24 @@
                 @endphp
                 @if($mediaList->count() > 0)
                     <div class="col-lg-8">
-                        <img src="{{asset('/images/media/' . $mediaList->first()->image)}}" class="img-fluid w-100 rounded-3" style="max-height: 520px; object-fit: cover;" alt="{{$property->title}}">
+                        <button type="button" class="ee-gallery-hit border-0 bg-transparent p-0 w-100" data-ee-gallery-index="0">
+                            <img src="{{asset('/images/media/' . $mediaList->first()->image)}}" class="img-fluid w-100 rounded-3" style="max-height: 520px; object-fit: cover;" alt="{{$property->title}}">
+                        </button>
                     </div>
                     <div class="col-lg-4 d-none d-lg-flex flex-column gap-2">
-                        @foreach($mediaList->skip(1)->take(2) as $imgItem)
-                            <img src="{{asset('/images/media/' . $imgItem->image)}}" class="img-fluid w-100 rounded-3" style="height: 255px; object-fit: cover;" alt="{{$property->title}}">
+                        @foreach($mediaList->skip(1)->take(2) as $sideIndex => $imgItem)
+                            <button type="button" class="ee-gallery-hit border-0 bg-transparent p-0" data-ee-gallery-index="{{ $sideIndex + 1 }}">
+                                <img src="{{asset('/images/media/' . $imgItem->image)}}" class="img-fluid w-100 rounded-3" style="height: 255px; object-fit: cover;" alt="{{$property->title}}">
+                            </button>
                         @endforeach
                     </div>
                     @if($mediaList->count() > 3)
                         <div class="col-12">
-                            <div class="d-flex flex-wrap gap-2 mt-1">
-                                @foreach($mediaList->skip(3) as $imgItem)
-                                    <a href="{{asset('/images/media/' . $imgItem->image)}}" target="_blank" class="d-block">
-                                        <img src="{{asset('/images/media/' . $imgItem->image)}}" alt="{{$property->title}}" style="width: 92px; height: 72px; object-fit: cover; border-radius: 6px;">
-                                    </a>
+                            <div class="ee-gallery-thumbs">
+                                @foreach($mediaList->skip(3) as $thumbIndex => $imgItem)
+                                    <button type="button" class="ee-gallery-hit border-0 bg-transparent p-0" data-ee-gallery-index="{{ $thumbIndex + 3 }}">
+                                        <img src="{{asset('/images/media/' . $imgItem->image)}}" alt="{{$property->title}}">
+                                    </button>
                                 @endforeach
                             </div>
                         </div>
@@ -459,6 +552,79 @@
 
     </div>
 </section>
+
+@if(isset($mediaList) && $mediaList->count() > 0)
+<div class="modal fade ee-gallery-modal" id="eeGalleryModal" tabindex="-1" aria-labelledby="eeGalleryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex align-items-center justify-content-between px-3 py-2">
+                <div>
+                    <div class="text-white fw-semibold text-uppercase" id="eeGalleryModalLabel">{{ $property->title }}</div>
+                    <div class="ee-gallery-count" id="eeGalleryCount"></div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="ee-gallery-stage">
+                <button type="button" class="ee-gallery-nav prev" id="eeGalleryPrev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
+                <img id="eeGalleryImage" src="{{ asset('/images/media/' . $mediaList->first()->image) }}" alt="{{ $property->title }}">
+                <button type="button" class="ee-gallery-nav next" id="eeGalleryNext" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="ee-gallery-modal-thumbs" id="eeGalleryThumbs">
+                @foreach($mediaList as $modalIndex => $imgItem)
+                    <button type="button" data-ee-gallery-index="{{ $modalIndex }}">
+                        <img src="{{ asset('/images/media/' . $imgItem->image) }}" alt="{{ $property->title }} photo {{ $modalIndex + 1 }}">
+                    </button>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var photos = @json($mediaList->map(function ($item) { return asset('/images/media/' . $item->image); })->values());
+        var modalEl = document.getElementById('eeGalleryModal');
+        if (!modalEl || !photos.length || typeof bootstrap === 'undefined') return;
+
+        var modal = new bootstrap.Modal(modalEl);
+        var imageEl = document.getElementById('eeGalleryImage');
+        var countEl = document.getElementById('eeGalleryCount');
+        var thumbs = Array.prototype.slice.call(document.querySelectorAll('#eeGalleryThumbs [data-ee-gallery-index]'));
+        var index = 0;
+
+        function show(i) {
+            index = (i + photos.length) % photos.length;
+            imageEl.src = photos[index];
+            countEl.textContent = (index + 1) + ' / ' + photos.length;
+            thumbs.forEach(function (thumb, thumbIndex) {
+                thumb.classList.toggle('is-active', thumbIndex === index);
+            });
+            var active = thumbs[index];
+            if (active && active.scrollIntoView) {
+                active.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+            }
+        }
+
+        function openAt(i) {
+            show(i);
+            modal.show();
+        }
+
+        document.querySelectorAll('[data-ee-gallery-index]').forEach(function (hit) {
+            hit.addEventListener('click', function () {
+                openAt(parseInt(hit.getAttribute('data-ee-gallery-index'), 10) || 0);
+            });
+        });
+
+        document.getElementById('eeGalleryPrev').addEventListener('click', function () { show(index - 1); });
+        document.getElementById('eeGalleryNext').addEventListener('click', function () { show(index + 1); });
+
+        modalEl.addEventListener('keydown', function (event) {
+            if (event.key === 'ArrowLeft') show(index - 1);
+            if (event.key === 'ArrowRight') show(index + 1);
+        });
+    });
+</script>
+@endif
 
 <!-- Brochure Modal -->
 <div class="modal fade" id="brochureModal" tabindex="-1" aria-labelledby="brochureModalLabel" aria-hidden="true">
