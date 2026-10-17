@@ -8,6 +8,7 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 
 class AgentController extends Controller
@@ -15,6 +16,19 @@ class AgentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:user-list', ['only' => ['index', 'show']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
+    private function assignableRoles()
+    {
+        $roles = Role::pluck('name', 'name')->all();
+        if (auth()->user()->hasRole(['Admin', 'admin'])) {
+            return $roles;
+        }
+        return array_intersect_key($roles, array_flip(['agent', 'eliteagent']));
     }
 
     public function index(Request $request)
@@ -55,7 +69,7 @@ class AgentController extends Controller
 
     public function create()
     {
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = $this->assignableRoles();
         $languages = $this->getLanguages();
         return view('management.agents.create', compact('roles', 'languages'));
     }
@@ -77,17 +91,17 @@ class AgentController extends Controller
             'about' => 'nullable|string',
             'status' => 'nullable|string|in:active,inactive',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'role' => ['nullable', 'string', Rule::in(array_keys($this->assignableRoles()))],
         ]);
 
-        $data = $request->except(['image', 'password', 'roles', 'area_tags', 'language_multi_select']);
+        $data = $request->except(['image', 'password', 'role', 'roles', 'area_tags', 'language_multi_select']);
         $data['password'] = Hash::make($request->password);
         $data['is_agent'] = true;
         $data['status'] = $request->input('status', 'active');
         $data['slug'] = $request->filled('slug') ? Str::slug($request->slug) : Str::slug($request->name);
 
         if ($request->hasFile('image')) {
-            $ext = $request->file('image')->getClientOriginalExtension();
-            $imageName = 'agent_' . time() . '_' . rand(100, 999) . '.' . $ext;
+            $imageName = 'agent_' . time() . '_' . rand(100, 999) . '.' . $request->file('image')->extension();
             $request->file('image')->move(public_path('images/media/profile'), $imageName);
             $data['image'] = $imageName;
         }
@@ -126,7 +140,7 @@ class AgentController extends Controller
     public function edit($id)
     {
         $agent = User::findOrFail($id);
-        $roles = Role::pluck('name', 'name')->all();
+        $roles = $this->assignableRoles();
         $languages = $this->getLanguages();
         $propertiesCount = Property::where('user_id', $id)->count();
         return view('management.agents.edit', compact('agent', 'roles', 'languages', 'propertiesCount'));
@@ -151,9 +165,10 @@ class AgentController extends Controller
             'about' => 'nullable|string',
             'status' => 'nullable|string|in:active,inactive',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+            'role' => ['nullable', 'string', Rule::in(array_keys($this->assignableRoles()))],
         ]);
 
-        $data = $request->except(['image', 'password', 'roles', 'area_tags', 'language_multi_select', 'remove_image']);
+        $data = $request->except(['image', 'password', 'role', 'roles', 'area_tags', 'language_multi_select', 'remove_image']);
         $data['is_agent'] = true;
         $data['status'] = $request->input('status', 'active');
 
@@ -172,8 +187,7 @@ class AgentController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $ext = $request->file('image')->getClientOriginalExtension();
-            $imageName = 'agent_' . time() . '_' . rand(100, 999) . '.' . $ext;
+            $imageName = 'agent_' . time() . '_' . rand(100, 999) . '.' . $request->file('image')->extension();
             $request->file('image')->move(public_path('images/media/profile'), $imageName);
             $data['image'] = $imageName;
         }

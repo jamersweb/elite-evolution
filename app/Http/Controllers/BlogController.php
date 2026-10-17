@@ -84,11 +84,11 @@ class BlogController extends Controller
 
         $validatedData = $request->validate([
             'title' => 'required',
-
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120',
         ]);
 
         if ($request->file('image')) {
-            $mainext = $request->file('image')->getClientOriginalExtension();
+            $mainext = $request->file('image')->extension();
             $main_file = 'blog'.time() . rand(1000, 14000000000) . '.' . $mainext;
             $request->image->move(public_path('images/media'), $main_file);
         } else {
@@ -182,6 +182,10 @@ class BlogController extends Controller
 
 
 //        dd($request);
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120',
+        ]);
+
         $multi = media::where('reference_id', $id)->where('reference_type','blog')->get()->first();
         $blogs = blog::where('id',$id)->get()->first();
 
@@ -189,7 +193,7 @@ class BlogController extends Controller
 
         if($request->file('image')){
 
-            $ext = $request->file('image')->getClientOriginalExtension();
+            $ext = $request->file('image')->extension();
             $main_file = 'blog'.time() . rand(1000, 14000000000) . '.' . $ext;
             $request->image->move(public_path('images/media'), $main_file);
         }

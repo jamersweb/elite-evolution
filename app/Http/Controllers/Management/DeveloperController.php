@@ -53,6 +53,8 @@ class DeveloperController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'status' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240',
         ]);
 
 
@@ -62,14 +64,14 @@ class DeveloperController extends Controller
         $data = $request->all();
 
         if ($request->file('image')) {
-            $mainext = $request->file('image')->getClientOriginalExtension();
+            $mainext = $request->file('image')->extension();
             $main_file = 'developers'.time() . rand(1000, 14000000000) . '.' . $mainext;
             $request->image->move(public_path('images/media/developers'), $main_file);
         }else{
             $main_file = null;
         }
         if ($request->file('cover')) {
-            $mainext = $request->file('cover')->getClientOriginalExtension();
+            $mainext = $request->file('cover')->extension();
             $main_file_cover = 'developers-cover'.time() . rand(1000, 14000000000) . '.' . $mainext;
             $request->cover->move(public_path('images/media/developers'), $main_file_cover);
         }else{
@@ -119,12 +121,14 @@ class DeveloperController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'status' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:10240',
         ]);
         $developer = Developer::findorfail($id);
         $data = $request->all();
 
         if ($request->file('image')) {
-            $mainext = $request->file('image')->getClientOriginalExtension();
+            $mainext = $request->file('image')->extension();
             $main_file = 'developers'.time() . rand(1000, 14000000000) . '.' . $mainext;
             $request->image->move(public_path('images/media/developers'), $main_file);
         }else{
@@ -132,7 +136,7 @@ class DeveloperController extends Controller
         }
 
         if ($request->file('cover')) {
-            $mainext = $request->file('cover')->getClientOriginalExtension();
+            $mainext = $request->file('cover')->extension();
             $main_file_cover = 'developers-cover'.time() . rand(1000, 14000000000) . '.' . $mainext;
             $request->cover->move(public_path('images/media/developers'), $main_file_cover);
         }else{

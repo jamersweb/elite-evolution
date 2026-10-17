@@ -21,8 +21,60 @@ class PropertyController extends Controller
     {
         $this->middleware('permission:property-list', ['only' => ['index']]);
         $this->middleware('permission:property-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:property-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:property-edit', ['only' => ['show', 'edit', 'update', 'imageDelete']]);
         $this->middleware('permission:property-delete', ['only' => ['destroy']]);
+    }
+
+    private function isAdmin()
+    {
+        return auth()->user()->hasRole(['Admin', 'admin']);
+    }
+
+    private function authorizeOwnership(Property $property)
+    {
+        if (!$this->isAdmin() && (int) $property->user_id !== (int) auth()->id()) {
+            abort(403);
+        }
+    }
+
+    private function uploadRules()
+    {
+        return [
+            'brochure' => 'nullable|file|mimes:pdf|max:20480',
+            'permit_qr_image' => 'nullable|file|mimes:jpg,jpeg,png,webp|max:5120',
+            'image' => 'nullable|array',
+            'image.*' => 'file|mimes:jpg,jpeg,png,webp|max:10240',
+        ];
+    }
+
+    private function storeUploads(Request $request, array $data)
+    {
+        if ($request->hasFile('brochure')) {
+            $file = 'brochure_' . time() . '_' . rand(1000, 9999) . '.' . $request->file('brochure')->extension();
+            $request->file('brochure')->move(public_path('images/media'), $file);
+            $data['brochure'] = $file;
+        }
+
+        if ($request->hasFile('permit_qr_image')) {
+            $file = 'qr_' . time() . '_' . rand(1000, 9999) . '.' . $request->file('permit_qr_image')->extension();
+            $request->file('permit_qr_image')->move(public_path('images/media'), $file);
+            $data['permit_qr_image'] = $file;
+        }
+
+        return $data;
+    }
+
+    private function storeGallery(Request $request, $propertyId)
+    {
+        foreach ((array) $request->file('image') as $image) {
+            $file = 'property_' . time() . '_' . rand(1000, 9999) . '.' . $image->extension();
+            $image->move(public_path('images/media'), $file);
+            media::create([
+                'reference_id' => $propertyId,
+                'reference_type' => 'property',
+                'image' => $file,
+            ]);
+        }
     }
 
     public function index(Request $request)
@@ -87,39 +139,23 @@ class PropertyController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $this->validate($request, array_merge([
             'title' => 'required|string|max:255',
             'type' => 'nullable|string',
             'price' => 'nullable|numeric',
-        ]);
+        ], $this->uploadRules()));
 
-        $data = $request->all();
-
-        // Handle Brochure Upload
-        if ($request->hasFile('brochure')) {
-            $mainext = $request->file('brochure')->getClientOriginalExtension();
-            $main_file_cover = 'brochure_' . time() . '_' . rand(1000, 9999) . '.' . $mainext;
-            $request->brochure->move(public_path('images/media'), $main_file_cover);
-            $data['brochure'] = $main_file_cover;
-        }
-
-        // Handle Madmoun QR Code Upload
-        if ($request->hasFile('permit_qr_image')) {
-            $qrext = $request->file('permit_qr_image')->getClientOriginalExtension();
-            $qrFile = 'qr_' . time() . '_' . rand(1000, 9999) . '.' . $qrext;
-            $request->permit_qr_image->move(public_path('images/media'), $qrFile);
-            $data['permit_qr_image'] = $qrFile;
-        }
+        $data = $this->storeUploads($request, $request->except(['brochure', 'permit_qr_image', 'image']));
 
         $data['amenities'] = $request->has('amenities') ? json_encode($request->amenities) : null;
-        
-        // Agent listing permission logic: Admin approval or auto-publish for admin
-        if (auth()->user()->hasRole(['agent', 'Agent', 'eliteagent'])) {
-            $data['status'] = 0; // Requires admin approval
-            $data['user_id'] = auth()->user()->id;
-        } else {
+
+        // Only admins publish directly or assign listings to other agents; everyone else needs approval
+        if ($this->isAdmin()) {
             $data['status'] = $request->input('status', 1);
             $data['user_id'] = $request->filled('user_id') ? $request->user_id : auth()->user()->id;
+        } else {
+            $data['status'] = 0;
+            $data['user_id'] = auth()->user()->id;
         }
 
         if ($request->filled('address2')) {
@@ -132,20 +168,7 @@ class PropertyController extends Controller
 
         $property = Property::create($data);
 
-        // Multiple Gallery Images
-        $images = $request->file('image');
-        if (isset($images)) {
-            foreach ($images as $image) {
-                $mainext = $image->getClientOriginalExtension();
-                $main_file = 'property_' . time() . '_' . rand(1000, 9999) . '.' . $mainext;
-                $image->move(public_path('images/media'), $main_file);
-                media::create([
-                    'reference_id' => $property->id,
-                    'reference_type' => 'property',
-                    'image' => $main_file,
-                ]);
-            }
-        }
+        $this->storeGallery($request, $property->id);
 
         return redirect()->route('property.index')->with('success', 'Property listing created successfully.');
     }
@@ -153,13 +176,15 @@ class PropertyController extends Controller
     public function show($id)
     {
         $property = Property::with(['developer', 'user', 'media'])->findOrFail($id);
+        $this->authorizeOwnership($property);
         return view('management.property.show', compact('property'));
     }
 
     public function edit($id)
     {
-        $data['developer'] = Developer::where('status', 1)->get();
         $data['property'] = Property::findOrFail($id);
+        $this->authorizeOwnership($data['property']);
+        $data['developer'] = Developer::where('status', 1)->get();
         $data['amenities'] = Amenities::all();
         $data['media'] = media::where('reference_id', $id)->where('reference_type', 'property')->get();
         $data['agents'] = User::agents()->where('status', 'active')->get();
@@ -170,43 +195,21 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         $property = Property::findOrFail($id);
-        $data = $request->all();
+        $this->authorizeOwnership($property);
 
-        if ($request->hasFile('brochure')) {
-            $mainext = $request->file('brochure')->getClientOriginalExtension();
-            $main_file_cover = 'brochure_' . time() . '_' . rand(1000, 9999) . '.' . $mainext;
-            $request->brochure->move(public_path('images/media'), $main_file_cover);
-            $data['brochure'] = $main_file_cover;
-        }
+        $this->validate($request, $this->uploadRules());
 
-        if ($request->hasFile('permit_qr_image')) {
-            $qrext = $request->file('permit_qr_image')->getClientOriginalExtension();
-            $qrFile = 'qr_' . time() . '_' . rand(1000, 9999) . '.' . $qrext;
-            $request->permit_qr_image->move(public_path('images/media'), $qrFile);
-            $data['permit_qr_image'] = $qrFile;
-        }
+        $data = $this->storeUploads($request, $request->except(['brochure', 'permit_qr_image', 'image']));
 
         $data['amenities'] = $request->has('amenities') ? json_encode($request->amenities) : null;
 
-        if (!auth()->user()->hasRole(['Admin', 'admin'])) {
-            unset($data['user_id']); // Agents cannot reassign ownership
+        if (!$this->isAdmin()) {
+            unset($data['user_id'], $data['status']);
         }
 
         $property->update($data);
 
-        $images = $request->file('image');
-        if (isset($images)) {
-            foreach ($images as $image) {
-                $mainext = $image->getClientOriginalExtension();
-                $main_file = 'property_' . time() . '_' . rand(1000, 9999) . '.' . $mainext;
-                $image->move(public_path('images/media'), $main_file);
-                media::create([
-                    'reference_id' => $id,
-                    'reference_type' => 'property',
-                    'image' => $main_file,
-                ]);
-            }
-        }
+        $this->storeGallery($request, $property->id);
 
         return redirect()->back()->with('success', 'Property updated successfully.');
     }
@@ -214,6 +217,7 @@ class PropertyController extends Controller
     public function destroy($id)
     {
         $property = Property::findOrFail($id);
+        $this->authorizeOwnership($property);
         media::where('reference_id', $id)->where('reference_type', 'property')->delete();
         $property->delete();
 
@@ -222,7 +226,9 @@ class PropertyController extends Controller
 
     public function imageDelete(Request $request)
     {
-        media::where('id', $request->id)->delete();
+        $image = media::where('reference_type', 'property')->findOrFail($request->id);
+        $this->authorizeOwnership(Property::findOrFail($image->reference_id));
+        $image->delete();
         return response()->json(['success' => true]);
     }
 

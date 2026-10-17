@@ -152,11 +152,16 @@ class UserController extends Controller
             ->with('success','User deleted successfully');
     }
 
+    private function canEditStaffProfile()
+    {
+        return auth()->user()->hasRole(['agent', 'Agent', 'eliteagent', 'Admin', 'admin']);
+    }
+
     public function Myprofile()
     {
         $data['languages'] = $this->getLanguageName();
 
-        if (auth()->user()->hasRole(['agent', 'Agent', 'eliteagent', 'Admin', 'admin'])) {
+        if ($this->canEditStaffProfile()) {
             return view('management.users.myprofile', $data);
         }
         return abort(403);
@@ -164,16 +169,23 @@ class UserController extends Controller
 
     public function MyprofilePost(Request $request)
     {
+        if (!$this->canEditStaffProfile()) {
+            abort(403);
+        }
+
+        $this->validate($request, [
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:3072',
+        ]);
+
         $area = is_array($request->area_tags) ? $request->area_tags : explode(',', $request->area_tags ?? '');
         $language = $request->language_multi_select != null ? json_encode($request->language_multi_select) : null;
         if ($request->file('image')) {
-            $mainext = $request->file('image')->getClientOriginalExtension();
-            $main_file = 'profile' . time() . rand(1000, 9999) . '.' . $mainext;
+            $main_file = 'profile' . time() . rand(1000, 9999) . '.' . $request->file('image')->extension();
             $request->image->move(public_path('images/media/profile'), $main_file);
         } else {
             $main_file = auth()->user()->image;
         }
-        $data = $request->all();
+        $data = $request->only(['name', 'occupation', 'phone', 'whatsapp_no', 'brn', 'experience', 'nationality', 'linkedin_url', 'about']);
         $data['image'] = $main_file;
         $data['area_tags'] = json_encode(array_filter(array_map('trim', $area)));
         $data['language_multi_select'] = $language;

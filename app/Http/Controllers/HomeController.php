@@ -18,6 +18,9 @@ class HomeController extends Controller
     function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:dashboard-permission', ['only' => ['index']]);
+        $this->middleware('permission:requests', ['only' => ['FrontLeadsRequests', 'FrontBrochureLeads', 'Career', 'CareerShow', 'Contact', 'ContactShow']]);
+        $this->middleware('permission:newsletter-subscriber', ['only' => ['NewsletterSubscribers']]);
     }
 
     public function FrontLeadsRequests(Request $request)

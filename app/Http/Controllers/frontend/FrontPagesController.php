@@ -140,7 +140,7 @@ class FrontPagesController extends Controller
 
         $main_file = null;
         if ($request->hasFile('resume')) {
-            $ext = $request->file('resume')->getClientOriginalExtension();
+            $ext = $request->file('resume')->extension();
             $main_file = 'resume_' . time() . '_' . rand(100, 999) . '.' . $ext;
             $request->file('resume')->move(public_path('images/media/resume'), $main_file);
         }
