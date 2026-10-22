@@ -37,7 +37,7 @@
                     <!-- Basic Info -->
                     <div class="col-md-6 form-group">
                         <label class="font-weight-bold">Full Name <span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="agent_name" class="form-control" placeholder="e.g. Graeme Stewart" value="{{ old('name') }}" required>
+                        <input type="text" name="name" id="agent_name" class="form-control" placeholder="e.g. Graeme Stewart", value="{{ old('name') }}" required>
                         <small class="text-muted">Displayed prominently across listing cards and detail pages.</small>
                     </div>
 
