@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
         // 3. Licensed Agents (Compliance & Public Directory)
         $agentsData = [
             [
-                'name' => 'Graeme Highlands',
+                'name' => 'Graeme Stewart',
                 'slug' => 'graeme',
                 'email' => 'graeme@eliteevolutionrealestate.ae',
                 'phone' => '+971 56 970 0771',

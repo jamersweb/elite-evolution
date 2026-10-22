@@ -65,7 +65,7 @@ class RealEstatePortalTest extends TestCase
         $response = $this->get('/agents');
         $response->assertStatus(200);
         $response->assertSee('Alexander Wright');
-        $response->assertSee('Graeme Highlands');
+        $response->assertSee('Graeme Stewart');
         $response->assertSee('78334'); // Graeme BRN
         $response->assertSee('52410'); // Alexander BRN
     }
@@ -81,7 +81,7 @@ class RealEstatePortalTest extends TestCase
     {
         $response = $this->get('/graeme');
         $response->assertStatus(200);
-        $response->assertSee('Graeme Highlands');
+        $response->assertSee('Graeme Stewart');
         $response->assertSee('78334');
         $response->assertSee('Senior Luxury Property Advisor');
         $response->assertSee('WhatsApp Advisor');
@@ -93,7 +93,7 @@ class RealEstatePortalTest extends TestCase
         $response = $this->get('/graeme/vcard');
         $response->assertStatus(200);
         $this->assertStringContainsString('text/vcard', $response->headers->get('Content-Type'));
-        $response->assertSee('Graeme Highlands');
+        $response->assertSee('Graeme Stewart');
         $response->assertSee('78334');
     }
 
@@ -109,7 +109,7 @@ class RealEstatePortalTest extends TestCase
         $response->assertStatus(302);
         $this->assertDatabaseHas('leads', [
             'email' => 'advisory@investor.ae',
-            'source' => 'Direct Agent Advisory: Graeme Highlands',
+            'source' => 'Direct Agent Advisory: Graeme Stewart',
         ]);
     }
 
@@ -251,7 +251,7 @@ class RealEstatePortalTest extends TestCase
         $response = $this->actingAs($admin)->get('/admin/agents');
         $response->assertStatus(200);
         $response->assertSee('Alexander Wright');
-        $response->assertSee('Graeme Highlands');
+        $response->assertSee('Graeme Stewart');
 
         // 2. Create new licensed broker with custom slug 'fatima'
         $postRes = $this->actingAs($admin)->post('/admin/agents', [

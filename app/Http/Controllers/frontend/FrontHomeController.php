@@ -519,7 +519,7 @@ class FrontHomeController extends Controller
 
         if (!$graeme) {
             $createData = [
-                'name' => 'Graeme Highlands',
+                'name' => 'Graeme Stewart',
                 'email' => 'graeme@eliteevolutionrealestate.ae',
                 'password' => bcrypt('password123'),
                 'phone' => '+971 56 970 0771',
