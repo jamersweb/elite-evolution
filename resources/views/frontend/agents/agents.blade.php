@@ -202,13 +202,9 @@
 
                                 <div class="p-2 my-3 rounded" style="background: #f4f4f4; font-size: 12px;">
                                     <div class="row g-1 text-center">
-                                        <div class="col-6 border-end">
-                                            <span class="d-block text-muted">Active Listings</span>
-                                            <strong class="text-dark">{{ $broker->active_listings_count ?? $broker->properties()->where('status', 1)->count() }}</strong>
-                                        </div>
-                                        <div class="col-6">
+                                        <div class="col-12">
                                             <span class="d-block text-muted">Experience</span>
-                                            <strong class="text-dark">{{ $broker->experience ? Str::limit($broker->experience, 15) : 'Prime Dubai' }}</strong>
+                                            <strong class="text-dark">{{ $broker->experience ? Str::limit($broker->experience, 28) : 'Prime Dubai' }}</strong>
                                         </div>
                                     </div>
                                 </div>

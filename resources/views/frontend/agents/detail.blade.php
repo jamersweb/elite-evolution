@@ -258,24 +258,12 @@
                     </div>
                 </div>
 
-                <!-- Stats Counters -->
-                <div class="row g-2 mb-4" style="max-width: 520px;">
-                    <div class="col-4">
-                        <div class="stat-box">
-                            <div class="stat-number">{{ $properties->total() ?? $properties->count() }}</div>
-                            <div class="stat-label">Active Listings</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
+                <!-- Stats Counters (Active Listings / Verified Stock hidden until inventory is live) -->
+                <div class="row g-2 mb-4" style="max-width: 180px;">
+                    <div class="col-12">
                         <div class="stat-box">
                             <div class="stat-number">{{ Str::contains((string)$agent->experience, '8') ? '8+' : '6+' }}</div>
                             <div class="stat-label">Years Exp.</div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="stat-box">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">Verified Stock</div>
                         </div>
                     </div>
                 </div>
@@ -284,14 +272,18 @@
                 @php
                     $waNumber = preg_replace('/[^0-9]/', '', $agent->whatsapp_no ?: '971569700771');
                     $waText = urlencode('Hello ' . $agent->name . ', I am inquiring about Dubai luxury properties on Elite Evolution.');
+                    $telDigits = preg_replace('/[^0-9+]/', '', (string) $agent->phone);
+                    if ($telDigits !== '' && strpos($telDigits, '+') !== 0) {
+                        $telDigits = '+' . ltrim($telDigits, '+');
+                    }
                 @endphp
                 <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-sm-start">
                     <a href="https://api.whatsapp.com/send?phone={{ $waNumber }}&text={{ $waText }}" target="_blank" class="btn-wa-action">
                         <i class="fa-brands fa-whatsapp fs-5"></i> WhatsApp Advisor
                     </a>
 
-                    @if($agent->phone)
-                        <a href="tel:{{ $agent->phone }}" class="btn-call-action">
+                    @if($telDigits)
+                        <a href="tel:{{ $telDigits }}" class="btn-call-action">
                             <i class="fa-solid fa-phone"></i> Call {{ $agent->phone }}
                         </a>
                     @endif
@@ -447,7 +439,9 @@
                 <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 pb-2 border-bottom">
                     <div>
                         <h4 class="fw-bold mb-0" style="font-family: serif; color: #111;">Active Property Portfolio</h4>
-                        <p class="text-muted small mb-0">{{ $properties->total() ?? $properties->count() }} Verified Listings Handled by {{ $agent->name }}</p>
+                        @if(($properties->total() ?? $properties->count()) > 0)
+                            <p class="text-muted small mb-0">{{ $properties->total() ?? $properties->count() }} Verified Listings Handled by {{ $agent->name }}</p>
+                        @endif
                     </div>
                     <div class="d-flex align-items-center gap-2 mt-2 mt-sm-0">
                         <span class="badge bg-warning text-dark"><i class="fa-solid fa-certificate me-1"></i> DLD Trakheesi Permitted</span>
@@ -578,8 +572,8 @@
     <a href="https://api.whatsapp.com/send?phone={{ $waNumber }}&text={{ $waText }}" target="_blank" class="btn btn-success btn-sm flex-grow-1 fw-bold">
         <i class="fa-brands fa-whatsapp me-1"></i> WhatsApp
     </a>
-    @if($agent->phone)
-        <a href="tel:{{ $agent->phone }}" class="btn btn-light btn-sm flex-grow-1 fw-bold">
+    @if(!empty($telDigits))
+        <a href="tel:{{ $telDigits }}" class="btn btn-light btn-sm flex-grow-1 fw-bold">
             <i class="fa-solid fa-phone me-1"></i> Call
         </a>
     @endif

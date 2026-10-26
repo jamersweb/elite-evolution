@@ -453,7 +453,7 @@
                     <!-- Direct Contact Buttons -->
                     @php
                         $agentPhone = $property->user->phone ?? '+97145558899';
-                        $agentWhatsapp = $property->user->whatsapp_no ?? '971501234567';
+                        $agentWhatsapp = $property->user->whatsapp_no ?? '971569700771';
                         $waMsg = urlencode("Hello, I am interested in " . $property->title . " (Ref: " . ($property->reference_no ?? 'EERE-'.$property->id) . "). " . url('/detail/' . $property->slug));
                     @endphp
                     <div class="d-grid gap-2 mb-4">

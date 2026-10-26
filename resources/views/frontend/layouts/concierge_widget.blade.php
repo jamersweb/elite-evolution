@@ -161,7 +161,7 @@
             </div>
             <div class="d-flex justify-content-between align-items-center mt-2 px-1">
                 <small class="text-muted" style="font-size: 10px;">Automated Assistant</small>
-                <a href="https://wa.me/971501234567?text=Hello%20Elite%20Evolution,%20I%20would%20like%20to%20speak%20with%20a%20licensed%20advisor." target="_blank" class="text-decoration-none text-success fw-bold" style="font-size: 11px;">
+                <a href="https://wa.me/971569700771?text=Hello%20Elite%20Evolution,%20I%20would%20like%20to%20speak%20with%20a%20licensed%20advisor." target="_blank" class="text-decoration-none text-success fw-bold" style="font-size: 11px;">
                     <i class="fa-brands fa-whatsapp me-1"></i> WhatsApp Broker
                 </a>
             </div>
@@ -239,7 +239,7 @@
         .catch(function (err) {
             var indicator = document.getElementById('typingIndicator');
             if (indicator) indicator.remove();
-            appendMessage('Unable to connect to live inventory right now. Please connect directly via WhatsApp: +971 50 123 4567', false);
+            appendMessage('Unable to connect to live inventory right now. Please connect directly via WhatsApp: +971 56 970 0771', false);
         });
     }
 </script>

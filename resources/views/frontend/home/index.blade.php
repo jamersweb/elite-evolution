@@ -612,39 +612,7 @@
     </div>
 </section>
 
-{{-- Blog --}}
-@if($blogs->count())
-<section class="ee-section">
-    <div class="container">
-        <div class="ee-section-head">
-            <div>
-                <span class="ee-eyebrow">Market Insights</span>
-                <h2 class="ee-heading">The Blog</h2>
-            </div>
-            <a href="{{ url('/blog') }}" class="ee-link-arrow">All articles<i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-        <div class="row g-4">
-            @foreach($blogs as $blog)
-                <div class="col-md-6 col-lg-4">
-                    <article class="ee-post">
-                        <a href="{{ url('blog/' . $blog->slug) }}" class="ee-post-media">
-                            @if($blog->cover_image)
-                                <img src="{{ asset('images/media/' . $blog->cover_image) }}" alt="{{ $blog->title }}" loading="lazy">
-                            @else
-                                <img src="{{ asset('frontend/img/logo.png') }}" class="is-logo" alt="{{ $blog->title }}" loading="lazy">
-                            @endif
-                        </a>
-                        <div class="ee-post-date">{{ optional($blog->created_at)->format('d M Y') }}</div>
-                        <h3><a href="{{ url('blog/' . $blog->slug) }}">{{ $blog->title }}</a></h3>
-                        <p>{{ Str::limit(trim(html_entity_decode(strip_tags($blog->short_description))), 160) }}</p>
-                        <a href="{{ url('blog/' . $blog->slug) }}" class="ee-link-arrow">Read more<i class="fa-solid fa-arrow-right"></i></a>
-                    </article>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
+{{-- Blog temporarily hidden until current market insights are published --}}
 
 <script>
     document.querySelectorAll('#eeHomeSearch input[name="purpose"]').forEach(function (radio) {

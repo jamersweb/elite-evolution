@@ -175,7 +175,7 @@ class RealEstatePortalTest extends TestCase
         $this->assertStringNotContainsString('<script', $html);
     }
 
-    public function test_home_page_shows_listings_developers_and_blog()
+    public function test_home_page_shows_listings_and_developers()
     {
         $response = $this->get('/');
 
@@ -185,7 +185,10 @@ class RealEstatePortalTest extends TestCase
         $response->assertSee('Off-Plan Investments');
         $response->assertSee('Leading Developers');
         $response->assertSee('Nakheel');
-        $response->assertSee('Dubai Real Estate Market 2026');
+        // Blog section is temporarily hidden until current insights are published
+        $response->assertDontSee('The Blog');
+        $response->assertSee('Welcome to Elite Evolution');
+        $response->assertSee('wa.me/971569700771', false);
     }
 
     public function test_ai_concierge_chat_api_responds_with_inventory()

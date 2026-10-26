@@ -89,7 +89,7 @@
                     <li><a href="{{url('agents')}}" class="link">Licensed Brokers</a></li>
                     <li><a href="{{url('contact-us')}}" class="link">Contact Us</a></li>
                     <li><a href="{{url('career')}}" class="link">Careers</a></li>
-                    <li><a href="{{url('blog')}}" class="link">Market Insights</a></li>
+                    {{-- Market Insights hidden until current content is ready --}}
                 </ul>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 py-3">
@@ -113,6 +113,7 @@
         </div>
     </div>
     @include('frontend.layouts.concierge_widget')
+    @include('frontend.layouts.site_intro')
 </footer>
 <script>
     $(function() {
