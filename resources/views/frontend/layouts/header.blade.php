@@ -4,6 +4,19 @@
     $developers = \App\Models\Developer::whereStatus(1)->get();
 @endphp
 <head>
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('ee_intro_seen_v1') === '1') {
+                    document.documentElement.classList.add('ee-intro-seen');
+                } else {
+                    document.documentElement.classList.add('ee-intro-open');
+                }
+            } catch (e) {
+                document.documentElement.classList.add('ee-intro-open');
+            }
+        })();
+    </script>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
