@@ -191,6 +191,13 @@ class RealEstatePortalTest extends TestCase
         $response->assertSee('wa.me/971569700771', false);
     }
 
+    public function test_blog_routes_redirect_home_while_insights_are_hidden()
+    {
+        $this->get('/blog')->assertRedirect('/');
+        $this->get('/blog/navigating-the-dubai-property-market-insider-tips-for-apartment-buyers')
+            ->assertRedirect('/');
+    }
+
     public function test_ai_concierge_chat_api_responds_with_inventory()
     {
         $response = $this->postJson('/api/concierge/chat', [

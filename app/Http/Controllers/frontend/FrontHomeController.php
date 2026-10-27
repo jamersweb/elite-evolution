@@ -80,20 +80,20 @@ class FrontHomeController extends Controller
 
     public function blog()
     {
-        return view('frontend.blog.index');
+        // Temporarily redirect until current market insights are published
+        return redirect()->to('/');
     }
 
     public function post()
     {
-        $blogs = blog::where('status', 1)->latest()->paginate(9);
-        return view('frontend.post.index', compact('blogs'));
+        // Temporarily redirect until current market insights are published
+        return redirect()->to('/');
     }
 
     public function SinglePost($slug)
     {
-        $blog = blog::where('status', 1)->where('slug', $slug)->firstOrFail();
-        $latest_blogs = blog::where('status', 1)->where('id', '!=', $blog->id)->latest()->take(4)->get();
-        return view('frontend.post.show', compact('blog', 'latest_blogs'));
+        // Temporarily redirect until current market insights are published
+        return redirect()->to('/');
     }
 
     public function Listing(Request $request, $slug = 'all')
