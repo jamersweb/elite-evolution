@@ -384,20 +384,6 @@
 
         <!-- Right Sidebar (Real Community Landings & Popular Searches) -->
         <div class="col-lg-4">
-            <!-- DLD Trust Box -->
-            <div class="bg-white p-4 rounded border mb-4">
-                <div class="d-flex align-items-center gap-2 mb-3">
-                    <i class="fa-solid fa-shield-halved text-warning fa-2x"></i>
-                    <div>
-                        <h6 class="fw-bold mb-0">DLD Madmoun Compliance</h6>
-                        <small class="text-muted">100% Certified Property Advertisements</small>
-                    </div>
-                </div>
-                <p class="text-muted small mb-0">
-                    In compliance with the Dubai Land Department, all listings at Elite Evolution carry official Trakheesi permits and Madmoun QR codes to protect buyers and tenants.
-                </p>
-            </div>
-
             <!-- Popular Community Searches -->
             <div class="bg-white p-4 rounded border mb-4">
                 <h6 class="fw-bold text-uppercase pb-2 border-bottom mb-3" style="font-family: serif; letter-spacing: 0.5px;">Prime Communities</h6>
