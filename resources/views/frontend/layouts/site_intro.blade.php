@@ -14,7 +14,7 @@
         justify-content: center;
         margin: 0;
         padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        background: #111 url('{{ asset('frontend/video/property-welcome.jpg') }}') center / cover no-repeat;
+        background: #111 url('{{ asset('frontend/video/jumeirah-welcome.jpg') }}') center / cover no-repeat;
         color: #fff;
         opacity: 1;
         visibility: visible;
@@ -130,7 +130,7 @@
 </style>
 
 <div class="ee-intro" id="eeSiteIntro" role="dialog" aria-modal="true" aria-label="Elite Evolution introduction">
-    <video class="ee-intro__video" id="eeIntroVideo" muted loop playsinline preload="none" poster="{{ asset('frontend/video/property-welcome.jpg') }}" data-src="{{ asset('frontend/video/property-welcome.mp4') }}" aria-hidden="true" tabindex="-1"></video>
+    <video class="ee-intro__video" id="eeIntroVideo" muted loop playsinline preload="none" poster="{{ asset('frontend/video/jumeirah-welcome.jpg') }}" data-src="{{ asset('frontend/video/jumeirah-welcome.mp4') }}" aria-hidden="true" tabindex="-1"></video>
     <div class="ee-intro__inner">
         <img
             class="ee-intro__logo"
