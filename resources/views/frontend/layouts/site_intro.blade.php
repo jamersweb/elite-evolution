@@ -14,9 +14,7 @@
         justify-content: center;
         margin: 0;
         padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        background:
-            linear-gradient(160deg, rgba(8, 8, 8, 0.94) 0%, rgba(18, 16, 12, 0.9) 45%, rgba(10, 10, 10, 0.96) 100%),
-            url('{{ asset('frontend/img/banner_update.jpg') }}') center / cover no-repeat;
+        background: #111 url('{{ asset('frontend/video/property-welcome.jpg') }}') center / cover no-repeat;
         color: #fff;
         opacity: 1;
         visibility: visible;
@@ -48,6 +46,23 @@
         visibility: hidden !important;
         pointer-events: none !important;
     }
+    .ee-intro__video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: -2;
+    }
+    .ee-intro::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(160deg, rgba(8, 8, 8, .65), rgba(18, 16, 12, .58) 45%, rgba(10, 10, 10, .75));
+        pointer-events: none;
+        z-index: -1;
+    }
     .ee-intro__inner {
         text-align: center;
         max-width: 560px;
@@ -76,70 +91,6 @@
         text-transform: uppercase;
         margin-bottom: 14px;
     }
-    .ee-intro__title {
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: clamp(28px, 5vw, 42px);
-        font-weight: 400;
-        line-height: 1.2;
-        margin: 0 0 14px;
-        letter-spacing: 0.5px;
-        color: #fff;
-    }
-    .ee-intro__lead {
-        color: rgba(255, 255, 255, 0.78);
-        font-size: 15px;
-        line-height: 1.6;
-        margin: 0 auto 28px;
-        max-width: 420px;
-    }
-    .ee-intro__actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        justify-content: center;
-        align-items: center;
-    }
-    .ee-intro__btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 13px 26px;
-        border-radius: 6px;
-        font-weight: 700;
-        font-size: 13px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        text-decoration: none;
-        border: 2px solid transparent;
-        cursor: pointer;
-        transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    }
-    .ee-intro__btn:hover {
-        transform: translateY(-2px);
-        color: #fff;
-        text-decoration: none;
-    }
-    .ee-intro__btn--gold {
-        background: #b38b47;
-        color: #fff;
-        border-color: #b38b47;
-    }
-    .ee-intro__btn--gold:hover {
-        background: #9a7538;
-        color: #fff;
-        border-color: #9a7538;
-    }
-    .ee-intro__btn--ghost {
-        background: transparent;
-        color: #fff;
-        border-color: rgba(255, 255, 255, 0.45);
-    }
-    .ee-intro__btn--ghost:hover {
-        background: #fff;
-        color: #111;
-        border-color: #fff;
-    }
     .ee-intro__skip {
         display: inline-block;
         margin: 22px auto 0;
@@ -167,8 +118,7 @@
     @media (prefers-reduced-motion: reduce) {
         .ee-intro,
         .ee-intro__inner,
-        .ee-intro__logo,
-        .ee-intro__btn {
+        .ee-intro__logo {
             animation: none !important;
             transition: none !important;
         }
@@ -179,7 +129,8 @@
     }
 </style>
 
-<div class="ee-intro" id="eeSiteIntro" role="dialog" aria-modal="true" aria-labelledby="eeIntroTitle">
+<div class="ee-intro" id="eeSiteIntro" role="dialog" aria-modal="true" aria-label="Elite Evolution introduction">
+    <video class="ee-intro__video" id="eeIntroVideo" muted loop playsinline preload="none" poster="{{ asset('frontend/video/property-welcome.jpg') }}" data-src="{{ asset('frontend/video/property-welcome.mp4') }}" aria-hidden="true" tabindex="-1"></video>
     <div class="ee-intro__inner">
         <img
             class="ee-intro__logo"
@@ -188,18 +139,6 @@
             alt="Elite Evolution Real Estate"
         >
         <span class="ee-intro__eyebrow">Dubai Luxury Real Estate</span>
-        <h2 class="ee-intro__title" id="eeIntroTitle">Welcome to Elite Evolution</h2>
-        <p class="ee-intro__lead">
-            Private advisory for prime Dubai residences — licensed brokers, verified inventory, and discreet client care.
-        </p>
-        <div class="ee-intro__actions">
-            <button type="button" class="ee-intro__btn ee-intro__btn--gold" id="eeIntroEnter">
-                Enter Site
-            </button>
-            <a href="https://wa.me/971569700771?text=Hello%20Elite%20Evolution%2C%20I%20would%20like%20to%20speak%20with%20a%20licensed%20advisor." target="_blank" rel="noopener" class="ee-intro__btn ee-intro__btn--ghost" id="eeIntroWhatsApp">
-                <i class="fa-brands fa-whatsapp"></i> Speak to an Advisor
-            </a>
-        </div>
         <button type="button" class="ee-intro__skip" id="eeIntroSkip">Skip intro</button>
     </div>
 </div>
@@ -209,6 +148,7 @@
     var KEY = 'ee_intro_seen_v1';
     var intro = document.getElementById('eeSiteIntro');
     if (!intro) return;
+    var video = document.getElementById('eeIntroVideo');
 
     // Escape footer stacking context so the overlay covers the navbar
     if (intro.parentNode !== document.body) {
@@ -216,6 +156,7 @@
     }
 
     function markSeen() {
+        if (video) video.pause();
         try { localStorage.setItem(KEY, '1'); } catch (e) {}
         document.documentElement.classList.add('ee-intro-seen');
         document.documentElement.classList.remove('ee-intro-open');
@@ -239,18 +180,18 @@
 
     document.documentElement.classList.add('ee-intro-open');
     intro.removeAttribute('hidden');
-
-    var enterBtn = document.getElementById('eeIntroEnter');
-    var skipBtn = document.getElementById('eeIntroSkip');
-    var waBtn = document.getElementById('eeIntroWhatsApp');
-
-    if (enterBtn) enterBtn.addEventListener('click', dismissIntro);
-    if (skipBtn) skipBtn.addEventListener('click', dismissIntro);
-    if (waBtn) {
-        waBtn.addEventListener('click', function () {
-            markSeen();
-        });
+    // Load the video only for visitors who see the intro and allow motion.
+    if (video && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        video.muted = true;
+        video.src = video.dataset.src;
+        var playback = video.play();
+        if (playback) playback.catch(function () { /* Keep the poster if autoplay is blocked. */ });
     }
+
+    var skipBtn = document.getElementById('eeIntroSkip');
+
+    if (skipBtn) skipBtn.addEventListener('click', dismissIntro);
+
 
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !intro.classList.contains('is-hidden')) {

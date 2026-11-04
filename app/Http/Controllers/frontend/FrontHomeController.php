@@ -51,7 +51,6 @@ class FrontHomeController extends Controller
             ->take(4)
             ->get();
 
-        $data['developers'] = Developer::where('status', 1)->take(8)->get();
         $data['agent'] = User::agents()->where('status', 'active')->take(6)->get();
 
         $data['blogs'] = blog::with('featuredImage')->where('status', 1)->latest()->take(3)->get();

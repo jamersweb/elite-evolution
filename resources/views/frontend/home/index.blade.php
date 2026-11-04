@@ -247,28 +247,6 @@
     .ee-tile:hover .ee-tile-body span i { transform: translateX(4px); }
     .ee-tile-body span i { transition: transform .2s; margin-left: 6px; }
 
-    /* Developers */
-    .ee-dev {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 110px;
-        padding: 20px;
-        background: #fff;
-        border: 1px solid var(--ee-line);
-        border-radius: 10px;
-        text-decoration: none;
-        color: var(--ee-ink);
-        font-family: Avenir-Heavy;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        text-align: center;
-        transition: border-color .2s, box-shadow .2s;
-    }
-    .ee-dev:hover { border-color: var(--ee-gold); box-shadow: 0 10px 24px rgba(0,0,0,.06); color: var(--ee-gold); }
-    .ee-dev img { max-height: 60px; max-width: 100%; object-fit: contain; filter: grayscale(1); opacity: .8; transition: filter .2s, opacity .2s; }
-    .ee-dev:hover img { filter: none; opacity: 1; }
-
     /* Agents */
     .ee-agent { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid var(--ee-line); height: 100%; display: flex; flex-direction: column; }
     .ee-agent-photo { display: block; height: 320px; background: #161616; overflow: hidden; }
@@ -516,34 +494,6 @@
             @foreach($offplan_projects as $item)
                 <div class="col-md-6 col-lg-3">
                     @include('frontend.snippets.property-card', ['item' => $item])
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-@endif
-
-{{-- Developers --}}
-@if($developers->count())
-<section class="ee-section ee-section-cream">
-    <div class="container">
-        <div class="ee-section-head">
-            <div>
-                <span class="ee-eyebrow">Trusted Partners</span>
-                <h2 class="ee-heading">Leading Developers</h2>
-            </div>
-        </div>
-        <div class="row g-3">
-            @foreach($developers as $developer)
-                <div class="col-6 col-md-4 col-lg-3">
-                    <a href="{{ url('developer', $developer->slug) }}" class="ee-dev" title="{{ $developer->name }}">
-                        @if($developer->image)
-                            <img src="{{ asset('images/media/developers/' . $developer->image) }}" alt="{{ $developer->name }}" loading="lazy"
-                                 onerror="this.replaceWith(document.createTextNode(this.alt))">
-                        @else
-                            {{ $developer->name }}
-                        @endif
-                    </a>
                 </div>
             @endforeach
         </div>
