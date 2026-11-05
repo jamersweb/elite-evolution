@@ -114,7 +114,6 @@
     </div>
     @include('frontend.layouts.concierge_widget')
 </footer>
-@include('frontend.layouts.site_intro')
 <script>
     $(function() {
         // Owl Carousel

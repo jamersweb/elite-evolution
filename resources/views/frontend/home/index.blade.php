@@ -84,14 +84,25 @@
         min-height: 640px;
         display: flex;
         align-items: center;
-        background: url('{{ asset('frontend/img/banner_update.jpg') }}') center / cover no-repeat;
+        isolation: isolate;
+        background: #222 url('{{ asset('frontend/video/jumeirah-welcome.jpg') }}') center / cover no-repeat;
         padding: 120px 0 150px;
+    }
+    .ee-hero__video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+        z-index: -2;
     }
     .ee-hero::before {
         content: "";
         position: absolute;
         inset: 0;
         background: linear-gradient(180deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.45) 45%, rgba(0,0,0,.7) 100%);
+        z-index: -1;
     }
     .ee-hero .container { position: relative; z-index: 1; }
     .ee-hero h1 {
@@ -304,6 +315,9 @@
 
 {{-- Hero --}}
 <section class="ee-hero">
+    <video class="ee-hero__video" autoplay muted loop playsinline aria-hidden="true" poster="{{ asset('frontend/video/jumeirah-welcome.jpg') }}">
+        <source media="(prefers-reduced-motion: no-preference)" src="{{ asset('frontend/video/jumeirah-welcome.mp4') }}" type="video/mp4">
+    </video>
     <div class="container text-center">
         <span class="ee-eyebrow">RERA Licensed Dubai Brokerage</span>
         <h1>Elevate Your Living Experience with <span>Elite Evolution</span></h1>
