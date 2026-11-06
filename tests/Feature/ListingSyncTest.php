@@ -79,6 +79,7 @@ class ListingSyncTest extends TestCase
         $this->assertSame('Jumeirah Islands', $payload['location']['name']);
         $this->assertArrayNotHasKey('source_payload', $property->toArray());
         $this->assertSame('Jumeirah Islands', $property->community);
+        $this->get('/listing/rent')->assertOk()->assertSee($property->title);
         $this->assertSame(2, Property::where('sync_source', 'propertyfinder')->count());
     }
 }

@@ -120,6 +120,17 @@
     .filter-chip a:hover {
         color: #000;
     }
+    .listing-pager__count { margin: 0 0 12px; color: #665e52; font-size: 14px; }
+    .listing-pager .pagination { justify-content: center; flex-wrap: wrap; gap: 6px; margin: 0; }
+    .listing-pager .pagination .page-link {
+        display: grid; place-items: center; min-width: 44px; min-height: 44px;
+        margin: 0; padding: 6px 12px; border: 1px solid #ddd5c7; border-radius: 6px;
+        background: #fff; color: #29251f; text-decoration: none; font-variant-numeric: tabular-nums;
+    }
+    .listing-pager .page-item a.page-link:hover { background: #f7f3eb; border-color: #b38b47; }
+    .listing-pager .page-item.active .page-link { background: #24211d; color: #efcf94; border-color: #b38b47; font-weight: 700; }
+    .listing-pager .page-item.disabled .page-link { background: #faf9f6; color: #a49d91; border-color: #e8e3da; }
+    .listing-pager .page-link:focus-visible { outline: 2px solid #896626; outline-offset: 2px; box-shadow: none; }
 </style>
 
 <!-- Top Title Bar -->
@@ -367,9 +378,14 @@
                     @endforeach
                 </div>
 
-                <div class="mt-5 d-flex justify-content-center">
-                    {{ $property->links() }}
-                </div>
+                @if($property->hasPages())
+                    <div class="listing-pager mt-5 text-center">
+                        <p class="listing-pager__count">Showing {{ $property->firstItem() }} to {{ $property->lastItem() }} of {{ $property->total() }} results</p>
+                        <div class="d-flex justify-content-center">
+                            {{ $property->onEachSide(1)->links('pagination::bootstrap-4') }}
+                        </div>
+                    </div>
+                @endif
             @else
                 <div class="bg-white p-5 rounded border text-center my-4">
                     <i class="fa-solid fa-house-chimney-crack fa-3x text-muted mb-3"></i>

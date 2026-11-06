@@ -89,6 +89,7 @@ class ListingImporter
             'parkings' => $row['parkingSlots'] ?? null, 'cheques' => data_get($row, 'price.numberOfCheques'),
             'trakheesi_permit_no' => data_get($row, 'compliance.listingAdvertisementNumber'),
             'is_verified' => ($row['verificationStatus'] ?? null) === 'verified',
+            'country' => $location['country'] ?? 'United Arab Emirates',
             'state' => $location['state'] ?? (isset($row['uaeEmirate']) ? Str::title(str_replace('_', ' ', $row['uaeEmirate'])) : null),
             'community' => $location['community'] ?? null, 'building' => $location['building'] ?? null,
             'sub_community' => $location['sub_community'] ?? null, 'location' => $location['name'] ?? null,

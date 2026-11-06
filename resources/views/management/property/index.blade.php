@@ -58,7 +58,10 @@ Property - {{config('app.dashboard')}}
             <small class="mt-2">Automatic sync every 12 hours</small>
         @endif
         @if($lastSync = Cache::get('pf-last-sync'))
-            <small>Last sync attempt: {{ $lastSync['time'] }} UTC · {{ $lastSync['message'] }}</small>
+            <div class="mt-2">
+                <small class="d-block"><strong>Last sync attempt:</strong> {{ $lastSync['time'] }} UTC</small>
+                <small class="d-block"><strong>Result:</strong> {{ str_replace('Applied (propertyfinder): ', 'Sync completed. ', $lastSync['message']) }}</small>
+            </div>
         @endif
         @if(session('pf_sync_message'))
             <div role="status" class="mt-2 alert {{ session('pf_sync_failed') ? 'alert-danger' : 'alert-success' }}">{{ session('pf_sync_message') }}</div>
