@@ -66,6 +66,18 @@ class AuthorizationTest extends TestCase
         }
     }
 
+    public function test_only_admins_can_sync_and_inspect_property_finder_records()
+    {
+        $property = Property::firstOrFail();
+        $property->forceFill(['sync_source' => 'propertyfinder', 'sync_id' => 'example',
+            'source_payload' => json_encode(['listing' => ['ownerName' => 'Private owner record'], 'location' => null])])->save();
+        $this->actingAs($this->agent())->post(route('property-finder.sync'))->assertForbidden();
+        $this->get(route('property-finder.details', $property))->assertForbidden();
+        $admin = User::where('email', 'admin@eliteevolutionrealestate.ae')->firstOrFail();
+        $this->actingAs($admin)->get(route('property-finder.details', $property))->assertOk()->assertSee('Private owner record');
+        $this->get(route('property.index'))->assertOk()->assertSee('Sync Property Finder listings');
+    }
+
     public function test_registered_user_cannot_create_an_admin_account()
     {
         $user = $this->registeredUser();

@@ -101,8 +101,8 @@
             <div class="map-listings-sidebar">
                 @forelse($properties as $item)
                     @php
-                        $img = $item->featuredImage ? asset('images/media/' . $item->featuredImage->image) : asset('management/images/11.png');
-                        $priceStr = $item->type == 'rent' ? 'AED ' . number_format($item->yearly_rent ?: $item->price) . ' /yr' : 'AED ' . number_format($item->price);
+                        $img = $item->featuredImage ? $item->featuredImage->display_url : asset('management/images/11.png');
+                        $priceStr = $item->type == 'rent' ? 'AED ' . number_format($item->yearly_rent ?: $item->price) . ' /' . $item->rent_unit : 'AED ' . number_format($item->price);
                     @endphp
                     <div class="map-card" onclick="focusProperty({{ $item->lat }}, {{ $item->lng }}, '{{ addslashes($item->title) }}')">
                         <div class="row g-0">
@@ -155,11 +155,11 @@
                     lat: {{ (float)$prop->lat }},
                     lng: {{ (float)$prop->lng }},
                     community: "{{ addslashes($prop->community ?? 'Dubai') }}",
-                    price: "{{ $prop->type == 'rent' ? 'AED ' . number_format($prop->yearly_rent ?: $prop->price) . '/year' : 'AED ' . number_format($prop->price) }}",
+                    price: "{{ $prop->type == 'rent' ? 'AED ' . number_format($prop->yearly_rent ?: $prop->price) . '/' . $prop->rent_unit : 'AED ' . number_format($prop->price) }}",
                     beds: "{{ $prop->bedrooms }}",
                     baths: "{{ $prop->bathrooms }}",
                     ref: "{{ $prop->reference_no ?? 'EERE' }}",
-                    image: "{{ $prop->featuredImage ? asset('images/media/' . $prop->featuredImage->image) : asset('management/images/11.png') }}",
+                    image: "{{ $prop->featuredImage ? $prop->featuredImage->display_url : asset('management/images/11.png') }}",
                     url: "{{ url('detail', $prop->slug) }}"
                 },
                 @endif

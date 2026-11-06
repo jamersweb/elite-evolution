@@ -68,7 +68,7 @@ class FrontHomeController extends Controller
     public function DeveloperProperty($slug, $propertySlug)
     {
         $developer = Developer::whereSlug($slug)->firstOrFail();
-        $property = Property::with(['developer', 'user', 'media'])->whereSlug($propertySlug)->firstOrFail();
+        $property = Property::with(['developer', 'user', 'media'])->where('status', 1)->where('developer_id', $developer->id)->whereSlug($propertySlug)->firstOrFail();
         return view('frontend.developers.property-detail', compact('developer', 'property'));
     }
 
@@ -252,6 +252,7 @@ class FrontHomeController extends Controller
     {
         $property = Property::with(['developer', 'user', 'media'])
             ->whereSlug($slug)
+            ->where('status', 1)
             ->firstOrFail();
 
         // Real similar listings in same community or property type

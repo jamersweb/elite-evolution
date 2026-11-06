@@ -7,7 +7,7 @@
 @php
     $collectionCover = function ($items) {
         $first = $items->first(function ($p) { return $p->featuredImage && $p->featuredImage->image; });
-        return $first ? asset('images/media/' . $first->featuredImage->image) : asset('frontend/img/banner_update.jpg');
+        return $first ? $first->featuredImage->display_url : asset('frontend/img/banner_update.jpg');
     };
     $priceSteps = [100000 => '100K', 250000 => '250K', 500000 => '500K', 1000000 => '1M', 2000000 => '2M', 5000000 => '5M', 10000000 => '10M', 20000000 => '20M', 50000000 => '50M'];
 @endphp

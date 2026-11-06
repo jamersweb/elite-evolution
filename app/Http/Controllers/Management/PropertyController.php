@@ -37,6 +37,24 @@ class PropertyController extends Controller
         }
     }
 
+    public function syncPropertyFinder()
+    {
+        abort_unless($this->isAdmin(), 403);
+        set_time_limit(0);
+        $status = \Illuminate\Support\Facades\Artisan::call('listings:sync', [
+            '--property-finder' => true, '--apply' => true, '--withdraw' => config('listing_sync.withdraw'),
+        ]);
+        return redirect()->route('property.index')->with('pf_sync_message', trim(\Illuminate\Support\Facades\Artisan::output()))
+            ->with('pf_sync_failed', $status !== 0);
+    }
+
+    public function propertyFinderDetails(Property $property)
+    {
+        abort_unless($this->isAdmin(), 403);
+        abort_unless($property->sync_source === 'propertyfinder' && $property->source_payload, 404);
+        return view('management.property.source', compact('property'));
+    }
+
     private function uploadRules()
     {
         return [

@@ -15,6 +15,8 @@ class Property extends Model
     use HasFactory;
     public $table = "properties";
 
+    protected $hidden = ['source_payload'];
+
     protected $fillable = [
         'status',
         'user_id',
@@ -117,6 +119,11 @@ class Property extends Model
     public function agent()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getRentUnitAttribute()
+    {
+        return ['daily' => 'day', 'weekly' => 'week', 'monthly' => 'month', 'yearly' => 'year'][$this->rent_period] ?? 'year';
     }
 
     public function getDescriptionHtmlAttribute()

@@ -3,7 +3,7 @@
     $isOffplan = !$isRent && ($item->completion_status == 'Off-plan' || $item->is_new_project);
     $statusText = $isRent ? 'Luxury Rental' : ($isOffplan ? 'Off-Plan' : ($item->completion_status ?? 'Ready'));
     $cover = $item->featuredImage && $item->featuredImage->image
-        ? asset('images/media/' . $item->featuredImage->image)
+        ? $item->featuredImage->display_url
         : asset('frontend/img/banner_update.jpg');
 @endphp
 <article class="ee-prop-card">
@@ -18,8 +18,8 @@
     </a>
     <div class="ee-prop-body">
         <div class="ee-prop-price">
-            @if($isRent)
-                AED {{ number_format($item->yearly_rent ?: $item->price) }}<small>/year</small>
+            @if($isRent && ($item->yearly_rent || $item->price))
+                AED {{ number_format($item->yearly_rent ?: $item->price) }}<small>/{{ $item->rent_unit }}</small>
             @elseif($item->price)
                 AED {{ number_format($item->price) }}
             @else

@@ -1206,7 +1206,7 @@
                                         <div class="upload__img-wrap">
                                             @foreach($media as $image)
                                                 <div class="upload__img-box" >
-                                                    <div style="background-image: url({{asset('images/media/').'/'.$image->image}});" data-number="4" data-file="Rectangle 7 (7).png" class="img-bg">
+                                                    <div style="background-image: url({{$image->display_url}});" data-number="4" data-file="Rectangle 7 (7).png" class="img-bg">
                                                         <div class="upload__img-close existing" data-id="{{$image->id}}">
 
                                                         </div>

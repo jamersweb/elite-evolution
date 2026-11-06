@@ -15,7 +15,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        if (config('listing_sync.enabled')) {
+            $command = 'listings:sync --property-finder --apply'.(config('listing_sync.withdraw') ? ' --withdraw' : '');
+            $schedule->command($command)->twiceDaily(0, 12)->withoutOverlapping(60);
+        }
     }
 
     /**

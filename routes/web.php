@@ -104,6 +104,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('admin/roles', App\Http\Controllers\RoleController::class);
     Route::resource('admin/permissions', App\Http\Controllers\PermissionsController::class);
     Route::resource('admin/developer', App\Http\Controllers\Management\DeveloperController::class);
+    Route::post('admin/property-finder/sync', [App\Http\Controllers\Management\PropertyController::class, 'syncPropertyFinder'])->name('property-finder.sync');
+    Route::get('admin/property-finder/{property}/details', [App\Http\Controllers\Management\PropertyController::class, 'propertyFinderDetails'])->name('property-finder.details');
     Route::resource('admin/property', App\Http\Controllers\Management\PropertyController::class);
     Route::post('admin/image-delete', [App\Http\Controllers\Management\PropertyController::class, 'imageDelete']);
     Route::resource('admin/lead', App\Http\Controllers\Management\LeadController::class);

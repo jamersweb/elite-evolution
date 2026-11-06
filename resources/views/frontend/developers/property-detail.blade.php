@@ -106,7 +106,7 @@
             @foreach($property->media() as $media)
                 <div class="mySlides">
                     <div class="numbertext">1 / 6</div>
-                    <img src="{{asset('/images/media/'.'/'.$media->image)}}" class="slider-img">
+                    <img src="{{$media->display_url}}" class="slider-img">
                 </div>
             @endforeach
 
@@ -115,7 +115,7 @@
             <div class="row">
                 @foreach($property->media() as $key => $media)
                     <div class="column">
-                        <img class="demo cursor" src="{{asset('/images/media/'.'/'.$media->image)}}" style="width:100%; height: 130px; border-radius: 10px; object-fit: cover;"
+                        <img class="demo cursor" src="{{$media->display_url}}" style="width:100%; height: 130px; border-radius: 10px; object-fit: cover;"
                              onclick="currentSlide({{$key+1}})" alt="The Woods">
                     </div>
                 @endforeach

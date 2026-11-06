@@ -455,7 +455,7 @@
                                 <div class="listing-card-premium">
                                     <div class="position-relative">
                                         @if($property->featuredImage)
-                                            <img src="{{ asset('images/media/' . $property->featuredImage->image) }}" class="listing-thumb" alt="{{ $property->title }}">
+                                            <img src="{{ $property->featuredImage->display_url }}" class="listing-thumb" alt="{{ $property->title }}">
                                         @else
                                             <img src="{{ asset('management/images/11.png') }}" class="listing-thumb" alt="{{ $property->title }}">
                                         @endif
@@ -475,10 +475,12 @@
                                         <div class="d-flex justify-content-between align-items-baseline mb-2">
                                             <span class="text-uppercase small text-muted fw-semibold">{{ $property->property_type }}</span>
                                             <h5 class="fw-bold text-dark mb-0 font-monospace">
-                                                @if($property->type == 'rent')
-                                                    AED {{ number_format($property->yearly_rent ?: $property->price) }}<small class="text-muted fs-6">/yr</small>
-                                                @else
+                                                @if($property->type == 'rent' && ($property->yearly_rent || $property->price))
+                                                    AED {{ number_format($property->yearly_rent ?: $property->price) }}<small class="text-muted fs-6">/{{ $property->rent_unit }}</small>
+                                                @elseif($property->price)
                                                     AED {{ number_format($property->price) }}
+                                                @else
+                                                    Price on Request
                                                 @endif
                                             </h5>
                                         </div>

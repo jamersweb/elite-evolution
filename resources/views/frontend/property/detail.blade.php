@@ -191,8 +191,8 @@
             <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
                 <div class="d-flex justify-content-lg-end align-items-center gap-3">
                     <div>
-                        @if($property->type == 'rent')
-                            <h2 class="fw-bold mb-0 text-color">AED {{number_format($property->yearly_rent ?? $property->price)}} <span class="fs-16 text-muted fw-normal">/ Year</span></h2>
+                        @if($property->type == 'rent' && ($property->yearly_rent || $property->price))
+                            <h2 class="fw-bold mb-0 text-color">AED {{number_format($property->yearly_rent ?? $property->price)}} <span class="fs-16 text-muted fw-normal">/ {{ ucfirst($property->rent_unit) }}</span></h2>
                             @if($property->cheques)
                                 <small class="text-muted">{{$property->cheques}} Cheques Accepted</small>
                             @endif
@@ -221,13 +221,13 @@
                 @if($mediaList->count() > 0)
                     <div class="col-lg-8">
                         <button type="button" class="ee-gallery-hit border-0 bg-transparent p-0 w-100" data-ee-gallery-index="0">
-                            <img src="{{asset('/images/media/' . $mediaList->first()->image)}}" class="img-fluid w-100 rounded-3" style="max-height: 520px; object-fit: cover;" alt="{{$property->title}}">
+                            <img src="{{$mediaList->first()->display_url}}" class="img-fluid w-100 rounded-3" style="max-height: 520px; object-fit: cover;" alt="{{$property->title}}">
                         </button>
                     </div>
                     <div class="col-lg-4 d-none d-lg-flex flex-column gap-2">
                         @foreach($mediaList->skip(1)->take(2) as $sideIndex => $imgItem)
                             <button type="button" class="ee-gallery-hit border-0 bg-transparent p-0" data-ee-gallery-index="{{ $sideIndex + 1 }}">
-                                <img src="{{asset('/images/media/' . $imgItem->image)}}" class="img-fluid w-100 rounded-3" style="height: 255px; object-fit: cover;" alt="{{$property->title}}">
+                                <img src="{{$imgItem->display_url}}" class="img-fluid w-100 rounded-3" style="height: 255px; object-fit: cover;" alt="{{$property->title}}">
                             </button>
                         @endforeach
                     </div>
@@ -236,7 +236,7 @@
                             <div class="ee-gallery-thumbs">
                                 @foreach($mediaList->skip(3) as $thumbIndex => $imgItem)
                                     <button type="button" class="ee-gallery-hit border-0 bg-transparent p-0" data-ee-gallery-index="{{ $thumbIndex + 3 }}">
-                                        <img src="{{asset('/images/media/' . $imgItem->image)}}" alt="{{$property->title}}">
+                                        <img src="{{$imgItem->display_url}}" alt="{{$property->title}}">
                                     </button>
                                 @endforeach
                             </div>
@@ -347,6 +347,9 @@
                     </div>
                 </div>
 
+                @foreach((json_decode($property->sync_details ?? '{}', true)['floor_plans'] ?? []) as $plan)
+                    <a href="{{ $plan }}" target="_blank" rel="noopener">Floor plan {{ $loop->iteration }}</a>
+                @endforeach
                 @if($property->view36 || $property->video)
                 <div class="bg-white p-4 rounded-3 border mb-4">
                     <h5 class="fw-bold text-uppercase border-bottom pb-3 mb-3"><i class="fas fa-vr-cardboard text-color me-2"></i>Tour the Villa</h5>
@@ -522,7 +525,7 @@
                             <div class="card h-100 border-0 shadow-sm rounded-3 overflow-hidden">
                                 <div class="position-relative">
                                     <a href="{{url('/detail/' . $sim->slug)}}">
-                                        <img src="{{$sim->featuredImage ? asset('images/media/' . $sim->featuredImage->image) : asset('gallery.png')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{$sim->title}}">
+                                        <img src="{{$sim->featuredImage ? $sim->featuredImage->display_url : asset('gallery.png')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{$sim->title}}">
                                     </a>
                                     <span class="badge badge-luxury position-absolute top-0 start-0 m-2">{{$sim->completion_status ?? 'Ready'}}</span>
                                 </div>
@@ -566,13 +569,13 @@
             </div>
             <div class="ee-gallery-stage">
                 <button type="button" class="ee-gallery-nav prev" id="eeGalleryPrev" aria-label="Previous photo"><i class="fas fa-chevron-left"></i></button>
-                <img id="eeGalleryImage" src="{{ asset('/images/media/' . $mediaList->first()->image) }}" alt="{{ $property->title }}">
+                <img id="eeGalleryImage" src="{{ $mediaList->first()->display_url }}" alt="{{ $property->title }}">
                 <button type="button" class="ee-gallery-nav next" id="eeGalleryNext" aria-label="Next photo"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="ee-gallery-modal-thumbs" id="eeGalleryThumbs">
                 @foreach($mediaList as $modalIndex => $imgItem)
                     <button type="button" data-ee-gallery-index="{{ $modalIndex }}">
-                        <img src="{{ asset('/images/media/' . $imgItem->image) }}" alt="{{ $property->title }} photo {{ $modalIndex + 1 }}">
+                        <img src="{{ $imgItem->display_url }}" alt="{{ $property->title }} photo {{ $modalIndex + 1 }}">
                     </button>
                 @endforeach
             </div>
@@ -581,7 +584,7 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var photos = @json($mediaList->map(function ($item) { return asset('/images/media/' . $item->image); })->values());
+        var photos = @json($mediaList->map(function ($item) { return $item->display_url; })->values());
         var modalEl = document.getElementById('eeGalleryModal');
         if (!modalEl || !photos.length || typeof bootstrap === 'undefined') return;
 

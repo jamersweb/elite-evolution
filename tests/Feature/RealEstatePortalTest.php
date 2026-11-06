@@ -175,7 +175,7 @@ class RealEstatePortalTest extends TestCase
         $this->assertStringNotContainsString('<script', $html);
     }
 
-    public function test_home_page_shows_listings_and_developers()
+    public function test_home_page_shows_listings_and_video_hero()
     {
         $response = $this->get('/');
 
@@ -183,11 +183,11 @@ class RealEstatePortalTest extends TestCase
         $response->assertSee('Featured Properties');
         $response->assertSee('Signature Beachfront Villa, Palm Jumeirah');
         $response->assertSee('Off-Plan Investments');
-        $response->assertSee('Leading Developers');
+        $response->assertDontSee('Leading Developers');
         $response->assertSee('Nakheel');
         // Blog section is temporarily hidden until current insights are published
         $response->assertDontSee('The Blog');
-        $response->assertSee('Welcome to Elite Evolution');
+        $response->assertSee('jumeirah-welcome.mp4');
         $response->assertSee('wa.me/971569700771', false);
     }
 

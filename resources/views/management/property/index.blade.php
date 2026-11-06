@@ -48,6 +48,23 @@ Property - {{config('app.dashboard')}}
     }
 </style>
 
+@if(auth()->user()->hasRole(['Admin', 'admin']))
+    <div class="card p-3">
+        <form method="POST" action="{{ route('property-finder.sync') }}">
+            @csrf
+            <button class="btn btn-primary" type="submit">Sync Property Finder listings</button>
+        </form>
+        @if(config('listing_sync.enabled'))
+            <small class="mt-2">Automatic sync every 12 hours</small>
+        @endif
+        @if($lastSync = Cache::get('pf-last-sync'))
+            <small>Last sync attempt: {{ $lastSync['time'] }} UTC · {{ $lastSync['message'] }}</small>
+        @endif
+        @if(session('pf_sync_message'))
+            <div role="status" class="mt-2 alert {{ session('pf_sync_failed') ? 'alert-danger' : 'alert-success' }}">{{ session('pf_sync_message') }}</div>
+        @endif
+    </div>
+@endif
 <div class="row ">
     <div class="col-12 ">
         <div class="card">
@@ -185,6 +202,9 @@ Property - {{config('app.dashboard')}}
 
                         {{$properties->title}}
                         </a>
+                        @if($properties->sync_source === 'propertyfinder' && auth()->user()->hasRole(['Admin', 'admin']))
+                            <a class="d-block small" href="{{ route('property-finder.details', $properties) }}">Property Finder details</a>
+                        @endif
                         </td>
                     <td>
                         <h5>

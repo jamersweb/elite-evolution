@@ -282,7 +282,7 @@
                                 <div class="prop-img-wrap">
                                     <a href="{{ url('detail', $item->slug) }}">
                                         @if($featured && $featured->image)
-                                            <img src="{{ asset('images/media/' . $featured->image) }}" class="prop-img" alt="{{ $item->title }}">
+                                            <img src="{{ $featured->display_url }}" class="prop-img" alt="{{ $item->title }}">
                                         @else
                                             <img src="{{ asset('management/images/11.png') }}" class="prop-img" alt="{{ $item->title }}">
                                         @endif
@@ -309,8 +309,8 @@
                                     <div class="d-flex justify-content-between align-items-baseline mb-1">
                                         <span class="text-uppercase small text-muted">{{ $item->property_type }}</span>
                                         <h5 class="fw-bold text-dark mb-0" style="font-family: serif;">
-                                            @if($item->type == 'rent')
-                                                AED {{ number_format($item->yearly_rent ?: $item->price) }}<small class="text-muted fs-6">/year</small>
+                                            @if($item->type == 'rent' && ($item->yearly_rent || $item->price))
+                                                AED {{ number_format($item->yearly_rent ?: $item->price) }}<small class="text-muted fs-6">/{{ $item->rent_unit }}</small>
                                             @elseif($item->price)
                                                 AED {{ number_format($item->price) }}
                                             @else
