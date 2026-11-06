@@ -107,10 +107,6 @@
                     <a class="nav-link font-weihgt text-dark" href="{{url('/agents')}}">Brokers & Agents</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link font-weihgt text-dark" href="{{url('/map-view')}}"><i class="fa-solid fa-map-location-dot me-1 text-warning"></i> Map Search</a>
-                </li>
-
                 {{-- Insights/blog nav hidden until current content is ready --}}
             </ul>
             <form class="d-flex justify-content-center align-items-center m-0">
