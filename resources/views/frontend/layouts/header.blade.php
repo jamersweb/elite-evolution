@@ -85,22 +85,13 @@
                     <a class="nav-link font-weihgt text-dark" href="{{url('/luxury-rentals')}}">Luxury Rentals</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="dropbtn dropdown nav-link font-weihgt text-dark">Developers <i class="fa-solid fa-angle-down"></i></a>
-                    <div class="dropdown-content developers-dropdown">
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle font-weihgt text-dark border-0 bg-transparent" type="button" id="developersDropdown" data-bs-toggle="dropdown" aria-expanded="false">Developers</button>
+                    <ul class="dropdown-menu shadow-sm border-0" aria-labelledby="developersDropdown">
                         @foreach($developers as $developer)
-                            <a class="fw-bold" href="{{url('/developer',$developer->slug)}}">{{$developer->name}} </a>
-                            <div class="sublist">
-                                @if($developer->property != null)
-                                    @foreach($developer->property as $properties)
-                                    @if($properties->id != 43)
-                                        <a href="{{url('/developer',$developer->slug).'/'.$properties->slug}}">{{$properties->title}}</a>
-                                    @endif
-                                    @endforeach
-                                @endif
-                            </div>
+                            <li><a class="dropdown-item py-2" href="{{ url('developer', $developer->slug) }}">{{ $developer->name }}</a></li>
                         @endforeach
-                    </div>
+                    </ul>
                 </li>
 
                 <li class="nav-item">

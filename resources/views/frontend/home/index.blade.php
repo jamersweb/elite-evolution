@@ -125,8 +125,10 @@
         padding: 8px 28px 28px;
     }
     .ee-search-tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--ee-line); margin-bottom: 22px; }
-    .ee-search-tabs input { display: none; }
-    .ee-search-tabs label {
+
+    .ee-search-tabs button {
+        border: 0;
+        background: transparent;
         cursor: pointer;
         padding: 16px 2px 14px;
         font-weight: 700;
@@ -137,7 +139,7 @@
         border-bottom: 3px solid transparent;
         margin-bottom: -1px;
     }
-    .ee-search-tabs input:checked + label { color: var(--ee-ink); border-bottom-color: var(--ee-gold); }
+    .ee-search-tabs button:first-child, .ee-search-tabs button:hover, .ee-search-tabs button:focus-visible { color: var(--ee-ink); border-bottom-color: var(--ee-gold); }
     .ee-search label.ee-field-label {
         display: block;
         font-size: 12px;
@@ -328,13 +330,10 @@
 {{-- Search --}}
 <div class="container ee-search-wrap">
     <form class="ee-search" id="eeHomeSearch" action="{{ url('/listing/sale') }}" method="get">
-        <div class="ee-search-tabs" role="tablist">
-            <input type="radio" name="purpose" id="eePurposeBuy" data-action="{{ url('/listing/sale') }}" checked>
-            <label for="eePurposeBuy">Buy</label>
-            <input type="radio" name="purpose" id="eePurposeRent" data-action="{{ url('/listing/rent') }}">
-            <label for="eePurposeRent">Rent</label>
-            <input type="radio" name="purpose" id="eePurposeOffplan" data-action="{{ url('/listing/off-plan') }}">
-            <label for="eePurposeOffplan">Off-Plan</label>
+        <div class="ee-search-tabs" role="group" aria-label="Search by purpose">
+            <button type="submit" formaction="{{ url('/listing/sale') }}">Buy</button>
+            <button type="submit" formaction="{{ url('/listing/rent') }}">Rent</button>
+            <button type="submit" formaction="{{ url('/listing/off-plan') }}">Off-Plan</button>
         </div>
         <div class="row g-3 align-items-end">
             <div class="col-lg-4">
@@ -578,17 +577,5 @@
 
 {{-- Blog temporarily hidden until current market insights are published --}}
 
-<script>
-    document.querySelectorAll('#eeHomeSearch input[name="purpose"]').forEach(function (radio) {
-        radio.addEventListener('change', function () {
-            document.getElementById('eeHomeSearch').action = this.dataset.action;
-        });
-    });
-    document.getElementById('eeHomeSearch').addEventListener('submit', function () {
-        this.querySelectorAll('input[name="purpose"]').forEach(function (r) { r.disabled = true; });
-        this.querySelectorAll('select, input[name="location"]').forEach(function (field) {
-            if (!field.value) field.disabled = true;
-        });
-    });
-</script>
+
 @endsection

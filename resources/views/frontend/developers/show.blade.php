@@ -68,10 +68,12 @@
 {{--            </div>--}}
 {{--        </div>--}}
 {{--    </section>--}}
-    <section class="container-fluid hero-banner" style="background: url({{asset('images/media/developers').'/'.$developer->cover}});">
+    <section class="container-fluid hero-banner" style="background: url({{$developer->cover ? asset('images/media/developers/'.$developer->cover) : asset('frontend/img/banner_update.jpg')}});">
         <div class="row w-100 align-items-center jus h-100 py-4">
             <div class="col-md-4 col-sm-7 col-12 mx-auto text-center">
+                @if($developer->image)
                 <img class="cover_logo mx-auto" src="{{asset('images/media/developers').'/'.$developer->image}}" alt="">
+                @endif
                 <h2 class="text-center text-color my-3">{{$developer->name}}</h2>
                 <!-- Button trigger modal -->
 {{--                <button type="button" class="btn-new mx-md-3 rounded-0 " data-bs-toggle="modal" data-bs-target="#staticBackdrop">--}}
@@ -80,6 +82,7 @@
             </div>
         </div>
     </section>
+    @if($developer->description)
     <section>
         <div class="container px-md-5 py-5">
             <div class="row py-md-5">
@@ -93,6 +96,7 @@
             </div>
         </div>
     </section>
+    @endif
 
 
     <!-- Modal -->
@@ -127,7 +131,7 @@
 {{--                </div>--}}
 {{--            </div>--}}
             <div class="row justify-content-center">
-                @forelse($developer->property as $property)
+                @forelse($properties as $property)
                     <div class="col-md-3 states my-2">
                         <div class="position-relative">
                             <a class="text-dark text-decoration-none" href="{{url('/developer',$developer->slug).'/'.$property->slug}}">
@@ -145,9 +149,10 @@
                         </div>
                     </div>
                 @empty
-                    No Property Found
+                    <p class="text-center">There are currently no published listings for {{ $developer->name }}.</p>
                 @endforelse
             </div>
+            {{ $properties->links('pagination::bootstrap-4') }}
         </div>
     </section>
 @endsection
