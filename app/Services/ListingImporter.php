@@ -72,6 +72,9 @@ class ListingImporter
                 $plans[] = $url;
             }
         }
+        if (!$property->developer_id) {
+            $property->developer_id = ListingDeveloper::resolve($row['developer'] ?? null, $location);
+        }
         $property->forceFill([
             'sync_source' => $source, 'sync_id' => $id, 'reference_no' => $reference,
             'status' => 1, 'title' => $title,

@@ -69,6 +69,9 @@ class FrontHomeController extends Controller
     {
         $developer = Developer::whereSlug($slug)->firstOrFail();
         $property = Property::with(['developer', 'user', 'media'])->where('status', 1)->where('developer_id', $developer->id)->whereSlug($propertySlug)->firstOrFail();
+        if ($property->sync_source === 'propertyfinder') {
+            return redirect()->route('property.detail', $property->slug);
+        }
         return view('frontend.developers.property-detail', compact('developer', 'property'));
     }
 
