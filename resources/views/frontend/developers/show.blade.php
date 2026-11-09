@@ -51,6 +51,16 @@
 
             object-fit: contain;
         }
+        .partner-banner {
+            background: radial-gradient(ellipse at center, #22201d, #090909 75%);
+        }
+        .partner-banner:before {
+            content: none;
+        }
+        .partner-logo {
+            width: min(76vw, 360px);
+            height: auto;
+        }
         .description_card{
             background:#161616;
         }
@@ -61,13 +71,17 @@
             object-fit: cover;
         }
     </style>
-{{--    <section class="container-fluid hero-banner" style="background: url({{asset('frontend/img/blog.png')}});">--}}
-{{--        <div class="row align-items-center h-100">--}}
-{{--            <div class="col-12">--}}
-{{--                <h1 class="text-center text-uppercase text-white"></h1>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
+    @php
+        $logoSlug = basename($developer->slug ?? '');
+        $partnerLogo = 'frontend/img/partners/'.$logoSlug.'.png';
+    @endphp
+    @if(is_file(public_path($partnerLogo)))
+        <section class="hero-banner partner-banner px-3 py-4">
+            <h1 class="position-relative m-0 text-center">
+                <img class="partner-logo" src="{{ asset($partnerLogo) }}" alt="{{ $developer->name }}">
+            </h1>
+        </section>
+    @else
     <section class="container-fluid hero-banner" style="background: url({{$developer->cover ? asset('images/media/developers/'.$developer->cover) : asset('frontend/img/banner_update.jpg')}});">
         <div class="row w-100 align-items-center jus h-100 py-4">
             <div class="col-md-4 col-sm-7 col-12 mx-auto text-center">
@@ -75,13 +89,10 @@
                 <img class="cover_logo mx-auto" src="{{asset('images/media/developers').'/'.$developer->image}}" alt="">
                 @endif
                 <h2 class="text-center text-color my-3">{{$developer->name}}</h2>
-                <!-- Button trigger modal -->
-{{--                <button type="button" class="btn-new mx-md-3 rounded-0 " data-bs-toggle="modal" data-bs-target="#staticBackdrop">--}}
-{{--                    Download Brochure--}}
-{{--                </button>--}}
             </div>
         </div>
     </section>
+    @endif
     @if($developer->description)
     <section>
         <div class="container px-md-5 py-5">
