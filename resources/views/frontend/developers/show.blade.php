@@ -64,12 +64,7 @@
         .description_card{
             background:#161616;
         }
-        .states img {
-            border-top-left-radius: 30px;
-            border-top-right-radius: 30px;
-            height: 275px;
-            object-fit: cover;
-        }
+        @include('frontend.snippets.property-card-styles')
     </style>
     @php
         $logoSlug = basename($developer->slug ?? '');
@@ -135,29 +130,13 @@
 
     <section>
         <div class="container px-md-5 py-5">
-{{--            <div class="row py-md-5">--}}
-{{--                <div class="col-lg-9 mx-auto">--}}
-{{--                    <h1 class="text-uppercase mb-4">{{$developer->name}}</h1>--}}
-{{--                    {!! $developer->description  !!}--}}
-{{--                </div>--}}
-{{--            </div>--}}
-            <div class="row justify-content-center">
+            <div class="row g-4 mb-4">
                 @forelse($properties as $property)
-                    <div class="col-md-3 states my-2">
-                        <div class="position-relative">
-                            <a class="text-dark text-decoration-none" href="{{url('/developer',$developer->slug).'/'.$property->slug}}">
-                                <img class="w-100" src="{{ optional($property->featuredImage)->image ? $property->featuredImage->display_url : asset('frontend/img/banner_update.jpg') }}" alt="{{ $property->title }}">
-                                <div class="">
-                                     <div class="property-text">
-                                     <h5 class="m-0">Dubai</h5>
-                                     </div>
-                                </div>
-                                <div class="card-body card">
-                                    <h5 class="card-title fw-bold fs-18">{{$property->title}}</h5>
-{{--                                    <p class="card-text">{{$states['count']}} new properties for Sale</p>--}}
-                                </div>
-                            </a>
-                        </div>
+                    <div class="col-12 col-md-6 col-xl-3">
+                        @include('frontend.snippets.property-card', [
+                            'item' => $property,
+                            'cardUrl' => url('developer/'.$developer->slug.'/'.$property->slug),
+                        ])
                     </div>
                 @empty
                     <p class="text-center">There are currently no published listings for {{ $developer->name }}.</p>

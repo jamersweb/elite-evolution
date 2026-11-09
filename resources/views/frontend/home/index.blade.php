@@ -184,55 +184,7 @@
     .ee-trust-item span { font-size: 13px; color: rgba(255,255,255,.65); }
 
     /* Property cards */
-    .ee-prop-card {
-        background: #fff;
-        border: 1px solid var(--ee-line);
-        border-radius: 10px;
-        overflow: hidden;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .ee-prop-card:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0,0,0,.09); }
-    .ee-prop-media { position: relative; display: block; height: 250px; overflow: hidden; background: #1a1a1a; }
-    .ee-prop-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-    .ee-prop-card:hover .ee-prop-media img { transform: scale(1.05); }
-    .ee-prop-status, .ee-prop-verified {
-        position: absolute;
-        top: 14px;
-        padding: 6px 12px;
-        border-radius: 4px;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-    .ee-prop-status { left: 14px; background: var(--ee-ink); color: var(--ee-gold); }
-    .ee-prop-status.is-offplan { background: var(--ee-gold); color: #fff; }
-    .ee-prop-status.is-rent { background: #fff; color: var(--ee-ink); }
-    .ee-prop-verified { right: 14px; background: rgba(255,255,255,.92); color: var(--ee-ink); }
-    .ee-prop-verified i { color: var(--ee-gold); margin-right: 4px; }
-    .ee-prop-body { padding: 22px; display: flex; flex-direction: column; flex-grow: 1; }
-    .ee-prop-price { font-family: Avenir-Heavy; font-size: 21px; color: var(--ee-gold); }
-    .ee-prop-price small { font-size: 13px; color: var(--ee-muted); margin-left: 3px; font-family: myFirstFont; }
-    .ee-prop-title { font-family: Avenir-Heavy; font-size: 17px; margin: 6px 0 6px; line-height: 1.35; }
-    .ee-prop-title a { color: var(--ee-ink); text-decoration: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .ee-prop-title a:hover { color: var(--ee-gold); }
-    .ee-prop-location { color: var(--ee-muted); font-size: 14px; margin-bottom: 16px; }
-    .ee-prop-location i { color: var(--ee-gold); margin-right: 7px; }
-    .ee-prop-specs {
-        list-style: none;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 18px;
-        padding: 14px 0 0;
-        margin: auto 0 0;
-        border-top: 1px solid var(--ee-line);
-        font-size: 13px;
-        color: #444;
-    }
-    .ee-prop-specs i { color: var(--ee-gold); margin-right: 6px; }
+    @include('frontend.snippets.property-card-styles')
 
     /* Collection tiles */
     .ee-tile {

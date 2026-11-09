@@ -7,7 +7,7 @@
         : asset('frontend/img/banner_update.jpg');
 @endphp
 <article class="ee-prop-card">
-    <a href="{{ url('detail', $item->slug) }}" class="ee-prop-media">
+    <a href="{{ $cardUrl ?? url('detail', $item->slug) }}" class="ee-prop-media">
         <img src="{{ $cover }}" alt="{{ $item->title }}" loading="lazy" onerror="this.onerror=null;this.src='{{ asset('frontend/img/banner_update.jpg') }}'">
         <span class="ee-prop-status {{ $isRent ? 'is-rent' : ($isOffplan ? 'is-offplan' : '') }}">{{ $statusText }}</span>
         @if($item->trakheesi_permit_no)
@@ -27,7 +27,7 @@
             @endif
         </div>
         <h3 class="ee-prop-title">
-            <a href="{{ url('detail', $item->slug) }}">{{ $item->title }}</a>
+            <a href="{{ $cardUrl ?? url('detail', $item->slug) }}">{{ $item->title }}</a>
         </h3>
         <p class="ee-prop-location">
             <i class="fa-solid fa-location-dot"></i>{{ $item->community ?? $item->completesearch ?? $item->state ?? 'Dubai' }}
