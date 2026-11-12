@@ -217,7 +217,9 @@
                     <span class="small fw-bold text-muted me-2">Quick Filter:</span>
                     <a href="{{ url('listing/ready') }}" class="btn btn-sm {{ $slug == 'ready' ? 'btn-dark' : 'btn-outline-secondary' }}">Buy Ready</a>
                     <a href="{{ url('listing/off-plan') }}" class="btn btn-sm {{ $slug == 'off-plan' ? 'btn-dark' : 'btn-outline-secondary' }}">Buy Off-Plan</a>
+                    @if(config('features.luxury_rentals'))
                     <a href="{{ url('luxury-rentals') }}" class="btn btn-sm {{ $slug == 'luxury-rentals' ? 'btn-dark' : 'btn-outline-secondary' }}">Luxury Rentals</a>
+                    @endif
                     <a href="{{ url('listing/sale') }}?property_type=Villa" class="btn btn-sm btn-outline-secondary">Villas</a>
                     <a href="{{ url('listing/sale') }}?location=Palm+Jumeirah" class="btn btn-sm btn-outline-secondary">Palm Jumeirah</a>
                 </div>
@@ -439,10 +441,12 @@
                         <span><i class="fa-solid fa-compass-drafting text-warning me-2"></i> Prime Off-Plan Projects</span>
                         <i class="fa-solid fa-chevron-right text-muted small"></i>
                     </a>
+                    @if(config('features.luxury_rentals'))
                     <a href="{{ url('luxury-rentals') }}" class="text-decoration-none text-dark d-flex align-items-center justify-content-between py-1">
                         <span><i class="fa-solid fa-gem text-warning me-2"></i> High-End Luxury Rentals</span>
                         <i class="fa-solid fa-chevron-right text-muted small"></i>
                     </a>
+                    @endif
                     <a href="{{ url('agents') }}" class="text-decoration-none text-dark d-flex align-items-center justify-content-between py-1">
                         <span><i class="fa-solid fa-user-tie text-warning me-2"></i> Meet Our Licensed Brokers</span>
                         <i class="fa-solid fa-chevron-right text-muted small"></i>

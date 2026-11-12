@@ -105,6 +105,10 @@ class FrontHomeController extends Controller
             $country = 'United Arab Emirates';
         }
 
+        if (!config('features.luxury_rentals') && in_array($slug, ['rent', 'luxury-rentals'], true)) {
+            return redirect('/listing/sale');
+        }
+
         // AJAX search saving for authenticated users
         if ($request->ajax() && $request->tracking) {
             if (auth()->check()) {
@@ -215,7 +219,7 @@ class FrontHomeController extends Controller
 
         // Purpose-aware page title & meta
         $pageTitle = 'Properties in Dubai';
-        $pageSubtitle = 'Explore verified luxury properties for sale and rent';
+        $pageSubtitle = 'Explore verified luxury properties for sale';
         if ($slug == 'ready' || $slug == 'buy-ready') {
             $pageTitle = 'Ready Properties for Sale in Dubai';
             $pageSubtitle = 'Move-in ready luxury villas, penthouses and apartments';
@@ -644,7 +648,7 @@ class FrontHomeController extends Controller
         }
 
         return response()->json([
-            'reply' => "Welcome to Elite Evolution Real Estate. We represent prime ready villas, exclusive off-plan developments, and luxury rentals across Dubai (Palm Jumeirah, Emirates Hills, Jumeirah Islands, Downtown). How can I assist your search today, or would you like to speak directly with an advisor?"
+            'reply' => "Welcome to Elite Evolution Real Estate. We represent prime ready villas and exclusive off-plan developments across Dubai (Palm Jumeirah, Emirates Hills, Jumeirah Islands, Downtown). How can I assist your search today, or would you like to speak directly with an advisor?"
         ]);
     }
 }

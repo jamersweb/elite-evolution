@@ -81,9 +81,11 @@
                 <a href="{{ url('listing/sale') }}" class="btn btn-outline-light btn-sm">
                     <i class="fa-solid fa-list me-1"></i> Switch to Grid View
                 </a>
+                @if(config('features.luxury_rentals'))
                 <a href="{{ url('luxury-rentals') }}" class="btn btn-outline-warning btn-sm">
                     Luxury Rentals
                 </a>
+                @endif
             </div>
         </div>
     </div>

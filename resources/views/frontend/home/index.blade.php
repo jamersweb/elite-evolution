@@ -284,7 +284,9 @@
     <form class="ee-search" id="eeHomeSearch" action="{{ url('/listing/sale') }}" method="get">
         <div class="ee-search-tabs" role="group" aria-label="Search by purpose">
             <button type="submit" formaction="{{ url('/listing/sale') }}">Buy</button>
+            @if(config('features.luxury_rentals'))
             <button type="submit" formaction="{{ url('/listing/rent') }}">Rent</button>
+            @endif
             <button type="submit" formaction="{{ url('/listing/off-plan') }}">Off-Plan</button>
         </div>
         <div class="row g-3 align-items-end">

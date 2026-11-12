@@ -32,10 +32,14 @@ class RealEstatePortalTest extends TestCase
         $response->assertSee('Properties');
     }
 
-    public function test_luxury_rentals_page_loads()
+    public function test_luxury_rentals_redirects_until_enabled()
     {
-        $response = $this->get('/luxury-rentals');
-        $response->assertStatus(200);
+        config(['features.luxury_rentals' => false]);
+        $this->get('/luxury-rentals')->assertRedirect('/listing/sale');
+        $this->get('/listing/rent')->assertRedirect('/listing/sale');
+
+        config(['features.luxury_rentals' => true]);
+        $this->get('/luxury-rentals')->assertOk();
     }
 
     public function test_map_view_loads_successfully()

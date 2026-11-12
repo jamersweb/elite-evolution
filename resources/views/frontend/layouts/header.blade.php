@@ -81,9 +81,11 @@
                     </ul>
                 </li>
 
+                @if(config('features.luxury_rentals'))
                 <li class="nav-item">
                     <a class="nav-link font-weihgt text-dark" href="{{url('/luxury-rentals')}}">Luxury Rentals</a>
                 </li>
+                @endif
 
                 <li class="nav-item dropdown">
                     <button class="nav-link dropdown-toggle font-weihgt text-dark border-0 bg-transparent" type="button" id="developersDropdown" data-bs-toggle="dropdown" aria-expanded="false">Developers</button>

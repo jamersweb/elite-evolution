@@ -145,7 +145,9 @@
         </div>
         <div class="concierge-quick-chips">
             <span class="concierge-chip" onclick="sendQuickPrompt('Show me villas in Palm Jumeirah')">Palm Jumeirah Villas</span>
+            @if(config('features.luxury_rentals'))
             <span class="concierge-chip" onclick="sendQuickPrompt('Show me luxury rentals in Dubai')">Luxury Rentals</span>
+            @endif
             <span class="concierge-chip" onclick="sendQuickPrompt('What are UAE Golden Visa requirements?')">Golden Visa Criteria</span>
             <span class="concierge-chip" onclick="sendQuickPrompt('Are all listings verified with DLD permit?')">DLD Madmoun Permits</span>
         </div>
@@ -154,7 +156,7 @@
     <div class="concierge-footer">
         <form id="conciergeForm" onsubmit="handleConciergeSubmit(event)">
             <div class="concierge-input-group">
-                <input type="text" id="conciergeInput" class="form-control form-control-sm" placeholder="Ask about villas, off-plan, rentals..." autocomplete="off" required>
+                <input type="text" id="conciergeInput" class="form-control form-control-sm" placeholder="Ask about villas, off-plan, properties..." autocomplete="off" required>
                 <button type="submit" class="btn btn-sm btn-dark px-3" style="background: #111; border-color: #b38b47; color: #b38b47;">
                     <i class="fa-solid fa-paper-plane"></i>
                 </button>

@@ -85,7 +85,9 @@
                 <ul class="m-0 p-0">
                     <li><a href="{{url('listing/ready')}}" class="link">Ready Properties</a></li>
                     <li><a href="{{url('listing/off-plan')}}" class="link">Off Plan Projects</a></li>
+                    @if(config('features.luxury_rentals'))
                     <li><a href="{{url('luxury-rentals')}}" class="link">Luxury Rentals</a></li>
+                    @endif
                     <li><a href="{{url('agents')}}" class="link">Licensed Brokers</a></li>
                     <li><a href="{{url('contact-us')}}" class="link">Contact Us</a></li>
                     <li><a href="{{url('career')}}" class="link">Careers</a></li>
