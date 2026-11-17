@@ -1,15 +1,15 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-Privacy Policy | Elite Evolution
+Privacy Policy | Elite Evolution Real Estate
 @endsection
 
 @section('meta_title')
-Privacy Policy | Elite Evolution
+Privacy Policy | Elite Evolution Real Estate
 @endsection
 
 @section('meta_description')
-Read our comprehensive privacy policy at Elite Evolution Real Estate. Learn how we protect and manage your personal information with transparency.
+Read how Elite Evolution Real Estate collects, uses and protects your personal data when you use our website and services.
 @endsection
 
 @section('content')

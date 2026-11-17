@@ -1,14 +1,14 @@
 @extends('frontend.layouts.master')
 @section('title')
-    Licensed Real Estate Brokers & Advisors | Elite Evolution Real Estate Dubai
+    Real Estate Agents in Dubai | Elite Evolution Team
 @endsection
 
 @section('meta_title')
-    Meet Our Licensed Dubai Real Estate Brokers | Elite Evolution
+    Real Estate Agents in Dubai | Elite Evolution Team
 @endsection
 
 @section('meta_description')
-    Connect with Elite Evolution's DLD-registered real estate advisors. Certified luxury specialists for Palm Jumeirah, DAMAC Lagoons, Emirates Hills, and exclusive off-plan developments.
+    Meet the Elite Evolution team of real estate agents in Dubai. Get expert advice on luxury villas, apartments and investment properties.
 @endsection
 
 @section('content')

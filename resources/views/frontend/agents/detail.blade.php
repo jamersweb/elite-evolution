@@ -1,15 +1,18 @@
 @extends('frontend.layouts.master')
 
+@php
+    $agentSeo = config('seo_pages.agents.' . ($agent->slug ?? ''));
+@endphp
 @section('title')
-    {{ $agent->name }} - Senior Luxury Real Estate Advisor | Elite Evolution Real Estate Dubai
+    {{ $agentSeo['title'] ?? ($agent->name . ' - Senior Luxury Real Estate Advisor | Elite Evolution Real Estate Dubai') }}
 @endsection
 
 @section('meta_title')
-    {{ $agent->name }} | DLD Licensed Real Estate Broker (BRN #{{ $agent->brn ?? '78334' }}) Dubai
+    {{ $agentSeo['title'] ?? ($agent->name . ' | DLD Licensed Real Estate Broker (BRN #' . ($agent->brn ?? '78334') . ') Dubai') }}
 @endsection
 
 @section('meta_description')
-    Connect with {{ $agent->name }} (BRN #{{ $agent->brn ?? '78334' }}), Senior Real Estate Advisor at Elite Evolution Real Estate Dubai. Specializing in Palm Jumeirah, DAMAC Lagoons, and prime luxury properties.
+    {{ $agentSeo['description'] ?? ('Connect with ' . $agent->name . ' (BRN #' . ($agent->brn ?? '78334') . '), Senior Real Estate Advisor at Elite Evolution Real Estate Dubai. Specializing in Palm Jumeirah, DAMAC Lagoons, and prime luxury properties.') }}
 @endsection
 
 @section('content')

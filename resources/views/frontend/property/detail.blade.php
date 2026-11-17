@@ -1,6 +1,14 @@
 @extends('frontend.layouts.master')
 @section('title')
-    {{$property->title}} | Elite Evolution Real Estate
+    {{ $meta_title ?? ($property->title . ' | Elite Evolution Real Estate') }}
+@endsection
+
+@section('meta_title')
+    {{ $meta_title ?? ($property->title . ' | Elite Evolution Real Estate') }}
+@endsection
+
+@section('meta_description')
+    {{ $meta_description ?? '' }}
 @endsection
 
 @section('content')

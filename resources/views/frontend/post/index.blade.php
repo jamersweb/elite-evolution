@@ -1,14 +1,14 @@
 @extends('frontend.layouts.master')
 @section('title')
-    Elite Evolution Real Estate Blog | Expert Insights & Property Tips
+    Dubai Real Estate Blog | Market Insights | Elite Evolution
 @endsection
 
 @section('meta_title')
-    Elite Evolution Real Estate Blog | Expert Insights & Property Tips
+    Dubai Real Estate Blog | Market Insights | Elite Evolution
 @endsection
 
 @section('meta_description')
-    Discover the latest trends, expert insights, and valuable tips on real estate. Stay informed with Elite Evolution's blog for all your property needs.
+    Read Dubai real estate guides, area insights and buying tips from the Elite Evolution team to help you make confident property decisions.
 @endsection
 
 @section('content')

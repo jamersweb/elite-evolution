@@ -1,15 +1,23 @@
 @extends('frontend.layouts.master')
 
 @section('title')
+@if(!empty($documentTitle))
+{{ $documentTitle }}
+@else
     {{ $pageTitle ?? 'Luxury Properties in Dubai' }} | Elite Evolution Real Estate
+@endif
 @endsection
 
 @section('meta_title')
+@if(!empty($documentTitle))
+{{ $documentTitle }}
+@else
     {{ $pageTitle ?? 'Properties for Sale and Rent in Dubai' }} | Elite Evolution
+@endif
 @endsection
 
 @section('meta_description')
-    {{ $pageSubtitle ?? 'Explore verified luxury properties in Dubai. Handpicked beachfront villas, luxury rentals, and iconic off-plan developments with DLD permit verification.' }}
+    {{ $metaDescription ?? $pageSubtitle ?? 'Explore verified luxury properties in Dubai. Handpicked beachfront villas, luxury rentals, and iconic off-plan developments with DLD permit verification.' }}
 @endsection
 
 @section('content')

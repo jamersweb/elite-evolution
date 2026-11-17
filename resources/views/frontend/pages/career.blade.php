@@ -1,15 +1,15 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-Real Estate Careers at Elite Evolution | Join Our Dynamic Team
+Real Estate Careers in Dubai | Elite Evolution
 @endsection
 
 @section('meta_title')
-Real Estate Careers at Elite Evolution | Join Our Dynamic Team
+Real Estate Careers in Dubai | Elite Evolution
 @endsection
 
 @section('meta_description')
-Explore exciting career opportunities in real estate with Elite Evolution. Join our dynamic team and embark on a rewarding journey in the property industry.
+Join Elite Evolution Real Estate in Dubai. Explore real estate career opportunities and apply to become part of our team.
 @endsection
 
 @section('content')

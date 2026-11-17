@@ -1,15 +1,18 @@
 @extends('frontend.layouts.master')
 
+@php
+    $postSeo = config('seo_pages.posts.' . ($blogs->slug ?? ''));
+@endphp
 @section('title')
-    {{$blogs->meta_title}}
+    {{ $postSeo['title'] ?? ($blogs->meta_title ?? $blogs->title) }}
 @endsection
 
 @section('meta_title')
-    {{$blogs->meta_title}}
+    {{ $postSeo['title'] ?? ($blogs->meta_title ?? $blogs->title) }}
 @endsection
 
 @section('meta_description')
-    {{$blogs->meta_description}}
+    {{ $postSeo['description'] ?? ($blogs->meta_description ?? $blogs->short_description) }}
 @endsection
 
 @section('content')

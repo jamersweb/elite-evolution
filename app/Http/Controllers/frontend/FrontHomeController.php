@@ -61,6 +61,7 @@ class FrontHomeController extends Controller
     public function Developer($slug)
     {
         $developer = Developer::whereSlug($slug)->firstOrFail();
+        $this->applyPageSeo($developer, config('seo_pages.developers.' . $slug));
         $properties = Property::where('developer_id', $developer->id)->where('status', 1)->latest()->paginate(9);
         return view('frontend.developers.show', compact('developer', 'properties'));
     }
@@ -69,6 +70,7 @@ class FrontHomeController extends Controller
     {
         $developer = Developer::whereSlug($slug)->firstOrFail();
         $property = Property::with(['developer', 'user', 'media'])->where('status', 1)->where('developer_id', $developer->id)->whereSlug($propertySlug)->firstOrFail();
+        $this->applyPageSeo($property, config('seo_pages.properties.' . $propertySlug));
         if ($property->sync_source === 'propertyfinder') {
             return redirect()->route('property.detail', $property->slug);
         }
@@ -220,6 +222,8 @@ class FrontHomeController extends Controller
         // Purpose-aware page title & meta
         $pageTitle = 'Properties in Dubai';
         $pageSubtitle = 'Explore verified luxury properties for sale';
+        $documentTitle = null;
+        $metaDescription = null;
         if ($slug == 'ready' || $slug == 'buy-ready') {
             $pageTitle = 'Ready Properties for Sale in Dubai';
             $pageSubtitle = 'Move-in ready luxury villas, penthouses and apartments';
@@ -229,6 +233,16 @@ class FrontHomeController extends Controller
         } elseif ($slug == 'rent' || $slug == 'luxury-rentals') {
             $pageTitle = 'Luxury Properties for Rent in Dubai';
             $pageSubtitle = 'Exclusive high-end rentals in Dubai’s prestigious addresses';
+        } elseif ($slug == 'sale' || $slug == 'buy') {
+            $pageTitle = 'Property for Sale in Dubai';
+            $pageSubtitle = 'Villas, apartments and penthouses for sale in Dubai';
+            $documentTitle = 'Property for Sale in Dubai | Elite Evolution Real Estate';
+            $metaDescription = 'Browse villas, apartments and penthouses for sale in Dubai. Explore current luxury listings and book a private viewing with Elite Evolution.';
+        } elseif ($slug == 'commercial') {
+            $pageTitle = 'Commercial Property in Dubai';
+            $pageSubtitle = 'Offices, retail and other commercial property in Dubai';
+            $documentTitle = 'Commercial Property in Dubai | Elite Evolution';
+            $metaDescription = 'Explore commercial properties in Dubai, from offices to retail units. Speak with Elite Evolution about availability, pricing and viewings.';
         }
 
         return view('frontend.property.index', [
@@ -236,6 +250,8 @@ class FrontHomeController extends Controller
             'slug' => $slug,
             'pageTitle' => $pageTitle,
             'pageSubtitle' => $pageSubtitle,
+            'documentTitle' => $documentTitle,
+            'metaDescription' => $metaDescription,
         ]);
     }
 
@@ -261,6 +277,8 @@ class FrontHomeController extends Controller
             ->whereSlug($slug)
             ->where('status', 1)
             ->firstOrFail();
+
+        $this->applyPageSeo($property, config('seo_pages.properties.' . $slug));
 
         // Real similar listings in same community or property type
         $similar_properties = Property::with(['featuredImage', 'user'])
@@ -650,5 +668,19 @@ class FrontHomeController extends Controller
         return response()->json([
             'reply' => "Welcome to Elite Evolution Real Estate. We represent prime ready villas and exclusive off-plan developments across Dubai (Palm Jumeirah, Emirates Hills, Jumeirah Islands, Downtown). How can I assist your search today, or would you like to speak directly with an advisor?"
         ]);
+    }
+
+    private function applyPageSeo($model, $seo): void
+    {
+        if (!is_array($seo)) {
+            return;
+        }
+
+        if (!empty($seo['title'])) {
+            $model->meta_title = $seo['title'];
+        }
+        if (!empty($seo['description'])) {
+            $model->meta_description = $seo['description'];
+        }
     }
 }

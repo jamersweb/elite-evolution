@@ -1,15 +1,15 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-Terms and Conditions | Elite Evolution
+Terms and Conditions | Elite Evolution Real Estate
 @endsection
 
 @section('meta_title')
-Terms and Conditions | Elite Evolution
+Terms and Conditions | Elite Evolution Real Estate
 @endsection
 
 @section('meta_description')
-Explore the terms and conditions of Elite Evolution Real Estate. Understand the guidelines and agreements for using our platform and services.
+Read the terms and conditions for using the Elite Evolution Real Estate website and services in Dubai, UAE.
 @endsection
 
 @section('content')

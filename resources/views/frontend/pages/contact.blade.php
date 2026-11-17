@@ -1,15 +1,15 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-Contact Elite Evolution | Reach Out for Real Estate Investments
+Contact Elite Evolution | Dubai Real Estate Agents
 @endsection
 
 @section('meta_title')
-Contact Elite Evolution | Reach Out for Real Estate Investments
+Contact Elite Evolution | Dubai Real Estate Agents
 @endsection
 
 @section('meta_description')
-Have questions or need assistance? Contact Elite Evolution for expert real estate investments. Reach out to us today for personalized assistance.
+Contact Elite Evolution Real Estate in Dubai to buy, sell or invest. Call, WhatsApp or send an enquiry and our agents will get back to you.
 @endsection
 
 @section('content')

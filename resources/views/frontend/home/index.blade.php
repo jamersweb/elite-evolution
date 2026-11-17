@@ -1,8 +1,8 @@
 @extends('frontend.layouts.master')
-@section('title')Elite Evolution: Premier Real Estate Company in Dubai
+@section('title')Dubai Real Estate Company | Elite Evolution Real Estate
 @endsection
-@section('meta_description', 'Excellence with Elite Evolution, your trusted partner for premium real estate. Leading real estate company in Dubai, offering tailored solutions.')
-@section('meta_title', 'Elite Evolution: Premier Real Estate Company in Dubai')
+@section('meta_description', 'Elite Evolution is a Dubai real estate company for luxury villas, apartments and off-plan properties. Speak to our agents and book a viewing today.')
+@section('meta_title', 'Dubai Real Estate Company | Elite Evolution Real Estate')
 @section('content')
 @php
     $collectionCover = function ($items) {
