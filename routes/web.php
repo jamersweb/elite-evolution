@@ -37,6 +37,10 @@ Route::get('/map-view', [App\Http\Controllers\frontend\FrontHomeController::clas
 Route::get('/view', [App\Http\Controllers\frontend\FrontHomeController::class, 'MapView']);
 
 // Developers
+Route::get('/areas', [App\Http\Controllers\frontend\GuideController::class, 'areas'])->name('areas.index');
+Route::get('/areas/{market}', [App\Http\Controllers\frontend\GuideController::class, 'market'])->name('areas.market');
+Route::get('/areas/{market}/{place}', [App\Http\Controllers\frontend\GuideController::class, 'place'])->name('areas.place');
+Route::get('/developers', [App\Http\Controllers\frontend\GuideController::class, 'developers'])->name('developers.index');
 Route::get('developer/{developer}', [App\Http\Controllers\frontend\FrontHomeController::class, 'Developer']);
 Route::get('developer/{developer}/{property}', [App\Http\Controllers\frontend\FrontHomeController::class, 'DeveloperProperty']);
 

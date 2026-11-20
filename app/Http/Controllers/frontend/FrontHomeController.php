@@ -62,8 +62,54 @@ class FrontHomeController extends Controller
     {
         $developer = Developer::whereSlug($slug)->firstOrFail();
         $this->applyPageSeo($developer, config('seo_pages.developers.' . $slug));
-        $properties = Property::where('developer_id', $developer->id)->where('status', 1)->latest()->paginate(9);
-        return view('frontend.developers.show', compact('developer', 'properties'));
+        $base = Property::where('developer_id', $developer->id)->where('status', 1);
+        $properties = (clone $base)->with(['featuredImage', 'developer', 'user'])->latest()->paginate(9);
+        $rows = (clone $base)->get(['community', 'price', 'build_up_area', 'size', 'completion_status', 'user_id']);
+        $communities = $rows->filter(function ($row) {
+            return $row->community;
+        })->groupBy('community')->map(function ($group, $name) {
+            $prices = $group->pluck('price')->filter(function ($price) {
+                return (float) $price > 0;
+            })->sort()->values();
+            $median = null;
+            if ($prices->count()) {
+                $median = (float) $prices[intdiv($prices->count(), 2)];
+            }
+            $rates = $group->map(function ($row) {
+                $area = (float) preg_replace('/[^0-9.]/', '', (string) ($row->build_up_area ?: $row->size));
+                if ($area < 50 || (float) $row->price <= 0) {
+                    return null;
+                }
+
+                return (float) $row->price / $area;
+            })->filter();
+
+            return [
+                'name' => $name,
+                'slug' => \Illuminate\Support\Str::slug($name),
+                'count' => $group->count(),
+                'median' => $median,
+                'sqft' => $rates->count() ? (int) round($rates->avg()) : null,
+            ];
+        })->sortByDesc('count')->values();
+        $offplanCount = $rows->filter(function ($row) {
+            return $row->completion_status === 'Off-plan';
+        })->count();
+        $agents = User::whereIn('id', $rows->pluck('user_id')->filter()->unique())->take(8)->get();
+        $others = Developer::where('status', 1)->where('id', '!=', $developer->id)->orderBy('name')->take(3)->get();
+
+        return view('frontend.developers.show', [
+            'developer' => $developer,
+            'properties' => $properties,
+            'communities' => $communities,
+            'agents' => $agents,
+            'others' => $others,
+            'stats' => [
+                'count' => $rows->count(),
+                'communities' => $communities->count(),
+                'offplan' => $offplanCount,
+            ],
+        ]);
     }
 
     public function DeveloperProperty($slug, $propertySlug)

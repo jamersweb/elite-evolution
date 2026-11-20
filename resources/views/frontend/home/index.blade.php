@@ -86,7 +86,7 @@
         align-items: center;
         isolation: isolate;
         background: #222 url('{{ asset('frontend/video/jumeirah-welcome.jpg') }}') center / cover no-repeat;
-        padding: 120px 0 150px;
+        padding: 168px 0 150px;
     }
     .ee-hero__video {
         position: absolute;
@@ -261,7 +261,7 @@
         .ee-cta { padding: 48px 28px; }
     }
     @media (max-width: 575px) {
-        .ee-hero { min-height: 560px; padding: 90px 0 130px; }
+        .ee-hero { min-height: 560px; padding: 140px 0 130px; }
         .ee-search { padding: 4px 18px 20px; }
         .ee-search-tabs { gap: 20px; }
     }

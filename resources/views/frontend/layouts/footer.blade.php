@@ -46,13 +46,13 @@
 @endphp
 
 
-<section class="ee-enquiry">
+<section class="ee-enquiry" id="guidance">
 <div class="container">
 <div class="ee-enquiry-card">
 <div class="ee-enquiry-intro">
     <span>Private Client Desk</span>
-    <h2>Speak With a Licensed Advisor</h2>
-    <p>Tell us what you are looking for and a RERA-registered broker will be in touch shortly.</p>
+    <h2>{{ trim($__env->yieldContent('guidance_title')) ?: 'Speak With a Licensed Advisor' }}</h2>
+    <p>{{ trim($__env->yieldContent('guidance_text')) ?: 'Tell us what you are looking for and a RERA-registered broker will be in touch shortly.' }}</p>
 </div>
 <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
 <script>
@@ -88,6 +88,8 @@
                     @if(config('features.luxury_rentals'))
                     <li><a href="{{url('luxury-rentals')}}" class="link">Luxury Rentals</a></li>
                     @endif
+                    <li><a href="{{url('areas')}}" class="link">Areas</a></li>
+                    <li><a href="{{url('developers')}}" class="link">Developers</a></li>
                     <li><a href="{{url('agents')}}" class="link">Licensed Brokers</a></li>
                     <li><a href="{{url('contact-us')}}" class="link">Contact Us</a></li>
                     <li><a href="{{url('career')}}" class="link">Careers</a></li>
