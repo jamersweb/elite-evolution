@@ -1,0 +1,1226 @@
+{
+  "damac-safa-gate": {
+    "amenities": [
+      "Aurora pool",
+      "Gravity gym",
+      "Lumi\u00e8re Spa",
+      "Eclipse Theatre",
+      "Open-air gym",
+      "Zen plunge pool",
+      "Retreat pool"
+    ],
+    "images": [
+      "featured/damac-safa-gate-1.jpg",
+      "featured/damac-safa-gate-2.jpg",
+      "featured/damac-safa-gate-3.jpg",
+      "featured/damac-safa-gate-4.jpg",
+      "featured/damac-safa-gate-5.jpg",
+      "featured/damac-safa-gate-6.jpg",
+      "featured/damac-safa-gate-7.jpg",
+      "featured/damac-safa-gate-8.jpg"
+    ],
+    "status": 200
+  },
+  "damac-islands-2": {
+    "amenities": [
+      "TRANQUIL LAKE & ECO PARK",
+      "WHISPERING WATERFALL",
+      "BOTANIC GARDEN",
+      "ISLAND VIDA WELLNESS",
+      "SKY WOODS ADVENTURE",
+      "ECO LODGE HOSPITALITY",
+      "GARDEN OF INSIGHT",
+      "ECO EXPLORERS\u2019 LAND",
+      "SOLAR LINK PARK"
+    ],
+    "images": [
+      "featured/damac-islands-2-1.jpg",
+      "featured/damac-islands-2-2.jpg",
+      "featured/damac-islands-2-3.jpg",
+      "featured/damac-islands-2-4.jpg",
+      "featured/damac-islands-2-5.jpg",
+      "featured/damac-islands-2-6.jpg",
+      "featured/damac-islands-2-7.jpg",
+      "featured/damac-islands-2-8.jpg"
+    ],
+    "status": 200
+  },
+  "damac-sorrento": {
+    "amenities": [
+      "Floating Pods",
+      "Aqua Fitness",
+      "Outdoor Spa",
+      "Coffee Shop",
+      "Outdoor Cinema"
+    ],
+    "images": [
+      "featured/damac-sorrento-1.jpg",
+      "featured/damac-sorrento-2.jpg",
+      "featured/damac-sorrento-3.jpg",
+      "featured/damac-sorrento-4.jpg",
+      "featured/damac-sorrento-5.jpg",
+      "featured/damac-sorrento-6.jpg",
+      "featured/damac-sorrento-7.jpg",
+      "featured/damac-sorrento-8.jpg"
+    ],
+    "status": 200
+  },
+  "damac-couture-by-cavalli": {
+    "amenities": [
+      "Cigar lounge",
+      "Clubhouse",
+      "Gym",
+      "Rooftop pool",
+      "SWIMMABLE lagoon"
+    ],
+    "images": [
+      "featured/damac-couture-by-cavalli-1.jpg",
+      "featured/damac-couture-by-cavalli-2.jpg",
+      "featured/damac-couture-by-cavalli-3.jpg",
+      "featured/damac-couture-by-cavalli-4.jpg",
+      "featured/damac-couture-by-cavalli-5.jpg",
+      "featured/damac-couture-by-cavalli-6.jpg",
+      "featured/damac-couture-by-cavalli-7.jpg",
+      "featured/damac-couture-by-cavalli-8.jpg"
+    ],
+    "status": 200
+  },
+  "damac-chelsea-residences": {
+    "amenities": [
+      "Chelsea Lion Beach",
+      "Stamford Summit",
+      "Football Simulation Room",
+      "Chelsea Athlete Performance Training Centre",
+      "The Pride of the Ocean",
+      "Underwater-Themed Kids Play Area",
+      "Serenity Spa",
+      "Starlit Wellness Centre",
+      "Rain Therapy"
+    ],
+    "images": [
+      "featured/damac-chelsea-residences-1.jpg",
+      "featured/damac-chelsea-residences-2.jpg",
+      "featured/damac-chelsea-residences-3.jpg",
+      "featured/damac-chelsea-residences-4.jpg",
+      "featured/damac-chelsea-residences-5.jpg",
+      "featured/damac-chelsea-residences-6.jpg",
+      "featured/damac-chelsea-residences-7.jpg",
+      "featured/damac-chelsea-residences-8.jpg"
+    ],
+    "status": 200
+  },
+  "damac-azure-2": {
+    "amenities": [
+      "Malibu Cove",
+      "Essential oils lake",
+      "Peace room",
+      "Floating sports",
+      "Calisthenics stations",
+      "Cooking stations",
+      "Island restaurant",
+      "Adventure land",
+      "Floating stage"
+    ],
+    "images": [
+      "featured/damac-azure-2-1.jpg",
+      "featured/damac-azure-2-2.jpg",
+      "featured/damac-azure-2-3.jpg",
+      "featured/damac-azure-2-4.jpg",
+      "featured/damac-azure-2-5.jpg",
+      "featured/damac-azure-2-6.jpg",
+      "featured/damac-azure-2-7.jpg",
+      "featured/damac-azure-2-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-palm-springs": {
+    "amenities": [
+      "Cycling & Jogging Track",
+      "School",
+      "Beach & Lap Pools",
+      "Gym & Wellness Centres",
+      "Kids' Play Areas",
+      "Racquet & Sports Courts",
+      "Gardens & Open/Event Lawns"
+    ],
+    "images": [
+      "featured/nakheel-palm-springs-1.jpg",
+      "featured/nakheel-palm-springs-2.jpg",
+      "featured/nakheel-palm-springs-3.jpg",
+      "featured/nakheel-palm-springs-4.jpg",
+      "featured/nakheel-palm-springs-5.jpg",
+      "featured/nakheel-palm-springs-6.jpg",
+      "featured/nakheel-palm-springs-7.jpg",
+      "featured/nakheel-palm-springs-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-como-residences": {
+    "amenities": [
+      "Beach Pool",
+      "Business Centre",
+      "Swimming Pools",
+      "Sports Courts",
+      "Caf\u00e9 Lounge",
+      "Recreational Areas",
+      "Wellness Centre",
+      "Gym",
+      "Kids Play Area"
+    ],
+    "images": [
+      "featured/nakheel-como-residences-1.jpg",
+      "featured/nakheel-como-residences-2.jpg",
+      "featured/nakheel-como-residences-3.jpg",
+      "featured/nakheel-como-residences-4.jpg",
+      "featured/nakheel-como-residences-5.jpg",
+      "featured/nakheel-como-residences-6.jpg",
+      "featured/nakheel-como-residences-7.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-palm-central": {
+    "amenities": [
+      "Padel Court",
+      "Outdoor BBQ",
+      "Sports Area",
+      "Beach Lounge",
+      "Fitness Studio",
+      "Beach Volleyball",
+      "Infinity Pool",
+      "Game Room",
+      "Event Lawn",
+      "Clubhouse",
+      "Lobby Lounge",
+      "Kids' Play Areas"
+    ],
+    "images": [
+      "featured/nakheel-palm-central-1.jpg",
+      "featured/nakheel-palm-central-2.jpg",
+      "featured/nakheel-palm-central-3.jpg",
+      "featured/nakheel-palm-central-4.jpg",
+      "featured/nakheel-palm-central-5.jpg",
+      "featured/nakheel-palm-central-6.jpg",
+      "featured/nakheel-palm-central-7.jpg",
+      "featured/nakheel-palm-central-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-bay-grove": {
+    "amenities": [
+      "Beach Level Snack Bar",
+      "Gym",
+      "Children\u2019s Pool",
+      "Podium Gardens",
+      "Kids Play Area",
+      "Swimming Pool",
+      "Yoga"
+    ],
+    "images": [
+      "featured/nakheel-bay-grove-1.jpg",
+      "featured/nakheel-bay-grove-2.jpg",
+      "featured/nakheel-bay-grove-3.jpg",
+      "featured/nakheel-bay-grove-4.jpg",
+      "featured/nakheel-bay-grove-5.jpg",
+      "featured/nakheel-bay-grove-6.jpg",
+      "featured/nakheel-bay-grove-7.jpg",
+      "featured/nakheel-bay-grove-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-bay-estate": {
+    "amenities": [
+      "Retail Plaza",
+      "Promenade",
+      "Marina",
+      "Pool Clubhouse",
+      "Lawn / Open Space",
+      "Sports Facilities",
+      "Kids\u2019 Play Area",
+      "Beach Clubs"
+    ],
+    "images": [
+      "featured/nakheel-bay-estate-1.jpg",
+      "featured/nakheel-bay-estate-2.jpg",
+      "featured/nakheel-bay-estate-3.jpg",
+      "featured/nakheel-bay-estate-4.jpg",
+      "featured/nakheel-bay-estate-5.jpg",
+      "featured/nakheel-bay-estate-6.jpg",
+      "featured/nakheel-bay-estate-7.jpg",
+      "featured/nakheel-bay-estate-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-district-one-west": {
+    "amenities": [
+      "Bicycle Track",
+      "Beachfront",
+      "Jogging Park",
+      "Mosque",
+      "Parks",
+      "Pharmacy",
+      "School",
+      "Supermarket",
+      "Kids Play Area"
+    ],
+    "images": [
+      "featured/nakheel-district-one-west-1.jpg",
+      "featured/nakheel-district-one-west-2.jpg",
+      "featured/nakheel-district-one-west-3.jpg",
+      "featured/nakheel-district-one-west-4.jpg",
+      "featured/nakheel-district-one-west-5.jpg",
+      "featured/nakheel-district-one-west-6.jpg",
+      "featured/nakheel-district-one-west-7.jpg",
+      "featured/nakheel-district-one-west-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-palm-jebel-ali": {
+    "amenities": [
+      "Hotels & Resorts",
+      "Lifestyle Malls",
+      "Leisure Parks",
+      "Waterfront Promenade",
+      "Beach Clubs",
+      "Yacht Club",
+      "Sports & Wellness"
+    ],
+    "images": [
+      "featured/nakheel-palm-jebel-ali-1.jpg",
+      "featured/nakheel-palm-jebel-ali-2.jpg",
+      "featured/nakheel-palm-jebel-ali-3.jpg",
+      "featured/nakheel-palm-jebel-ali-4.jpg",
+      "featured/nakheel-palm-jebel-ali-5.jpg",
+      "featured/nakheel-palm-jebel-ali-6.jpg",
+      "featured/nakheel-palm-jebel-ali-7.jpg",
+      "featured/nakheel-palm-jebel-ali-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-naya-residences": {
+    "amenities": [
+      "Fitness Centre",
+      "Infinity Pool",
+      "Children\u2019s Pool",
+      "Children's Playgrounds",
+      "Sports Courts",
+      "Crystal Lagoon"
+    ],
+    "images": [
+      "featured/nakheel-naya-residences-1.jpg",
+      "featured/nakheel-naya-residences-2.jpg",
+      "featured/nakheel-naya-residences-3.jpg",
+      "featured/nakheel-naya-residences-4.jpg",
+      "featured/nakheel-naya-residences-5.jpg",
+      "featured/nakheel-naya-residences-6.jpg",
+      "featured/nakheel-naya-residences-7.jpg",
+      "featured/nakheel-naya-residences-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-bay-villas": {
+    "amenities": [
+      "Barbecue Area",
+      "Beaches",
+      "Children's Play Area",
+      "Fitness Area",
+      "Games Area",
+      "Sitting Pavilion",
+      "Sports Courts",
+      "Swimming Pool",
+      "Tot Lot"
+    ],
+    "images": [
+      "featured/nakheel-bay-villas-1.jpg",
+      "featured/nakheel-bay-villas-2.jpg",
+      "featured/nakheel-bay-villas-3.jpg",
+      "featured/nakheel-bay-villas-4.jpg",
+      "featured/nakheel-bay-villas-5.jpg",
+      "featured/nakheel-bay-villas-6.jpg",
+      "featured/nakheel-bay-villas-7.jpg",
+      "featured/nakheel-bay-villas-8.jpg"
+    ],
+    "status": 200
+  },
+  "nakheel-rixos-dubai-islands": {
+    "amenities": [
+      "Communal Residential Lounges",
+      "Podium Gardens",
+      "Children's Play Area",
+      "Cafes and Restaurants",
+      "Hotel-style Lobbies",
+      "Swimming Pools",
+      "Fitness Centre",
+      "Spa"
+    ],
+    "images": [
+      "featured/nakheel-rixos-dubai-islands-1.jpg",
+      "featured/nakheel-rixos-dubai-islands-2.jpg",
+      "featured/nakheel-rixos-dubai-islands-3.jpg",
+      "featured/nakheel-rixos-dubai-islands-4.jpg",
+      "featured/nakheel-rixos-dubai-islands-5.jpg",
+      "featured/nakheel-rixos-dubai-islands-6.jpg",
+      "featured/nakheel-rixos-dubai-islands-7.jpg",
+      "featured/nakheel-rixos-dubai-islands-8.jpg"
+    ],
+    "status": 200
+  },
+  "emaar-the-heights": {
+    "amenities": [],
+    "images": [
+      "featured/emaar-the-heights-1.jpg",
+      "featured/emaar-the-heights-3.jpg",
+      "featured/emaar-the-heights-4.jpg",
+      "featured/emaar-the-heights-5.jpg",
+      "featured/emaar-the-heights-6.jpg"
+    ]
+  },
+  "emaar-mareva": {
+    "amenities": [
+      "Community gardens and play areas",
+      "Outdoor jogging and cycling tracks",
+      "Wellness and relaxation facilities",
+      "Sports courts and fitness facilities",
+      "Retail centres",
+      "Community centre",
+      "Swimming lagoon",
+      "Swimming pools",
+      "Pocket parks",
+      "Beaches"
+    ],
+    "images": [
+      "featured/emaar-mareva-1.jpg",
+      "featured/emaar-mareva-2.jpg",
+      "featured/emaar-mareva-3.jpg",
+      "featured/emaar-mareva-4.jpg",
+      "featured/emaar-mareva-5.jpg"
+    ]
+  },
+  "emaar-golf-lane": {
+    "amenities": [
+      "18-Hole Golf Course",
+      "Community Centre",
+      "Linear Park",
+      "Adult & Kids\u2019 Swimming Pools",
+      "Kids\u2019 Play Area",
+      "Multi-purpose room",
+      "Fully Equipped Gym",
+      "Jogging Path"
+    ],
+    "images": [
+      "featured/emaar-golf-lane-1.jpg",
+      "featured/emaar-golf-lane-3.jpg",
+      "featured/emaar-golf-lane-4.jpg"
+    ]
+  },
+  "emaar-rosewater": {
+    "amenities": [
+      "Community Pool & Kids Pool",
+      "Fully Equipped Gym",
+      "Barbecue Facilities",
+      "Outdoor Play Area",
+      "Nearby Shopping",
+      "Town Centre",
+      "Multi-Purpose Room"
+    ],
+    "images": [
+      "featured/emaar-rosewater-1.jpg",
+      "featured/emaar-rosewater-3.jpg",
+      "featured/emaar-rosewater-4.jpg",
+      "featured/emaar-rosewater-5.jpg"
+    ],
+    "status": 200
+  },
+  "emaar-elvira": {
+    "amenities": [
+      "Swimming Pool & Kids\u2019 Pool",
+      "Fully Equipped Gym",
+      "Multi-Function Room",
+      "Vibrant Shared Spaces",
+      "Generous landscaped podium area",
+      "BBQ Area with access to Dubai Hills Park",
+      "Kids Room"
+    ],
+    "images": [
+      "featured/emaar-elvira-1.jpg",
+      "featured/emaar-elvira-3.jpg",
+      "featured/emaar-elvira-4.jpg",
+      "featured/emaar-elvira-5.jpg",
+      "featured/emaar-elvira-6.jpg"
+    ],
+    "status": 200
+  },
+  "emaar-park-horizon": {
+    "amenities": [
+      "Multi-Purpose Room",
+      "Swimming Pool & Kids\u2019 Pool",
+      "Landscaped Podium & Outdoor Areas",
+      "Kids\u2019 Room",
+      "Fully Equipped Gym",
+      "Direct Access to Dubai Hills Park"
+    ],
+    "images": [
+      "featured/emaar-park-horizon-1.jpg",
+      "featured/emaar-park-horizon-3.jpg",
+      "featured/emaar-park-horizon-4.jpg",
+      "featured/emaar-park-horizon-5.jpg"
+    ],
+    "status": 200
+  },
+  "emaar-address-villas-tierra": {
+    "amenities": [
+      "Community Parks & Playgrounds",
+      "Outdoor Tracks for Jogging and Cycling",
+      "Wellness & Spa Facilities",
+      "Sports Courts & Fitness Facilities",
+      "Retail Centres",
+      "Community Centre",
+      "Swimmable Lagoon",
+      "Swimming Pools",
+      "Pocket Parks",
+      "Beaches"
+    ],
+    "images": [
+      "featured/emaar-address-villas-tierra-1.jpg",
+      "featured/emaar-address-villas-tierra-3.jpg",
+      "featured/emaar-address-villas-tierra-4.jpg",
+      "featured/emaar-address-villas-tierra-5.jpg",
+      "featured/emaar-address-villas-tierra-6.jpg"
+    ],
+    "status": 200
+  },
+  "emaar-palace-residences-north": {
+    "amenities": [
+      "Infinity-edge Pool",
+      "Kids\u2019 Play Area & Pool",
+      "State-of-the-art Gym",
+      "Dedicated Yoga Room"
+    ],
+    "images": [
+      "featured/emaar-palace-residences-north-1.jpg",
+      "featured/emaar-palace-residences-north-3.jpg",
+      "featured/emaar-palace-residences-north-4.jpg",
+      "featured/emaar-palace-residences-north-5.jpg",
+      "featured/emaar-palace-residences-north-6.jpg"
+    ],
+    "status": 200
+  },
+  "binghatti-starfall": {
+    "amenities": [
+      "The Observatory: Your Window to the Stars",
+      "Serenity Reflected at Sunset",
+      "Gym"
+    ],
+    "images": [
+      "featured/binghatti-starfall-1.webp",
+      "featured/binghatti-starfall-2.webp",
+      "featured/binghatti-starfall-3.webp",
+      "featured/binghatti-starfall-4.webp",
+      "featured/binghatti-starfall-5.webp",
+      "featured/binghatti-starfall-6.webp",
+      "featured/binghatti-starfall-7.webp",
+      "featured/binghatti-starfall-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-tilal": {
+    "amenities": [
+      "Serenity by crystal waters",
+      "Nature-inspired leisure living",
+      "Splashes of joy",
+      "Designed Around Comfort",
+      "Movement Inspired By Nature",
+      "Wellness In Every Rhythm"
+    ],
+    "images": [
+      "featured/binghatti-tilal-1.webp",
+      "featured/binghatti-tilal-2.webp",
+      "featured/binghatti-tilal-3.webp",
+      "featured/binghatti-tilal-4.webp",
+      "featured/binghatti-tilal-5.webp",
+      "featured/binghatti-tilal-6.webp",
+      "featured/binghatti-tilal-7.webp",
+      "featured/binghatti-tilal-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-wraith": {
+    "amenities": [
+      "A High-Yield Opportunity in a Growth Corridor",
+      "Equal in Privilege and Status",
+      "Elite Surrounding Institutional Infrastructure"
+    ],
+    "images": [
+      "featured/binghatti-wraith-1.webp",
+      "featured/binghatti-wraith-2.webp",
+      "featured/binghatti-wraith-3.webp",
+      "featured/binghatti-wraith-4.webp",
+      "featured/binghatti-wraith-5.webp",
+      "featured/binghatti-wraith-6.webp",
+      "featured/binghatti-wraith-7.webp",
+      "featured/binghatti-wraith-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-etherea": {
+    "amenities": [
+      "Immerse in pure relaxation",
+      "Creativity nurtured with care",
+      "Spa"
+    ],
+    "images": [
+      "featured/binghatti-etherea-1.webp",
+      "featured/binghatti-etherea-2.webp",
+      "featured/binghatti-etherea-3.webp",
+      "featured/binghatti-etherea-4.webp",
+      "featured/binghatti-etherea-5.webp",
+      "featured/binghatti-etherea-6.webp",
+      "featured/binghatti-etherea-7.webp",
+      "featured/binghatti-etherea-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-luxuria": {
+    "amenities": [
+      "Functionality that inspires excellence",
+      "Spa"
+    ],
+    "images": [
+      "featured/binghatti-luxuria-1.webp",
+      "featured/binghatti-luxuria-2.webp",
+      "featured/binghatti-luxuria-3.webp",
+      "featured/binghatti-luxuria-4.webp",
+      "featured/binghatti-luxuria-5.webp",
+      "featured/binghatti-luxuria-6.webp",
+      "featured/binghatti-luxuria-7.webp",
+      "featured/binghatti-luxuria-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-skyflame": {
+    "amenities": [
+      "Elegance at the poolside",
+      "Timeless settings for skillful matches",
+      "Thoughtful design for quiet escapes"
+    ],
+    "images": [
+      "featured/binghatti-skyflame-1.webp",
+      "featured/binghatti-skyflame-2.webp",
+      "featured/binghatti-skyflame-3.webp",
+      "featured/binghatti-skyflame-4.webp",
+      "featured/binghatti-skyflame-5.webp",
+      "featured/binghatti-skyflame-6.webp",
+      "featured/binghatti-skyflame-7.webp",
+      "featured/binghatti-skyflame-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-skyterraces": {
+    "amenities": [
+      "A haven for quiet relaxation",
+      "Gym"
+    ],
+    "images": [
+      "featured/binghatti-skyterraces-1.webp",
+      "featured/binghatti-skyterraces-2.webp",
+      "featured/binghatti-skyterraces-3.webp",
+      "featured/binghatti-skyterraces-4.webp",
+      "featured/binghatti-skyterraces-5.webp",
+      "featured/binghatti-skyterraces-6.webp",
+      "featured/binghatti-skyterraces-7.webp",
+      "featured/binghatti-skyterraces-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-cullinan": {
+    "amenities": [
+      "Functionality that inspires precision",
+      "Crafted for energy and focus"
+    ],
+    "images": [
+      "featured/binghatti-cullinan-1.webp",
+      "featured/binghatti-cullinan-2.webp",
+      "featured/binghatti-cullinan-3.webp",
+      "featured/binghatti-cullinan-4.webp",
+      "featured/binghatti-cullinan-5.webp",
+      "featured/binghatti-cullinan-6.webp",
+      "featured/binghatti-cullinan-7.webp",
+      "featured/binghatti-cullinan-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-titania": {
+    "amenities": [
+      "Swim in serene surroundings",
+      "Refined relaxation, poolside",
+      "Precision in every workout"
+    ],
+    "images": [
+      "featured/binghatti-titania-1.webp",
+      "featured/binghatti-titania-2.webp",
+      "featured/binghatti-titania-3.webp",
+      "featured/binghatti-titania-4.webp",
+      "featured/binghatti-titania-5.webp",
+      "featured/binghatti-titania-6.webp",
+      "featured/binghatti-titania-7.webp",
+      "featured/binghatti-titania-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-vintage": {
+    "amenities": [
+      "Tranquil waters, designed for you",
+      "Precision built for competitive play",
+      "A sanctuary for inner discipline"
+    ],
+    "images": [
+      "featured/binghatti-vintage-1.webp",
+      "featured/binghatti-vintage-2.webp",
+      "featured/binghatti-vintage-3.webp",
+      "featured/binghatti-vintage-4.webp",
+      "featured/binghatti-vintage-5.webp",
+      "featured/binghatti-vintage-6.webp",
+      "featured/binghatti-vintage-7.webp",
+      "featured/binghatti-vintage-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-spectre": {
+    "amenities": [
+      "Indulge in Pure Luxury",
+      "Wellness in Its Finest Form",
+      "Serenity Framed by the Skyline",
+      "Resort Living, Every Day"
+    ],
+    "images": [
+      "featured/binghatti-spectre-1.webp",
+      "featured/binghatti-spectre-2.webp",
+      "featured/binghatti-spectre-3.webp",
+      "featured/binghatti-spectre-4.webp",
+      "featured/binghatti-spectre-5.webp",
+      "featured/binghatti-spectre-6.webp",
+      "featured/binghatti-spectre-7.webp",
+      "featured/binghatti-spectre-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-hillcrest": {
+    "amenities": [
+      "Fitness in harmony with nature",
+      "Gym"
+    ],
+    "images": [
+      "featured/binghatti-hillcrest-1.webp",
+      "featured/binghatti-hillcrest-2.webp",
+      "featured/binghatti-hillcrest-3.webp",
+      "featured/binghatti-hillcrest-4.webp",
+      "featured/binghatti-hillcrest-5.webp",
+      "featured/binghatti-hillcrest-6.webp",
+      "featured/binghatti-hillcrest-7.webp",
+      "featured/binghatti-hillcrest-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-hillviews": {
+    "amenities": [
+      "Swimming Pool",
+      "Beach"
+    ],
+    "images": [
+      "featured/binghatti-hillviews-1.webp",
+      "featured/binghatti-hillviews-2.webp",
+      "featured/binghatti-hillviews-3.webp",
+      "featured/binghatti-hillviews-4.webp",
+      "featured/binghatti-hillviews-5.webp",
+      "featured/binghatti-hillviews-6.webp",
+      "featured/binghatti-hillviews-7.webp",
+      "featured/binghatti-hillviews-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-ghost": {
+    "amenities": [
+      "Infinity Pool"
+    ],
+    "images": [
+      "featured/binghatti-ghost-1.webp",
+      "featured/binghatti-ghost-2.webp",
+      "featured/binghatti-ghost-3.webp",
+      "featured/binghatti-ghost-4.webp",
+      "featured/binghatti-ghost-5.webp",
+      "featured/binghatti-ghost-6.webp",
+      "featured/binghatti-ghost-7.webp",
+      "featured/binghatti-ghost-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-skyblade": {
+    "amenities": [
+      "Swim with uninterrupted views of the Burj Khalifa",
+      "A fitness center in the sky",
+      "Spa",
+      "Gym"
+    ],
+    "images": [
+      "featured/binghatti-skyblade-1.webp",
+      "featured/binghatti-skyblade-2.webp",
+      "featured/binghatti-skyblade-3.webp",
+      "featured/binghatti-skyblade-4.webp",
+      "featured/binghatti-skyblade-5.webp",
+      "featured/binghatti-skyblade-6.webp",
+      "featured/binghatti-skyblade-7.webp",
+      "featured/binghatti-skyblade-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-moonlight": {
+    "amenities": [
+      "The art of leisure in motion",
+      "Lounge"
+    ],
+    "images": [
+      "featured/binghatti-moonlight-1.webp",
+      "featured/binghatti-moonlight-2.webp",
+      "featured/binghatti-moonlight-3.webp",
+      "featured/binghatti-moonlight-4.webp",
+      "featured/binghatti-moonlight-5.webp",
+      "featured/binghatti-moonlight-6.webp",
+      "featured/binghatti-moonlight-7.webp",
+      "featured/binghatti-moonlight-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-twilight": {
+    "amenities": [
+      "Crafted for energy and focus"
+    ],
+    "images": [
+      "featured/binghatti-twilight-1.webp",
+      "featured/binghatti-twilight-2.webp",
+      "featured/binghatti-twilight-3.webp",
+      "featured/binghatti-twilight-4.webp",
+      "featured/binghatti-twilight-5.webp",
+      "featured/binghatti-twilight-6.webp",
+      "featured/binghatti-twilight-7.webp",
+      "featured/binghatti-twilight-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-circle": {
+    "amenities": [
+      "Sophistication reflected in water",
+      "Where strategy meets seamless design"
+    ],
+    "images": [
+      "featured/binghatti-circle-1.webp",
+      "featured/binghatti-circle-2.webp",
+      "featured/binghatti-circle-3.webp",
+      "featured/binghatti-circle-4.webp",
+      "featured/binghatti-circle-5.webp",
+      "featured/binghatti-circle-6.webp",
+      "featured/binghatti-circle-7.webp",
+      "featured/binghatti-circle-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-aquarise": {
+    "amenities": [
+      "Dive into tranquil elegance",
+      "Serenity crafted under the sun",
+      "Swimming Pool",
+      "Beach"
+    ],
+    "images": [
+      "featured/binghatti-aquarise-1.webp",
+      "featured/binghatti-aquarise-2.webp",
+      "featured/binghatti-aquarise-3.webp",
+      "featured/binghatti-aquarise-4.webp",
+      "featured/binghatti-aquarise-5.webp",
+      "featured/binghatti-aquarise-6.webp",
+      "featured/binghatti-aquarise-7.webp",
+      "featured/binghatti-aquarise-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-flare": {
+    "amenities": [
+      "Where sun meets sophistication",
+      "Your poolside bliss",
+      "Spa"
+    ],
+    "images": []
+  },
+  "binghatti-starlight": {
+    "amenities": [
+      "Gym",
+      "workouts with outdoor views",
+      "your poolside bliss",
+      "Infinity Pool"
+    ],
+    "images": [
+      "featured/binghatti-starlight-1.webp",
+      "featured/binghatti-starlight-2.webp",
+      "featured/binghatti-starlight-3.webp",
+      "featured/binghatti-starlight-4.webp",
+      "featured/binghatti-starlight-5.webp",
+      "featured/binghatti-starlight-6.webp",
+      "featured/binghatti-starlight-7.webp",
+      "featured/binghatti-starlight-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-skyhall": {
+    "amenities": [
+      "Gym",
+      "workouts with outdoor views"
+    ],
+    "images": [
+      "featured/binghatti-skyhall-1.webp",
+      "featured/binghatti-skyhall-2.webp",
+      "featured/binghatti-skyhall-3.webp",
+      "featured/binghatti-skyhall-4.webp",
+      "featured/binghatti-skyhall-5.webp",
+      "featured/binghatti-skyhall-6.webp",
+      "featured/binghatti-skyhall-7.webp",
+      "featured/binghatti-skyhall-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-hillside": {
+    "amenities": [
+      "pool",
+      "Where leisure finds its rhythm"
+    ],
+    "images": [
+      "featured/binghatti-hillside-1.webp",
+      "featured/binghatti-hillside-2.webp",
+      "featured/binghatti-hillside-3.webp",
+      "featured/binghatti-hillside-4.webp",
+      "featured/binghatti-hillside-5.webp",
+      "featured/binghatti-hillside-6.webp",
+      "featured/binghatti-hillside-7.webp",
+      "featured/binghatti-hillside-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-amberhall": {
+    "amenities": [
+      "Swimming Pool",
+      "Kids Play Area",
+      "Outdoor Fitness Area",
+      "Gym",
+      "Spa"
+    ],
+    "images": [
+      "featured/binghatti-amberhall-1.webp",
+      "featured/binghatti-amberhall-2.webp",
+      "featured/binghatti-amberhall-3.webp",
+      "featured/binghatti-amberhall-4.webp",
+      "featured/binghatti-amberhall-5.webp",
+      "featured/binghatti-amberhall-6.webp",
+      "featured/binghatti-amberhall-7.webp",
+      "featured/binghatti-amberhall-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-haven": {
+    "amenities": [
+      "Private Pool",
+      "Infinity Pool"
+    ],
+    "images": [
+      "featured/binghatti-haven-1.webp",
+      "featured/binghatti-haven-2.webp",
+      "featured/binghatti-haven-3.webp",
+      "featured/binghatti-haven-4.webp",
+      "featured/binghatti-haven-5.webp",
+      "featured/binghatti-haven-6.webp",
+      "featured/binghatti-haven-7.webp",
+      "featured/binghatti-haven-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-elite": {
+    "amenities": [
+      "Swimming Pool",
+      "Kids Play Area",
+      "Lounge"
+    ],
+    "images": [
+      "featured/binghatti-elite-1.webp",
+      "featured/binghatti-elite-2.webp",
+      "featured/binghatti-elite-3.webp",
+      "featured/binghatti-elite-4.webp",
+      "featured/binghatti-elite-5.webp",
+      "featured/binghatti-elite-6.webp",
+      "featured/binghatti-elite-7.webp",
+      "featured/binghatti-elite-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-ruby": {
+    "amenities": [
+      "Swimming Pool",
+      "Infinity Pool",
+      "Kids Play Area"
+    ],
+    "images": [
+      "featured/binghatti-ruby-1.webp",
+      "featured/binghatti-ruby-2.webp",
+      "featured/binghatti-ruby-3.webp",
+      "featured/binghatti-ruby-4.webp",
+      "featured/binghatti-ruby-5.webp",
+      "featured/binghatti-ruby-6.webp",
+      "featured/binghatti-ruby-7.webp",
+      "featured/binghatti-ruby-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-dawn": {
+    "amenities": [
+      "pool",
+      "Infinity Pool"
+    ],
+    "images": [
+      "featured/binghatti-dawn-1.webp",
+      "featured/binghatti-dawn-2.webp",
+      "featured/binghatti-dawn-3.webp",
+      "featured/binghatti-dawn-4.webp",
+      "featured/binghatti-dawn-5.webp",
+      "featured/binghatti-dawn-6.webp",
+      "featured/binghatti-dawn-7.webp",
+      "featured/binghatti-dawn-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-skyrise": {
+    "amenities": [
+      "Infinity Pool"
+    ],
+    "images": [
+      "featured/binghatti-skyrise-1.webp",
+      "featured/binghatti-skyrise-2.webp",
+      "featured/binghatti-skyrise-3.webp",
+      "featured/binghatti-skyrise-4.webp",
+      "featured/binghatti-skyrise-5.webp",
+      "featured/binghatti-skyrise-6.webp",
+      "featured/binghatti-skyrise-7.webp",
+      "featured/binghatti-skyrise-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-ivory": {
+    "amenities": [
+      "Swimming Pool"
+    ],
+    "images": [
+      "featured/binghatti-ivory-1.webp",
+      "featured/binghatti-ivory-2.webp",
+      "featured/binghatti-ivory-3.webp",
+      "featured/binghatti-ivory-4.webp",
+      "featured/binghatti-ivory-5.webp",
+      "featured/binghatti-ivory-6.webp",
+      "featured/binghatti-ivory-7.webp",
+      "featured/binghatti-ivory-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-grove": {
+    "amenities": [
+      "Swimming Pool",
+      "Private Pool",
+      "Tennis Court",
+      "Basketball Court"
+    ],
+    "images": [
+      "featured/binghatti-grove-1.webp",
+      "featured/binghatti-grove-2.webp",
+      "featured/binghatti-grove-3.webp",
+      "featured/binghatti-grove-4.webp",
+      "featured/binghatti-grove-5.webp",
+      "featured/binghatti-grove-6.webp",
+      "featured/binghatti-grove-7.webp",
+      "featured/binghatti-grove-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-dusk": {
+    "amenities": [
+      "Infinity Pool",
+      "Lounge"
+    ],
+    "images": [
+      "featured/binghatti-dusk-1.webp",
+      "featured/binghatti-dusk-2.webp",
+      "featured/binghatti-dusk-3.webp",
+      "featured/binghatti-dusk-4.webp",
+      "featured/binghatti-dusk-5.webp",
+      "featured/binghatti-dusk-6.webp",
+      "featured/binghatti-dusk-7.webp",
+      "featured/binghatti-dusk-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-royale": {
+    "amenities": [
+      "Swimming Pool",
+      "Kids Play Area",
+      "Infinity Pool"
+    ],
+    "images": [
+      "featured/binghatti-royale-1.webp",
+      "featured/binghatti-royale-2.webp",
+      "featured/binghatti-royale-3.webp",
+      "featured/binghatti-royale-4.webp",
+      "featured/binghatti-royale-5.webp",
+      "featured/binghatti-royale-6.webp",
+      "featured/binghatti-royale-7.webp",
+      "featured/binghatti-royale-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-pinnacle": {
+    "amenities": [
+      "Swim in timeless refinement"
+    ],
+    "images": [
+      "featured/binghatti-pinnacle-1.webp",
+      "featured/binghatti-pinnacle-2.webp",
+      "featured/binghatti-pinnacle-3.webp",
+      "featured/binghatti-pinnacle-4.webp",
+      "featured/binghatti-pinnacle-5.webp",
+      "featured/binghatti-pinnacle-6.webp",
+      "featured/binghatti-pinnacle-7.webp",
+      "featured/binghatti-pinnacle-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-aurora": {
+    "amenities": [
+      "Outdoor Gym",
+      "Kids Play Area",
+      "Infinity Pool",
+      "Gym"
+    ],
+    "images": [
+      "featured/binghatti-aurora-1.webp",
+      "featured/binghatti-aurora-2.webp",
+      "featured/binghatti-aurora-3.webp",
+      "featured/binghatti-aurora-4.webp",
+      "featured/binghatti-aurora-5.webp",
+      "featured/binghatti-aurora-6.webp",
+      "featured/binghatti-aurora-7.webp",
+      "featured/binghatti-aurora-8.webp"
+    ],
+    "status": 200
+  },
+  "bugatti-residences-binghatti": {
+    "amenities": [],
+    "images": []
+  },
+  "binghatti-phoenix": {
+    "amenities": [
+      "Infinity Pool"
+    ],
+    "images": [
+      "featured/binghatti-phoenix-1.webp",
+      "featured/binghatti-phoenix-2.webp",
+      "featured/binghatti-phoenix-3.webp",
+      "featured/binghatti-phoenix-4.webp",
+      "featured/binghatti-phoenix-5.webp",
+      "featured/binghatti-phoenix-6.webp",
+      "featured/binghatti-phoenix-7.webp",
+      "featured/binghatti-phoenix-8.webp"
+    ],
+    "status": 200
+  },
+  "binghatti-hills": {
+    "amenities": [
+      "Where leisure finds its rhythm"
+    ],
+    "images": [
+      "featured/binghatti-hills-1.webp",
+      "featured/binghatti-hills-2.webp",
+      "featured/binghatti-hills-3.webp",
+      "featured/binghatti-hills-4.webp",
+      "featured/binghatti-hills-5.webp",
+      "featured/binghatti-hills-6.webp",
+      "featured/binghatti-hills-7.webp",
+      "featured/binghatti-hills-8.webp"
+    ],
+    "status": 200
+  },
+  "mercedes-benz-places-binghatti": {
+    "amenities": [
+      "a revolutionary collaboration",
+      "concept inspiration",
+      "emotional design",
+      "intelligent design"
+    ],
+    "images": [
+      "featured/mercedes-benz-places-binghatti-2.webp",
+      "featured/mercedes-benz-places-binghatti-3.webp",
+      "featured/mercedes-benz-places-binghatti-4.webp",
+      "featured/mercedes-benz-places-binghatti-5.webp",
+      "featured/mercedes-benz-places-binghatti-6.webp",
+      "featured/mercedes-benz-places-binghatti-7.webp",
+      "featured/mercedes-benz-places-binghatti-8.webp"
+    ],
+    "status": 200
+  },
+  "mercedes-benz-places-binghatti-city": {
+    "amenities": [],
+    "images": [
+      "featured/mercedes-benz-places-binghatti-city-1.webp",
+      "featured/mercedes-benz-places-binghatti-city-2.webp",
+      "featured/mercedes-benz-places-binghatti-city-3.webp",
+      "featured/mercedes-benz-places-binghatti-city-4.webp",
+      "featured/mercedes-benz-places-binghatti-city-5.webp",
+      "featured/mercedes-benz-places-binghatti-city-6.webp",
+      "featured/mercedes-benz-places-binghatti-city-7.webp",
+      "featured/mercedes-benz-places-binghatti-city-8.webp"
+    ],
+    "status": 200
+  },
+  "burj-binghatti-jacob-co": {
+    "amenities": [
+      "a groundbreaking collaboration",
+      "concept inspiration",
+      "intricate design process",
+      "complexity & elements",
+      "burj binghatti jacob&co residences",
+      "the astronomia sky mansion penthouse",
+      "the ruby villa",
+      "the sapphire villa",
+      "the fleur de jardin sky mansion",
+      "the emerald villa",
+      "the diamond sky mansion"
+    ],
+    "images": [
+      "featured/burj-binghatti-jacob-co-2.webp",
+      "featured/burj-binghatti-jacob-co-3.webp",
+      "featured/burj-binghatti-jacob-co-4.webp",
+      "featured/burj-binghatti-jacob-co-5.webp",
+      "featured/burj-binghatti-jacob-co-6.webp",
+      "featured/burj-binghatti-jacob-co-7.webp",
+      "featured/burj-binghatti-jacob-co-8.webp"
+    ],
+    "status": 200
+  },
+  "one-by-binghatti": {
+    "amenities": [
+      "Swimming Pool",
+      "Tennis Court"
+    ],
+    "images": [
+      "featured/one-by-binghatti-1.webp",
+      "featured/one-by-binghatti-2.webp",
+      "featured/one-by-binghatti-3.webp",
+      "featured/one-by-binghatti-4.webp",
+      "featured/one-by-binghatti-5.webp",
+      "featured/one-by-binghatti-6.webp",
+      "featured/one-by-binghatti-7.webp",
+      "featured/one-by-binghatti-8.webp"
+    ],
+    "status": 200
+  }
+}

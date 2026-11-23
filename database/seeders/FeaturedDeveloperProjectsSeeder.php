@@ -2,12 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Amenities;
 use App\Models\Developer;
 use App\Models\Property;
 use App\Models\User;
 use App\Models\media;
 use GuzzleHttp\Client;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class FeaturedDeveloperProjectsSeeder extends Seeder
@@ -69,20 +71,72 @@ class FeaturedDeveloperProjectsSeeder extends Seeder
             ]);
 
             $image = $this->storeImage($project['id'], $project['image']);
-            if (!$image) {
-                $this->command && $this->command->warn('No image saved for '.$project['title']);
-                continue;
+            if ($image) {
+                media::updateOrCreate(
+                    [
+                        'reference_id' => $property->id,
+                        'reference_type' => 'property',
+                        'caption' => 'featured',
+                    ],
+                    ['image' => $image]
+                );
+            } elseif ($this->command) {
+                $this->command->warn('No image saved for '.$project['title']);
             }
 
-            media::updateOrCreate(
-                [
-                    'reference_id' => $property->id,
-                    'reference_type' => 'property',
-                    'caption' => 'featured',
-                ],
-                ['image' => $image]
-            );
+            $this->applyDetails($property);
         }
+    }
+
+    private function applyDetails(Property $property)
+    {
+        $detail = $this->details()[$property->sync_id] ?? null;
+        if (!$detail) {
+            return;
+        }
+
+        $amenityIds = [];
+        foreach ($detail['amenities'] ?? [] as $title) {
+            $title = trim($title);
+            if ($title === '') {
+                continue;
+            }
+            $amenity = Amenities::firstOrCreate(['title' => $title]);
+            $amenityIds[] = (string) $amenity->id;
+        }
+        if ($amenityIds) {
+            DB::table('properties')->where('id', $property->id)->update([
+                'amenities' => json_encode(array_values(array_unique($amenityIds))),
+            ]);
+        }
+
+        media::where('reference_id', $property->id)
+            ->where('reference_type', 'property')
+            ->where('caption', 'like', 'gallery-%')
+            ->delete();
+
+        foreach ($detail['images'] ?? [] as $index => $relative) {
+            if (!is_file(public_path('images/media/'.$relative))) {
+                continue;
+            }
+            media::create([
+                'reference_id' => $property->id,
+                'reference_type' => 'property',
+                'caption' => 'gallery-'.($index + 1),
+                'image' => $relative,
+            ]);
+        }
+    }
+
+    private function details()
+    {
+        static $details;
+        if ($details === null) {
+            $path = database_path('seeders/data/featured_project_details.json');
+            $details = is_file($path) ? json_decode(file_get_contents($path), true) : [];
+        }
+
+        return $details;
     }
 
     private function storeImage($syncId, $url)
