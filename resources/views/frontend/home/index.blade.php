@@ -356,7 +356,7 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="ee-trust-item">
                     <i class="fa-solid fa-certificate"></i>
-                    <div><strong>Trakheesi Permitted</strong><span>Verified advertising permits</span></div>
+                    <div><strong>Trakheesi Permitted</strong><span>Company permit {{ config('compliance.company_trakheesi.permit_no') }}</span></div>
                 </div>
             </div>
             <div class="col-sm-6 col-lg-3">

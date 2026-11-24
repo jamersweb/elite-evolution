@@ -65,6 +65,19 @@ class PropertyController extends Controller
         ];
     }
 
+    private function listingPermitRules()
+    {
+        return [
+            'trakheesi_permit_no' => ['nullable', 'string', 'max:64', function ($attribute, $value, $fail) {
+                $company = preg_replace('/\D/', '', (string) config('compliance.company_trakheesi.permit_no'));
+                $given = preg_replace('/\D/', '', (string) $value);
+                if ($given !== '' && ($given === $company || $given === ltrim($company, '0'))) {
+                    $fail('Permit '.$value.' is the company Trakheesi permit for general promotion. A property listing needs its own permit and QR code.');
+                }
+            }],
+        ];
+    }
+
     private function storeUploads(Request $request, array $data)
     {
         if ($request->hasFile('brochure')) {
@@ -161,7 +174,7 @@ class PropertyController extends Controller
             'title' => 'required|string|max:255',
             'type' => 'nullable|string',
             'price' => 'nullable|numeric',
-        ], $this->uploadRules()));
+        ], $this->uploadRules(), $this->listingPermitRules()));
 
         $data = $this->storeUploads($request, $request->except(['brochure', 'permit_qr_image', 'image']));
 
@@ -215,7 +228,7 @@ class PropertyController extends Controller
         $property = Property::findOrFail($id);
         $this->authorizeOwnership($property);
 
-        $this->validate($request, $this->uploadRules());
+        $this->validate($request, array_merge($this->uploadRules(), $this->listingPermitRules()));
 
         $data = $this->storeUploads($request, $request->except(['brochure', 'permit_qr_image', 'image']));
 

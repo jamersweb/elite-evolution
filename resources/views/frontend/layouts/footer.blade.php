@@ -40,6 +40,7 @@
     .ee-enquiry-intro h2 { font-size: clamp(24px, 3vw, 34px); text-transform: uppercase; margin: 10px 0 12px; color: #111; }
     .ee-enquiry-intro p { color: #6f6f6f; max-width: 560px; margin: 0 auto; }
     @media (max-width: 575px) { .ee-enquiry-card { padding: 28px 18px; } }
+    footer.banner-footer > .container { padding-bottom: 72px; }
 </style>
 @php
     $developers = \App\Models\Developer::whereStatus(1)->get();
@@ -70,7 +71,7 @@
 </div>
 </section>
 <footer class="banner-footer">
-    <div class="container py-4 px-md-5">
+    <div class="container pt-4 px-md-5">
         <div class="row m-0 align-items-top">
             <div class="col-lg-3 col-md-3 col-sm-12 py-3">
                 <img class="elit-img" src="{{asset('management/images/elite-evolution-real-estate-in-white.png')}}" onerror="this.onerror=null;this.src='{{asset('management/images/logo.png')}}';" alt="Elite Evolution Real Estate">
@@ -113,6 +114,9 @@
                     <li><a href="{{url('privacy-policy')}}" class="link">Privacy Policy</a></li>
                     <li><a href="{{url('cookies-policy')}}" class="link">Cookies Policy</a></li>
                 </ul>
+                @unless(request()->is(...config('compliance.company_trakheesi.hidden_on')))
+                    @include('frontend.snippets.company-trakheesi', ['tone' => 'dark', 'placement' => 'footer-column'])
+                @endunless
             </div>
         </div>
     </div>

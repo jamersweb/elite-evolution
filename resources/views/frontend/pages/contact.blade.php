@@ -96,6 +96,7 @@ Contact Elite Evolution Real Estate in Dubai to buy, sell or invest. Call, Whats
                             </a>
                         </li>
                     </ul>
+                    @include('frontend.snippets.company-trakheesi', ['tone' => 'light'])
                 </div>
                 <div class="col-lg-6">
                     @include('management/layouts/error')

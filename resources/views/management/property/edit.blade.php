@@ -774,6 +774,7 @@
                                 <div class="col-sm-4">
                                     <label class="font-weight-bold small">Madmoun Verification QR Code Image</label>
                                     <input type="file" name="permit_qr_image" accept="image/*">
+                                    <small class="text-muted d-block mt-1">Use this listing's own Trakheesi QR. The company permit {{ config('compliance.company_trakheesi.permit_no') }} is for general promotion only.</small>
                                     @if($property->permit_qr_image)
                                         <small class="text-success d-block mt-1"><i class="fas fa-check mr-1"></i> QR Code uploaded</small>
                                     @endif

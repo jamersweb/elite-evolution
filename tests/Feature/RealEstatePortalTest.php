@@ -132,6 +132,33 @@ class RealEstatePortalTest extends TestCase
         $response->assertSee('7123984501'); // Trakheesi Permit
     }
 
+    public function test_company_trakheesi_qr_is_limited_to_general_promotion()
+    {
+        $permit = config('compliance.company_trakheesi.permit_no');
+        $qr = 'trakheesi-company-permit-0582084507.png';
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee($permit)
+            ->assertSee($qr)
+            ->assertSee('General company promotion only');
+
+        $this->get('/contact-us')
+            ->assertOk()
+            ->assertSee($permit)
+            ->assertSee($qr);
+
+        $this->get('/detail/signature-beachfront-villa-palm-jumeirah')
+            ->assertOk()
+            ->assertSee('7123984501')
+            ->assertDontSee($permit)
+            ->assertDontSee($qr);
+
+        $this->get('/listing/sale')
+            ->assertOk()
+            ->assertDontSee($qr);
+    }
+
     public function test_new_evolution_jumeirah_islands_listing_is_published()
     {
         $response = $this->get('/detail/new-evolution-villa-jumeirah-islands');
@@ -376,5 +403,12 @@ class RealEstatePortalTest extends TestCase
             'user_id' => $agent->id,
             'completion_status' => 'Ready',
         ]);
+
+        $this->actingAs($admin)->post('/admin/property', [
+            'title' => 'Company Permit Must Not Be Reused',
+            'type' => 'sale',
+            'price' => 1000000,
+            'trakheesi_permit_no' => config('compliance.company_trakheesi.permit_no'),
+        ])->assertSessionHasErrors('trakheesi_permit_no');
     }
 }
